@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+			"id":38,
+      "properties": {
+				"name":"user-gen-route",
+				"stroke-color": "#00B3FD",
+				"stroke": "#00B3FD",
+        "stroke-width": 4,
+        "stroke-opacity": 0.5	
+			},
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+[ 263.69223999999997, 30.627540000000003 ]
+					
+        ]
+      }
+    }
+  ]
+}

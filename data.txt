@@ -1,0 +1,27 @@
+AIzaSyDEgp09_feK-aKfo_2h3tOcWfzbrByZwDw
+college station 30.612047, -96.326828
+
+myLatLng1 30.618510, -96.316807
+
+
+route 22 #BD1A8D
+
+route 26 #006F3B
+
+route 27 #00AEEF
+
+route 31 #662D91
+
+route 34 #EA7424
+
+route 35 #603813
+
+route 36 #967348
+
+SELECT latlng_tb.id, lat,lng, cat FROM latlng_tb, detail_tb, status_tb WHERE latlng_tb.id = detail_tb.id ;
+
+¿ÉÐÐ
+SELECT latlng_tb.id, lat,lng, cat FROM latlng_tb, detail_tb INNER JOIN status_tb ON detail_tb.id = status_tb.id WHERE latlng_tb.id = detail_tb.id ;
+
+SELECT latlng_tb.id, lat,lng, cat FROM latlng_tb, detail_tb INNER JOIN status_tb ON detail_tb.id = status_tb.id WHERE latlng_tb.id = detail_tb.id  AND cat =1;
+

@@ -1,0 +1,66 @@
+	"lat":   null,    // hidden
+	"lng":   null,    // hidden
+	"beds"    :null,  // hidden
+	"baths"   :null,  // hidden
+	"price_single":null, // hidden  //when post update model
+	"price_total" :null, // exposure  //when post update model
+	"cat"     :null,  // by default, 0 should be rejected // exposure
+	"post_date": new Date("2013-01-01"),// hidden //when post update model
+	"isexpired"  : false, // hidden 
+	"community"  : "",   // exposure  //when post update model
+  	"source"     : "",   // exposure  //when post update model
+	"memo"       : "",   // exposure  //when post update model
+	"addr"       : ""    // exposure  //when post update model
+
+
+
+var route_01 = {
+  origin_lat:39.87,
+  origin_lng:-97.326914,
+  origin_lat:40.87,
+  origin_lng:-96.326914,
+  encoded_polyline:"encoded_polyline",
+
+  origin:"origin string",
+  destiny:"destiny string",
+  source:"http:// source",
+  memo:"who can take me there",
+  cat:2,
+
+  isexpired:false,
+  post_date:new Date(),
+  //depart_date:new Date(2015,4,31,13,23,34)//ew Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]]);
+  depart_date:new Date('December 17, 1995 07:24:00')
+}
+
+{"ipt-origin-tr":"112 Harvey Road, College Station, TX 77840, USA",
+"ipt-destiny-tr":"2808-2952 Harvey Road, College Station, TX 77845, USA",
+"ipt-url-tr":"1213",
+"ipt-date-tr":"05/13/2015",
+"num-catagory-tr":"0",
+"num-origin-lat-tr":"30.615360",
+"num-origin-lng-tr":"-96.318490",
+"num-destiny-lat-tr":"30.634680",
+"num-destiny-lng-tr":"-96.296830",
+"encoded-polyline":"_qzyDpe{jQ_AiAsC}C_@a@SEeCwCiEcF}GcIwCkDiC{CwAcBEO_@m@gAoAaCqCiAwA_@a@UIs@y@gBuB_DwD_IkJaF_GW[IYUWwAaBuBkC}DsEmAaBaAgAgByB{EmFOGq@w@eCwC}BkCiAgAq@i@",
+"memo-tr":"testmemo"
+}
+
+{"origin":"1808 South Texas Avenue, College Station, TX 77840, USA",
+"destiny":"3517 Myth Lane, College Station, TX 77845, USA",
+"source":"url",
+"depart_date":"2015-05-19T05:00:00.000Z",
+"cat":2,
+"origin_lat":30.61472,
+"origin_lng":-96.31861,
+"destiny_lat":30.64542,
+"destiny_lng":-96.28638,
+"encoded_polyline":"_mzyDhf{jQvF_IpC{DKe@a@o@sB_C_CcCeCuCu@~@_C~CQV{@~@{BxBoBxBgBsBuEqFmFoG}EyFwAcBEO_@m@kDaEgBwB_@a@UIeAmAiIwJqJcL{AiBW[IYUWm@s@_DyD}DsEmAaBiDaE{EmFOGq@w@eCwC}@gAiBmBwJ{HoRcOmS_PuAsAyLoNgEaFbAkAh@p@h@l@",
+"memo":"etst",
+"post_date":"2015-05-31T06:57:30.308Z",
+"isexpired":false
+}
+
+
+
+{"origin":"4001-4099 Harvey Road, College Station, TX 77845, USA","destiny":"2788-2806 Harvey Road, College Station, TX 77845, USA","source":"testurl1","depart_date":"2015-06-03T05:00:00.000Z","cat":"0","origin_lat":"30.650950","origin_lng":"-96.280890","destiny_lat":"30.633270","destiny_lng":"-96.298280","encoded_polyline":"moazDpzsjQ~o@hv@xAzAfBxAlM|JnG`FxRjO`EbDtAtA|BnC","memo":"test2","post_date":"2015-05-31T06:41:55.082Z","isexpired":false}

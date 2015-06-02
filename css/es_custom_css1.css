@@ -1,0 +1,362 @@
+html {
+	height:100%;
+	overflow: hidden;
+}
+body {
+	height: 100%;
+}
+/*
+#title-big-div,#map-div,#info-div ,#title-label-div,#main_div ,.title-options1{
+	border: 1px dashed #fff;
+}
+*/
+/* start label kuang*/
+#title-big-div{
+	width:100%;
+	height:40px;
+	background-color:#000;
+}
+#title-label-div{ /*inside title-big-div, for the logo*/
+	cursor:pointer;
+	display:inline-block;
+	width:15%;
+	height:100%;
+	font-size:23px;
+	font-family:sans-serif;
+	color:#FFF;
+	padding-left:8px;
+	padding-top:3px;
+	}
+.title-options1{
+	border-radius: 3px;
+	cursor:pointer;
+	display:inline-block;
+	width:10%;
+	/*height:100%;*/
+	text-align:center;
+	font-family:open sans condensed,sans-serif;
+	color:#FFF;
+	font-size: 18px ;
+	padding-top:3px;
+	padding-bottom:3px;
+	border-left:1px #666 solid;
+}
+#about-div {
+	border-right:1px #666 solid;
+	}
+	
+.title-options1:hover {
+	background-color:#7A7A7A;
+	color:#fff;
+}
+.title-selected {
+	border-radius: 3px;
+	cursor:pointer;
+	display:inline-block;
+	width:10%;
+	/*height:100%;*/
+	text-align:center;
+	font-family:sans-serif;
+	color:#FFF;
+	font-size: 18px ;
+	background-color:#FFF;
+	color:#000;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+
+
+/*  end label kuang*/
+
+
+/* Rental page, the right click MMoverlay style*/
+/* seems that the syle of extended class MMoverlay cannot be control here*/
+#menu-contain-div{
+	border:#000 thick solid;
+	
+
+}
+
+
+/*start search conditions*/
+.search-div{
+	z-index:1;
+	background-color:#ededed;
+	color:#000;	box-shadow: 0px 0px 3px #000;
+	}
+.search-div-padding {
+	width:10%;
+	display:inline-block;}
+#rental-search-slot > ul {
+  text-align: left;
+  display: inline;
+  list-style: none;
+
+
+}
+.search-div div {  /*div under search div all incline block*/
+	display:inline-block;
+
+	}
+#rental-search-slot > ul> li {  /*This decorating price-range per bed, Bedrooms/Baths and so on*/
+	color:#666;
+	font-size:15px;
+	font-family:sans-serif;
+	/*font:  15px sans-serif;*/
+  display: inline-block;
+  margin-right: -4px;
+  position: relative;
+  padding: 13px 30px;   /*top bottom  15px, right left 30px*/
+  background: #fff;
+  cursor: pointer;
+	width:220px;
+	height:48px;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+	border-left:1px #CCC solid;
+}
+#rental-search-slot > ul> li:last-child {
+	border-right:1px #CCC solid;
+}
+
+#rental-search-slot > ul li:hover {   /*change color */
+  background: #555;
+  color: #fff;
+	border-color: #555;
+}
+#rental-search-slot > ul>li >ul {
+  padding: 0;
+  position: absolute;
+  top: 48px;  /*leave space for the horizontal three options*/
+  left: 0;
+  width: 200px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transiton: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  -ms-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  -transition: opacity 0.2s;
+}
+#rental-search-slot > ul li ul li { 
+
+	font-size:15px;
+	font-family:sans-serif;
+	/*font:  15px sans-serif;*/
+
+  margin-right: -4px;
+  position: relative;
+  padding: 10px 30px;   /*top bottom  15px, right left 30px*/
+
+  cursor: pointer;
+	width:220px;
+	/*height:48px;*/
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  background: #555; 
+  display: block; 
+  color: #fff;
+  /*text-shadow: 0 -1px 0 #000;*/
+	z-index:1;
+}
+#rental-search-slot > ul li ul li input {
+	background-color:#333;
+	width:100%;
+	border:1px solid #333;
+	margin-bottom:5px;
+	margin-left:-10px;
+	height:30px;
+	}
+#rental-search-slot > ul li ul li:hover { background: #666; }
+#rental-search-slot > ul li:hover ul {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+#sql-bash {
+	display:inline;
+}
+
+/*////// start travel search div //////*/
+
+#travel-search-div {
+  font: bold 12px/18px sans-serif;
+  display: inline-block;
+  margin-right: -4px;
+  position: relative;
+  padding: 7px 10px;
+  background: #fff;
+  cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+.travel-search-inputgrp-contrl {
+	display:inline-block;
+}
+.travel-search-inputgrp-contrl  input {
+	width:300px;
+}
+.travel-search-hidden-inputgrp-contrl > input {  /* .travel-search-hidden-inputgrp-contrl itself inherites display:inline-block */
+	display:none;
+}
+/*here is decoration of the search button in the travel search slot*/
+/*here is decoration of the search button in the travel search slot*/
+/*here is decoration of the search button in the travel search slot*/
+.travel-search-btn { 
+	background-color:#666;
+	color:#fff;
+	font-family:sans-serif;
+	font-size:15px;
+	border-width:0px;
+	border-radius:2px;
+	-webkit-border-radius:2px;
+	-moz-border-radius:3px;
+	width:120px;
+	height:32px
+}
+
+.travel-search-btn:hover {
+  text-decoration: none;
+	background-color:#333;
+}
+
+/*end search conditions*/
+
+
+
+/* travel control panel div */
+#travel-control-panel {
+	position: absolute;
+	top: 110px;
+	left:40%;
+	margin-left: 0px;
+	z-index:10;
+	background-color: #fff;
+	padding: 5px;
+	border: 1px solid #999;	
+	display:none; /*this one is used to hide this control panel in other map-mode*/
+	cursor:pointer;
+	box-shadow: 0px 0px 5px grey;
+}
+#travel-control-panel:hover {
+	background-color: #F0F0F0;
+}
+
+#about-panel{
+	position: absolute;
+	top:40px;
+	left:10%;
+	width:80%;
+	height:80%;
+	z-index:11;
+	padding:10px;
+	background-color: #fff;
+	border: 1px solid #999;	
+	display:none;
+	box-shadow: 0px 0px 5px grey;
+	overflow: auto;
+}
+
+/* end of travel control panel div*/
+/**/
+/**/
+
+.poped-up-a{
+	font-size:20px;
+	}
+
+#map-div{
+	float:left;
+	display:block;
+	width:70%;
+	height:89%;
+	z-index:0;
+	overflow:scroll;
+
+}
+#info-div{
+	border-left:2px #CCC solid;
+	z-index:2;
+	/*border:2px #000 solid;*/
+	text-align:left;
+  float:left;
+  width:30%;
+	height:89%;
+	overflow: scroll;
+}
+
+.easysub-form-control{
+	border-radius: 0px;
+
+}
+
+
+.info-div-results-style{
+	position: absolute;	
+	left:100%;
+	background-color:#FFF;
+	/*width:60%;*/
+}
+
+
+.input-group-dimension-control{   /*info-div style control*/
+ 
+}	
+.btn-cusom-contrl {
+		width:10%;
+	   margin-left:10%;
+		display:inline-block;
+}
+.input-group-dimension-control textarea{
+	width:80%;
+	margin-left:10%;
+	margin-top:5%;
+
+	}
+.input-group-dimension-control>div div{  /*This is means every div inside #info-dive will inheritate here!*/  /*.input-group-dimension-control>div is for the slot*/
+	margin-right:10%;
+	margin-left:10%;
+	margin-top:5%;
+	}
+#n-bdrm input, #n-btrm input {
+	width:90%;
+	}
+#main_div {
+	height:100%;
+}
+
+/*for travel results content*/
+/*for travel results content*/
+#info-div #travel_search_results_container>.travel_data_entry_div>.TDE_NONE_DISPLAY {
+	display:none;
+	
+}
+.travel_data_entry_div {
+	border-top:2px #CCC solid;
+	
+}
+.travel_data_entry_div > div {
+	margin-left:20px;
+}
+.travel_data_entry_div .TDE_bold {
+	font-weight:bold;
+	
+}
+#info-div #travel_search_results_container>.travel_data_entry_div:hover  {
+	background-color:#CCC;
+}
