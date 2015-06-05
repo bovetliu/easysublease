@@ -41,7 +41,8 @@ EasySubOrg.RIDE.reg_of_cu = new Backbone.Model({
 	"origin_lat_lb":null, "origin_lat_hb":null, 
 	"origin_lng_lb":null, "origin_lng_hb":null, 
 	"destiny_lat_lb":null, "destiny_lat_hb":null, 
-	"destiny_lng_lb":null ,"destiny_lng_hb":null 
+	"destiny_lng_lb":null ,"destiny_lng_hb":null,
+	"depart_date_lb":null, "depart_date_hb":null 
 });
 
 //The definition of RIDE_CONTROL_UNIT, which is run before page loads, but the instanciation is after page loading
@@ -529,6 +530,15 @@ $(document).ready( function() {
 		
 		/* request comm unit to send out request for ride search result*/
 		requestSearchResult:function( ){ 
+			var ClassRef = this;
+			/*I can do some form verification here*/
+			var temp_reg = EasySubOrg.RIDE.reg_of_cu;
+			if (EasySubOrg.RIDE.reg_of_cu.get('depart_date_lb') && EasySubOrg.RIDE.reg_of_cu.get('depart_date_hb')) {
+				if ( new Date( temp_reg.get('depart_date_lb')) > new Date( temp_reg.get('depart_date_hb'))  ) {
+					alert("start date cannot be smaller than end date");
+					return;
+				} 
+			}
 			EasySubOrg.comm_unit.getForRideSearch( true );
 		},
 		
@@ -549,7 +559,7 @@ $(document).ready( function() {
 				}
 			});		
 			
-		
+		  // add logic to Destiny input
 			class_ref.$("#ipt-destiny-tr-srch").blur( function() {
 				if (class_ref.$("#ipt-destiny-tr-srch").val() != "") {                              
 					class_ref.model.geocode( class_ref.$("#ipt-destiny-tr-srch").val(), "destiny"  );
@@ -557,15 +567,39 @@ $(document).ready( function() {
 				else {
 					EasySubOrg.RIDE.reg_of_cu.set( {'destiny_lat_lb':null,'destiny_lat_hb':null, 'destiny_lng_lb':null,'destiny_lng_hb':null} );
 				}
-			})	
+			});
 			
+
+			//add logic to "StartDate" input
+			class_ref.$("#ipt-startdate-tr-srch").change( function() {
+				if (class_ref.$("#ipt-startdate-tr-srch").val() != "") {  
+				  //console.log("temp check 565");                            
+					EasySubOrg.RIDE.reg_of_cu.set("depart_date_lb",  class_ref.$("#ipt-startdate-tr-srch").val(  ) );
+				}
+				else {
+					EasySubOrg.RIDE.reg_of_cu.set( {'depart_date_lb':null} );
+				}
+			});	
+
+			//add logic to "EndDate" input
+			class_ref.$("#ipt-enddate-tr-srch").change( function() {
+				if (class_ref.$("#ipt-enddate-tr-srch").val() != "") {                              
+					EasySubOrg.RIDE.reg_of_cu.set("depart_date_hb", class_ref.$("#ipt-enddate-tr-srch").val()  );
+				}
+				else {
+					EasySubOrg.RIDE.reg_of_cu.set( {'depart_date_hb':null} );
+				}
+			});	
+
 			class_ref.$("#btn-submit-tr-srch").click( function(){   /*the travel search btn*/
 				EasySubOrg.RIDE.reg_of_cu.set("_id",null); // cancel focus_id restriction
 				class_ref.requestSearchResult(); //travel get("normal") and render results
 				console.log("after ClassRef.requestSearchResult()");
-			});							
+			});
+			this.$("#ipt-startdate-tr-srch").datepicker();  // set #ipt-date-tr as date-picker
+			this.$("#ipt-enddate-tr-srch").datepicker();  // set #ipt-date-tr as date-picker	
 			console.log( "init() of RideSearchView()");	
-		},
+		}, // end of RideSearchView Class init()
 	
 	}); // end of RideSearchView class definition
 
@@ -593,6 +627,8 @@ $(document).ready( function() {
 				console.log("I heard custom event");
 				ClassRef.clearInputs();	
 			});
+			this.$("#ipt-date-tr").datepicker();  // set #ipt-date-tr as date-picker	
+
 		},
 	});  
 
@@ -640,7 +676,7 @@ $(document).ready( function() {
 		infodiv_manager1.toggle_about();
 	});
 	
-	$("#ipt-date-tr").datepicker();  // set #ipt-date-tr as date-picker
+	
 	
 	$("#title-housing").click ( function() {
 		if (  EasySubOrg.MAP.cu_01.get('work_mode') != "default") {

@@ -90,14 +90,21 @@ body {
 display:inline-block;
 
 }
+
 .search-div-padding {
-	width:1px;
+	width:0px;
 	display:inline-block;
+}
+
+#rental-search-slot {
+	width: 670px;
+
 }
 #rental-search-slot > ul {
   text-align: left;
   display: inline;
   list-style: none;
+  -webkit-padding-start: 0px; /* to counter the user agent stylesheet*/
 }
 #rental-search-slot > ul> li {  /*This decorating price-range per bed, Bedrooms/Baths and so on*/
 	color:#666;
@@ -211,7 +218,7 @@ last-child {
 	display:inline-block;
 }
 #ipt-origin-tr-srch, #ipt-destiny-tr-srch {
-	width:250px;
+	width:270px;
 }
 #ipt-startdate-tr-srch, #ipt-enddate-tr-srch {
 	width:100px;
@@ -243,6 +250,12 @@ last-child {
 
 /*end travel search conditions*/
 
+/*Travel form begin*/
+
+#ipt-origin-tr, #ipt-destiny-tr, #ipt-url-tr,#ipt-date-tr {
+	z-index: 1; /* If it is set to 2, #ipt-origin-tr will block date input, so I decrease z-index by 1*/
+}
+/*Travel form ends*/
 
 
 /* travel control panel div */

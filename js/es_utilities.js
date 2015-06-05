@@ -74,6 +74,7 @@ $(document).ready( function() {
 					url:generated_URL,
 					data: {isexpired:true}, // plain object
 					type: 'POST',
+
 					crossDomain:true,
 					success: function(data, status){ 
 						if (data.msg == "error"){
@@ -109,6 +110,7 @@ $(document).ready( function() {
 				url:generated_URL,
 				type: 'GET',
 				crossDomain:true,
+				dataType: "json",
 				success: function( data, textStatus,jqXHR){ 
 					//console.log("EasySubOrg.comm_unit.getForRentalSearch(): successfully GET :"+ JSON.stringify(data));
 					if (data == null || typeof (data) == 'undefined') {
@@ -312,7 +314,7 @@ $(document).ready( function() {
 					}
 			}
 			tbr = tbr.join("").slice(0,-1);
-			return tbr;
+			return   tbr;
 		},
 		initialize:function(){
 			//listening to rental search control unit, once there is a change in rental search control unit,
