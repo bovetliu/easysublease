@@ -316,7 +316,7 @@ last-child {
   float:left;
   width:30%;
 	height:89%;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .easysub-form-control{

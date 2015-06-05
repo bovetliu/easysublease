@@ -60,8 +60,8 @@ Infodivmng.prototype.set_form_purpose = function (  instant_show_ride_form ) {
 			$("#info-div").addClass("input-group-dimension-control");		
 		});//width("29%");			
 		this.bShowingResults = false;
-		$("#ipt-date-tr").datepicker();
-		// I also need to keep the category box functioning
+		//$("#ipt-date-tr").datepicker(); // I form no longer gen or disappear, so no need of this
+		
 	}
 	this.bShowingAbout = false;
 }

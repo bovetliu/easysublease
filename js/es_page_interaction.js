@@ -648,7 +648,7 @@ $(document).ready( function() {
 	infodiv_manager1.show('#rental-form-slot');  // At beginning of page having been loaded, show the rental form
 	
 	
-	hightlightTitle( "title-housing");   
+	hightlightTitle( "title-housing");
 
 	$("#travel-search-slot").hide();
 	
@@ -681,15 +681,12 @@ $(document).ready( function() {
 	$("#title-housing").click ( function() {
 		if (  EasySubOrg.MAP.cu_01.get('work_mode') != "default") {
 			console.log("enter default mode"); 
-			EasySubOrg.MAP.cu_01.set('work_mode', "default");   //MAP RENDER  updatesetting listens to this
-			//$("#info-div").html(content1);  // change form
 			infodiv_manager1.render_housing_form();
 			$("#travel-search-slot").hide();
 			$("#rental-search-slot").show();
 			hightlightTitle( "title-housing");
-			
+			EasySubOrg.MAP.cu_01.set('work_mode', "default");   //MAP RENDER  updatesetting() listens to this
 			console.log( '$("#title-housing").clicked');
-			
 		} 		
 	});
 	
