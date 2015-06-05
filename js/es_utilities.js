@@ -121,12 +121,6 @@ $(document).ready( function() {
 				}	
 			}); // and of $.ajax		
 		},
-		
-		arrayToIdIndexedObject: function( array){
-			tbr = {}
-			array.forEach(function(element, index, array) { tbr[element["_id"]]=element; });
-			return tbr;
-		},
 
 		/*
 		*EasySubOrg.comm_unit.getForRideSearch()
@@ -146,8 +140,8 @@ $(document).ready( function() {
 				console.log("getForRideSearch AJAX status: " + status );
 				if(status =='success') {
 					if (typeof (data) == 'string'){ data = JSON.parse(data); console.log("parse is called")}
-					EasySubOrg.MAP.cu_01.set( 'travel_search_result', ClassRef.arrayToIdIndexedObject( data));
-					console.log("after AJAX GET, EasySubOrg.MAP.cu_01.get('travel_search_result'): "+JSON.stringify(  Object.keys(EasySubOrg.MAP.cu_01.get('travel_search_result') )) );
+					EasySubOrg.MAP.cu_01.set( 'travel_search_result', _.indexBy(data, '_id') );  // use one underscore method
+					//console.log("after AJAX GET, EasySubOrg.MAP.cu_01.get('travel_search_result'): "+JSON.stringify(  Object.keys(EasySubOrg.MAP.cu_01.get('travel_search_result') )) );
 					if (render_or_not  == true){  
 						// if no args supplied for render_or_not, it is true, otherwise, has to supply "false" to suppress rendering behaviour
 						infodiv_manager1.render_travel_result();

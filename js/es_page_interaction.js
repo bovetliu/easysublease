@@ -250,10 +250,12 @@ var RIDE_CONTROL_UNIT = Backbone.Model.extend({
 $(document).ready( function() {
 
 	//EasySubOrg.RENTAL.rf_view_01
-	var RentalFormView = Backbone.View.extend({
+	var RentalFormView = Backbone.Epoxy.View.extend({
 		//DOM ELEMENT of RENTAL FORM VIEW
 		el:'#rental-form-slot',
 		
+		bindings: "data-bind",
+
 		//## this.model ##  EasySubOrg.RENTAL.rf_cu_01
 		associate_array:  {"li-b10b10":[1,1],"li-b20b10":[2,1],"li-b20b15":[2,1.5],"li-b10b10":[1,1], "li-b20b15":[2,1.5], 
 		"li-b20b20":[2,2], "li-b30b20":[3,2],
@@ -296,23 +298,14 @@ $(document).ready( function() {
 		requestPostToCommUnit : function() {
 			var ClassRef = this;
 			console.log( "entered RentalFormView.requestPostToCommUnit()" );
-			/* old code, gonna clean at June
-			$.post( "es_form_process.php", $( "#rental-form" ).serialize(),function(){ 
-				console.log("successfully loaded data");
-				EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').clearTempMarker();
-				ClassRef.clearInput();
-				EasySubOrg.comm_unit.getForRentalSearch();
-			});*/
-			
-			console.log("before post");
+			if ( _.isNumber( parseInt(ClassRef.model.get('beds')))  && parseInt(ClassRef.model.get('beds')) && _.isNumber( Number(ClassRef.model.get('price_total'))) ) {
+				this.model.set('price_single',  ClassRef.model.get('price_total') / ClassRef.model.get('beds') );
+			}
 			ClassRef.model.set({  
 				"post_date"   : new Date(),
-				"price_total" : $('#ipt-price-t').val(),
-				"community"   : $('#ipt-commu').val(),
-				"source"      : $('#ipt-url').val(),
-				"memo"        : $('#textarea-memo').val(),
-				"addr"        : $('#ipt-addr').val()
 			});
+			
+			/*have not implemented form validation*/
 			
 			$.ajax({
 				url:  EasySubOrg.comm_unit.apiServerURL()+'/db_models/RentalPoint',
@@ -442,7 +435,7 @@ $(document).ready( function() {
 			});	
 			this.model.set("isexpired",false);
 		},
-		
+
 		initialize : function(){
 			var ClassRef = this;
 			console.log("init() of RentalSearchView");
@@ -508,10 +501,11 @@ $(document).ready( function() {
 						});  // end of price-min-ipt blur							
 				} else { dom_element.onclick = function () {ClassRef.resetBB();  }  }
 			});
- 
+ 			
+ 			
 			temp_array = this.$( '#ul_types_srch>li');
 			temp_length = temp_array.length;
-			$.each(temp_array, function(index, dom_element) {
+			$.each(temp_array, function(index, dom_element) {    // actually doing data binding
 				if (index < temp_length -1) {
 					dom_element.onclick = function () {
 						ClassRef.updateCat(dom_element.getAttribute("data-rs-cat"))	;
@@ -520,6 +514,9 @@ $(document).ready( function() {
 					dom_element.onclick = function() { ClassRef.resetCat();}		
 				}
 			});  //end of $.each() regarding #ul_types_srch
+			
+
+
 		} // end of initialize(){}
 		
 			// place new method here
@@ -600,7 +597,6 @@ $(document).ready( function() {
 			this.$("#ipt-enddate-tr-srch").datepicker();  // set #ipt-date-tr as date-picker	
 			console.log( "init() of RideSearchView()");	
 		}, // end of RideSearchView Class init()
-	
 	}); // end of RideSearchView class definition
 
 	
