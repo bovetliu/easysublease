@@ -85,41 +85,42 @@ body {
 	background-color:#ededed;
 	color:#000;	box-shadow: 0px 0px 3px #000;
 	}
+
+.search-div div {  /*div under search div all incline block*/
+display:inline-block;
+
+}
 .search-div-padding {
-	width:10%;
-	display:inline-block;}
+	width:1px;
+	display:inline-block;
+}
 #rental-search-slot > ul {
   text-align: left;
   display: inline;
   list-style: none;
-
-
 }
-.search-div div {  /*div under search div all incline block*/
-	display:inline-block;
-
-	}
 #rental-search-slot > ul> li {  /*This decorating price-range per bed, Bedrooms/Baths and so on*/
 	color:#666;
 	font-size:15px;
 	font-family:sans-serif;
 	/*font:  15px sans-serif;*/
-  display: inline-block;
-  margin-right: -4px;
-  position: relative;
-  padding: 13px 30px;   /*top bottom  15px, right left 30px*/
-  background: #fff;
-  cursor: pointer;
+	display: inline-block;
+	margin-right: -4px;
+	position: relative;
+	padding: 13px 30px;   /*top bottom  15px, right left 30px*/
+	background: #fff;
+	cursor: pointer;
 	width:220px;
 	height:48px;
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  transition: all 0.2s;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
 	border-left:1px #CCC solid;
 }
-#rental-search-slot > ul> li:last-child {
+#rental-search-slot > ul> li:
+last-child {
 	border-right:1px #CCC solid;
 }
 
@@ -190,6 +191,7 @@ body {
 }
 
 /*////// start travel search div //////*/
+/*////// start travel search div //////*/
 
 #travel-search-div {
   font: bold 12px/18px sans-serif;
@@ -208,9 +210,13 @@ body {
 .travel-search-inputgrp-contrl {
 	display:inline-block;
 }
-.travel-search-inputgrp-contrl  input {
-	width:300px;
+#ipt-origin-tr-srch, #ipt-destiny-tr-srch {
+	width:250px;
 }
+#ipt-startdate-tr-srch, #ipt-enddate-tr-srch {
+	width:100px;
+}
+
 .travel-search-hidden-inputgrp-contrl > input {  /* .travel-search-hidden-inputgrp-contrl itself inherites display:inline-block */
 	display:none;
 }
@@ -235,7 +241,7 @@ body {
 	background-color:#333;
 }
 
-/*end search conditions*/
+/*end travel search conditions*/
 
 
 
