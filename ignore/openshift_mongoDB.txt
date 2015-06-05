@@ -1,4 +1,0 @@
-Please make note of these MongoDB credentials:
-  RockMongo User: admin
-  RockMongo Password: B3nug9uVkcWg
-URL: https://esapi-u7yhjm.rhcloud.com/rockmongo/
