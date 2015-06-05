@@ -648,7 +648,7 @@ $(document).ready( function() {
 	infodiv_manager1.show('#rental-form-slot');  // At beginning of page having been loaded, show the rental form
 	
 	
-	hightlightTitle( "title-housing");  
+	hightlightTitle( "title-housing");   
 
 	$("#travel-search-slot").hide();
 	
