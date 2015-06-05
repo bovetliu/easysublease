@@ -99,7 +99,7 @@ $(document).ready( function() {
 			var generated_URL = null;
 			if (EasySubOrg.MAP.cu_01.isMapReady()){  // if map is ready, take map bounds into consideration
 				generated_URL = ClassRef.convertObjectIntoURL(EasySubOrg.RENTAL.rs_view_01.updateMapBounds(1, 0.8).toJSON(), 
-				                                              ClassRef.apiServerURL()+"/db_models/RentalPoint/conditional");
+					ClassRef.apiServerURL()+"/db_models/RentalPoint/conditional");
 			}
 			else {
 				console.log( "EasySubOrg.comm_unit.getForRentalSearch(): map not ready, will just use default model:" + JSON.stringify(EasySubOrg.RENTAL.rs_cu_01.toJSON()) );
