@@ -184,7 +184,7 @@ var RIDE_CONTROL_UNIT = Backbone.Model.extend({
 		var tempFormObject = {};
 		$("#ride-form").serializeArray().map(function(x){tempFormObject[x.name] = x.value;}); 
 		
-		var route_object = {
+		var route_object = {  /*I did not write this piece of code well, but I do not have enough energy to change*/
 			"origin_lat":parseFloat(tempFormObject['num-origin-lat-tr']),
 			"origin_lng": parseFloat(tempFormObject['num-origin-lng-tr']),
 			"destiny_lat": parseFloat(tempFormObject['num-destiny-lat-tr']),
@@ -218,19 +218,6 @@ var RIDE_CONTROL_UNIT = Backbone.Model.extend({
 				return;
 			},	
 		}); // and of $.ajax
-		
-		
-		/*
-		$.post( "form_process_tr.php", $( "#ride-form" ).serialize(),function(){ 
-			console.log("successfully loaded data");
-			// => one event to clearInputs of RidePost Form
-			ClassRef.trigger('clearInputsOfRideForm'); 
-			EasySubOrg.MAP.render_01.clearMapAddons();
-			EasySubOrg.comm_unit.getForRideSearch( false);  // update new RideSearchResult of MAP CU,  which => MAP RENDER
-			//ClassRef.clearInput();  05/18/2015, Bowei: This one has not been implemented
-			return;
-		});
-		*/
 	},  //  end of post() method
 	
 	/*no need to say more about this*/
@@ -254,7 +241,7 @@ $(document).ready( function() {
 		//DOM ELEMENT of RENTAL FORM VIEW
 		el:'#rental-form-slot',
 		
-		bindings: "data-bind",
+		bindings: "data-bind",  // double bind form several inputs value with model of instance of RentalFormView() class
 
 		//## this.model ##  EasySubOrg.RENTAL.rf_cu_01
 		associate_array:  {"li-b10b10":[1,1],"li-b20b10":[2,1],"li-b20b15":[2,1.5],"li-b10b10":[1,1], "li-b20b15":[2,1.5], 
@@ -640,9 +627,8 @@ $(document).ready( function() {
 	//////////////////////////start of jQuery  toplevel page logic control///////////////////////////	
 	//////////////////////////I should merge thsoe toplevel logic control into repective models ///////////////////////////	
 	mapcc1 = new MapCommonCalc();
-	infodiv_manager1 =  new Infodivmng( document.getElementById("info-div"));	
-	infodiv_manager1.show('#rental-form-slot');  // At beginning of page having been loaded, show the rental form
-	
+	EasySubOrg.INFO.info_view_01 = new InfoView({model:EasySubOrg.INFO.info_div_reg});
+
 	
 	hightlightTitle( "title-housing");
 
@@ -669,7 +655,7 @@ $(document).ready( function() {
 	});
 	
 	$("#about-div").click(   function (){  
-		infodiv_manager1.toggle_about();
+		EasySubOrg.INFO.info_view_01.toggle_about();
 	});
 	
 	
@@ -677,9 +663,9 @@ $(document).ready( function() {
 	$("#title-housing").click ( function() {
 		if (  EasySubOrg.MAP.cu_01.get('work_mode') != "default") {
 			console.log("enter default mode"); 
-			infodiv_manager1.render_housing_form();
-			$("#travel-search-slot").hide();
+			EasySubOrg.INFO.info_div_reg.set('info_div_purpose', 'rental_form');
 			$("#rental-search-slot").show();
+			$("#travel-search-slot").hide();
 			hightlightTitle( "title-housing");
 			EasySubOrg.MAP.cu_01.set('work_mode', "default");   //MAP RENDER  updatesetting() listens to this
 			console.log( '$("#title-housing").clicked');
@@ -704,11 +690,10 @@ function  topLevelChangeToRideMode () {
 	if (  EasySubOrg.MAP.cu_01.get('work_mode') != "travel-mode") { 
 		//console.log( "top##"+JSON.stringify(EasySubOrg.RIDE.reg_of_cu));	
 		EasySubOrg.MAP.cu_01.set('work_mode', "travel-mode");//console.log("598");
-		//console.log( "top##"+JSON.stringify(EasySubOrg.RIDE.reg_of_cu));	
-		infodiv_manager1.render_travel_form( true);
-		$("#travel-search-slot").show();
-		$("#rental-search-slot").hide();
+		EasySubOrg.INFO.info_div_reg.set('info_div_purpose','ride_form');
 		hightlightTitle( "travel-control-div");
+		$("#rental-search-slot").hide();
+		$("#travel-search-slot").show();
 		EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')._marker.setMap(null); // clear the marker of right-click overlay
 	}
 		

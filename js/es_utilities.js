@@ -144,7 +144,7 @@ $(document).ready( function() {
 					//console.log("after AJAX GET, EasySubOrg.MAP.cu_01.get('travel_search_result'): "+JSON.stringify(  Object.keys(EasySubOrg.MAP.cu_01.get('travel_search_result') )) );
 					if (render_or_not  == true){  
 						// if no args supplied for render_or_not, it is true, otherwise, has to supply "false" to suppress rendering behaviour
-						infodiv_manager1.render_travel_result();
+						EasySubOrg.INFO.info_view_01.render_travel_result();
 					}
 	
 				} // end of if(status =='success')

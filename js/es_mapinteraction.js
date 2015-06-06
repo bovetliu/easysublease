@@ -419,7 +419,7 @@ function mapInitialize () {
 
 	/*tb plase*/
 	debug = false;
-	if (debug){    // all console.log output
+	if (debug){    //test code
 		var A1 = new google.maps.LatLng(30.03497,-95.84750000000001);
 		var A2 = new google.maps.LatLng(30.034390000000002,-95.84621000000001);
 	
@@ -506,7 +506,7 @@ function mapInitialize () {
 	//console.log(tenTo52.ftInto10(tenTo52.tenInto52(12312))); // test successful
 	//console.log( tenTo52.ftInto10(tenTo52.ftOp( "i]E", "+", 5) )  ); // test successful
 	}// tb end		
-}
+} // end of mapInitialize()
 google.maps.event.addDomListener(window, 'load', mapInitialize);   ///initialize is the last one to be executed
 
 

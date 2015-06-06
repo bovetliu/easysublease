@@ -57,25 +57,18 @@ body {
 	/*height:100%;*/
 	text-align:center;
 	font-family:sans-serif;
-	color:#FFF;
+	color:#000;
 	font-size: 18px ;
 	background-color:#FFF;
-	color:#000;
 	padding-top:3px;
 	padding-bottom:3px;
 }
-
-
-
-/*  end label kuang*/
-
+/*  end label kuang*
 
 /* Rental page, the right click MMoverlay style*/
 /* seems that the syle of extended class MMoverlay cannot be control here*/
 #menu-contain-div{
 	border:#000 thick solid;
-	
-
 }
 
 
@@ -311,9 +304,9 @@ last-child {
 #info-div{
 	border-left:2px #CCC solid;
 	z-index:2;
-	/*border:2px #000 solid;*/
 	text-align:left;
   float:left;
+
   width:30%;
 	height:89%;
 	overflow: auto;
@@ -327,7 +320,7 @@ last-child {
 
 .info-div-results-style{
 	position: absolute;	
-	left:100%;
+	left:70%;
 	background-color:#FFF;
 	/*width:60%;*/
 }
