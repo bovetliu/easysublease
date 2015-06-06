@@ -502,8 +502,6 @@ $(document).ready( function() {
 				}
 			});  //end of $.each() regarding #ul_types_srch
 			
-
-
 		} // end of initialize(){}
 		
 			// place new method here
@@ -523,7 +521,7 @@ $(document).ready( function() {
 					return;
 				} 
 			}
-			EasySubOrg.comm_unit.getForRideSearch( true );
+			EasySubOrg.comm_unit.getForRideSearch( true); // animation is true
 		},
 		
 		initialize :function() {

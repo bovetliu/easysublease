@@ -23,7 +23,8 @@ EasySubOrg.INFO.info_div_reg = new Backbone.Model({
 	"bShowing_results" : false,
 	"bShowing_about" : false,
 	"cache_content_before_clk_about":"",
-	"instant_show_ride_form":true
+	"instant_show_ride_form":true,
+	"bAnimate":true
 });
 
 //EasySubOrg.INFO.info_view_01
@@ -55,7 +56,7 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 		//modeliteral consider using this.model.get('info_div_mode')
 		var modeliteral = this.model.get('info_div_purpose');
 
-		var width = '30%', left = '70%' ;
+		var width = this.$el.css("width"), left = this.$el.css("left") ;
 		switch ( modeliteral ) {
 			case "rental_form":
 				left = '70%';
@@ -70,13 +71,18 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 				ClassRef.$el.addClass("input-group-dimension-control");	
 				break
 			case "ride_result":
-				width = '60%';
-				left = '40%';
+				if (this.model.get("bAnimate")) {
+					width = '60%';
+					left = '40%';
+				}
 				EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
 				ClassRef.show('#ride-results-slot');
-				ClassRef.$el.removeClass("input-group-dimension-control");	
+				ClassRef.$el.removeClass("input-group-dimension-control");
+				this.model.set("bAnimate",true);	
 				break
 			default:
+				width = "30%";
+				left = "70%"
 				EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
 				ClassRef.show('#rental-form-slot');
 				ClassRef.$el.addClass("input-group-dimension-control");
@@ -90,11 +96,11 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 		}
 	}, // end of set_purpose function attr 
 
-	render_travel_result : function(data_array ) {  // should take arguments,
+	render_travel_result : function(data_array,  bAnimate) {  // should take arguments,
 	  // by default data_array is the server returned data, which is stored as property variable travel_control_i1 (instance of C_travel_control)
 		var href = this;
-		var data_array = typeof data_array !== 'undefined' ? data_array : EasySubOrg.MAP.cu_01.get("travel_search_result");	
-		
+		var data_array = (typeof data_array == 'undefined' || data_array == null )? EasySubOrg.MAP.cu_01.get("travel_search_result"):data_array ;	
+		var bAnimate = (typeof (bAnimate)== 'undefined' || bAnimate== null )? true: bAnimate;	
 		if ( _.size( data_array)>= 1) { // using underscore method here
 			var temp_html = []
 			for ( key in data_array ){
@@ -107,7 +113,10 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 		else { // process ZERO situation
 			$("#travel_search_results_container").html("ZERO results returned");	
 		}
-		this.model.set('info_div_purpose','ride_result');
+		if (bAnimate) {
+			//console.log("animation#####################");
+			this.model.set({'info_div_purpose':'ride_result'});
+		}
 	},
 	OriginDestinyComp : function ( originStr, destinyStr) {  // this need to change
 		//if (originStr ==  destinyStr) { alert( originStr + "   " + destinyStr);}

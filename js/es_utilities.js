@@ -46,7 +46,7 @@ $(document).ready( function() {
 					if (status =='success'){
 						 EasySubOrg.MAP.cu_01.set('to_be_set_expired_ride',"");
 						 EasySubOrg.RIDE.cu_01.get('_infowindow').close(); 
-						 ClassRef.getForRideSearch( false ); // update ride search result, false means not rendering results after data updating
+						 ClassRef.getForRideSearch(false); //EasySubOrg.comm_unit.getForRideSearch( bAnimate)
 					}
 				});
 			}// end of "if (tbeid >0 )" condition			
@@ -125,8 +125,8 @@ $(document).ready( function() {
 		/*
 		*EasySubOrg.comm_unit.getForRideSearch()
 		*/
-		getForRideSearch:function(  render_or_not ){   //EasySubOrg.comm_unit.getForRideSearch( render_or_not)
-			if(typeof (render_or_not) =='undefined') { render_or_not = true;}
+		getForRideSearch:function(   bAnimate){   //EasySubOrg.comm_unit.getForRideSearch( bAnimate)
+
 			var ClassRef = this;
 			var temp_get_reg = EasySubOrg.RIDE.reg_of_cu.toJSON();  
 			if ( temp_get_reg["cat"] == null && temp_get_reg["_id"] == null) {
@@ -140,13 +140,11 @@ $(document).ready( function() {
 				console.log("getForRideSearch AJAX status: " + status );
 				if(status =='success') {
 					if (typeof (data) == 'string'){ data = JSON.parse(data); console.log("parse is called")}
+
 					EasySubOrg.MAP.cu_01.set( 'travel_search_result', _.indexBy(data, '_id') );  // use one underscore method
+					//console.log(EasySubOrg.MAP.cu_01.get('travel_search_result') );
 					//console.log("after AJAX GET, EasySubOrg.MAP.cu_01.get('travel_search_result'): "+JSON.stringify(  Object.keys(EasySubOrg.MAP.cu_01.get('travel_search_result') )) );
-					if (render_or_not  == true){  
-						// if no args supplied for render_or_not, it is true, otherwise, has to supply "false" to suppress rendering behaviour
-						EasySubOrg.INFO.info_view_01.render_travel_result();
-					}
-	
+					EasySubOrg.INFO.info_view_01.render_travel_result(null,  bAnimate);	
 				} // end of if(status =='success')
 			});
 		},
