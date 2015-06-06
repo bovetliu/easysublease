@@ -5,7 +5,7 @@ EasySubOrg.MENU.reg = new Backbone.Model({
 });
 var OverLayMenu = Backbone.View.extend({ 
 	//this.model is EasySubOrg.MENU.reg
-	tagName: "ul",
+	tagName: "div",
 
 	initialize:function(){
 
@@ -14,7 +14,7 @@ var OverLayMenu = Backbone.View.extend({
 
 
 /*
-	This is one class, representing the right-clicked generated white small box
+	This is one class, representing the right-clicked generated white small box, google itself did not inherit OverlayView class
 */
 MMoverlay.prototype = new google.maps.OverlayView();  ///MMoverlay:class inherits OverlayView:class
 /** @constructor */
