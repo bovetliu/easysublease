@@ -1,3 +1,18 @@
+
+EasySubOrg.createNS("EasySubOrg.MENU");
+EasySubOrg.MENU.reg = new Backbone.Model({
+	menu_mode:"", // this should be exactly as 
+});
+var OverLayMenu = Backbone.View.extend({ 
+	//this.model is EasySubOrg.MENU.reg
+	tagName: "ul",
+
+	initialize:function(){
+
+	}
+}); // instance will be added at es_page_interaction.js
+
+
 /*
 	This is one class, representing the right-clicked generated white small box
 */
@@ -52,9 +67,7 @@ MMoverlay.prototype.onAdd = function() {   //overwritten
 };
 
 MMoverlay.prototype.draw = function() {  //overwritten
-	// We use the south-west and north-east
-	// coordinates of the overlay to peg it to the correct position and size.
-	// To do this, we need to retrieve the projection from the overlay.
+	// This draw method will be invoked when map is loaded, so i have to hide it
 	var div = this.div_;
 	div.style.left = '0px';
 	div.style.top = '0px';
@@ -68,12 +81,12 @@ MMoverlay.prototype.draw2 = function( latLng ) {  // create right-click box
 	var tempover = this;
 	if (latLng == false) {
 		alert ("cnm. mei bian liang");
-		}
+	}
 	var overlayProjection = this.getProjection();
-	var lefttop_pixel = overlayProjection.fromLatLngToDivPixel(latLng);
+	var lefttop_pixel = overlayProjection.fromLatLngToDivPixel(latLng); // convert latLng into screen position,
 	var div = this.div_;
 	//onmouseover   onmouseout
-	div.style.left = lefttop_pixel.x + 'px';
+	div.style.left = lefttop_pixel.x + 'px';                            // move the div to current screen position, where mouse is at
 	div.style.top = lefttop_pixel.y + 'px';
 	div.style.width = '180px';
 	div.style.visibility = "hidden";
@@ -142,7 +155,7 @@ MMoverlay.prototype.toggleOff = function( latLng) {
 	var cursorin = true;
 	if ( lefttop_pixel.x < left || lefttop_pixel.x > left+width || lefttop_pixel.y < top || lefttop_pixel.y > top + height ) {
 		cursorin = false;
-		}
+	}
 	if (this.div_) {
 		if (  (this.div_.style.visibility == 'visible' ) && (!cursorin) ){
 			//alert("toggleoff");
@@ -150,6 +163,7 @@ MMoverlay.prototype.toggleOff = function( latLng) {
 		} 
 	}
 };
+/* to be deprecated
 MMoverlay.prototype.toggleOff2 = function( ) {
 	if (this.div_) {
 		if (  this.div_.style.visibility == 'visible'  ){
@@ -158,6 +172,7 @@ MMoverlay.prototype.toggleOff2 = function( ) {
 		} 
 	}
 };
+
 // Detach the map from the DOM via toggleDOM().
 // Note that if we later reattach the map, it will be visible again,
 // because the containing <div> is recreated in the overlay's onAdd() method.
@@ -169,6 +184,7 @@ MMoverlay.prototype.toggleDOM = function() {
 		this.setMap(this.map_);    //draw() will be run automatically
 	}
 };
+*/
 MMoverlay.prototype.clearTempMarker = function (){
 	this._marker.setMap(null);
 	this._marker.setPosition(null);	

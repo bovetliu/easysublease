@@ -552,7 +552,7 @@ $(document).ready( function() {
 			});
 			
 
-			//add logic to "StartDate" input
+			//add logic to "StartDate" input, this can use Epoxy
 			class_ref.$("#ipt-startdate-tr-srch").change( function() {
 				if (class_ref.$("#ipt-startdate-tr-srch").val() != "") {  
 				  //console.log("temp check 565");                            
@@ -563,7 +563,7 @@ $(document).ready( function() {
 				}
 			});	
 
-			//add logic to "EndDate" input
+			//add logic to "EndDate" input, this can use Epoxy
 			class_ref.$("#ipt-enddate-tr-srch").change( function() {
 				if (class_ref.$("#ipt-enddate-tr-srch").val() != "") {                              
 					EasySubOrg.RIDE.reg_of_cu.set("depart_date_hb", class_ref.$("#ipt-enddate-tr-srch").val()  );
@@ -675,8 +675,8 @@ $(document).ready( function() {
 		//topLevelChangeToRideMode();
 		if (  EasySubOrg.MAP.cu_01.get('work_mode') != "travel-mode") { 
 			//console.log( "top##"+JSON.stringify(EasySubOrg.RIDE.reg_of_cu));	
-			EasySubOrg.MAP.cu_01.set('work_mode', "travel-mode");//console.log("598");
-			EasySubOrg.INFO.info_div_reg.set('info_div_purpose','default');
+			EasySubOrg.MAP.cu_01.set('work_mode', "travel-mode");// who is listen to this
+			EasySubOrg.INFO.info_div_reg.set('info_div_purpose','default');  // listenedBy info_view_01
 			
 			hightlightTitle( "travel-control-div");
 			$("#rental-search-slot").hide();
@@ -684,7 +684,7 @@ $(document).ready( function() {
 			EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')._marker.setMap(null); // clear the marker of right-click overlay
 		}
 	});		
-	console.log("end of document ready at es_page_interaction.js");	
+	console.log("......end of $(document).ready(...) at es_page_interaction.js");	
 });  // #### END of $(document).ready( ...   );######
 
 

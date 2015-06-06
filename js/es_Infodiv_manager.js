@@ -36,11 +36,11 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 
 	toggle_about : function () {
 		if (!this.model.get('bShowingAbout')) {
-			this.bShowingAbout = true;
+			this.model.set('bShowingAbout', true);
 			this.jq_about_panel.show();
 		}
 		else {
-			this.bShowingAbout = false;
+			this.model.set('bShowingAbout',false)
 			this.jq_about_panel.hide();
 		}
 	},
@@ -60,20 +60,20 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 		switch ( modeliteral ) {
 			case "rental_form":
 				left = '70%';
-				EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
+				//EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
 				ClassRef.show('#rental-form-slot');
 				ClassRef.$el.addClass("input-group-dimension-control");	
 				break
 			case "ride_form":
 				left = '70%';
-				EasySubOrg.RIDE.cu_01.get('_control_panel').show();
+				///EasySubOrg.RIDE.cu_01.get('_control_panel').show();
 				ClassRef.show('#ride-form-slot');
 				ClassRef.$el.addClass("input-group-dimension-control");	
 				break
 			case "ride_result":
 				width = '60%';
 				left = '40%';
-				EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
+				//EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
 				ClassRef.show('#ride-results-slot');
 				ClassRef.$el.removeClass("input-group-dimension-control");
 				this.model.set("bAnimate",true);	
@@ -81,10 +81,10 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 			default:
 				width = "30%";
 				left = "100%"
-				EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
+				//EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
 				ClassRef.show('#rental-form-slot');
 				ClassRef.$el.addClass("input-group-dimension-control");
-				console.log( "info div default mode");
+				//console.log( "info div default mode");
 		} // end of switch
 		// start animation part
 		if ($("#info-div")){   //info-div

@@ -77,6 +77,9 @@ var MAP_CU = Backbone.Model.extend({  //EasySubOrg.MAP.cu_01
 		
 		this.set('map',  new google.maps.Map(  $('#map-div')[0],this.get('map_options') )); 
 		this.trigger("mapStarted"); 
+	},
+	initialize : function () {
+		console.log("init() of MAP_CU");
 	}
 	
 });
@@ -264,7 +267,7 @@ var MAP_RENDER = Backbone.Model.extend({
 	renderRentalResults : function () {  //once the model has change at rental_search_result, this will be called
 		//just a placeholder
 		if( !this.get('model').isMapReady()){
-			console.log("Warn: entered EasySubOrg.MAP.render_01.renderRentalResults() when map is NOT ready ");
+			console.log("WARN: entered EasySubOrg.MAP.render_01.renderRentalResults() when map is NOT ready ");
 		}
 		var ClassRef = this;
 		ClassRef.deleteMarkers(); //clear previous marker for next rendering
@@ -323,7 +326,7 @@ var MAP_RENDER = Backbone.Model.extend({
 	},
 	
 	initialize :function () {
-		console.log("init() MAP_RENDER");
+		console.log("init() of MAP_RENDER");
 		this.listenTo( this.get('model'), 'change:travel_search_result', this.renderRideResults);	
 		this.listenTo( this.get('model'), 'change:rental_search_result', this.renderRentalResults);	
 		this.listenTo( this.get('model'), 'change:work_mode', this.updateSetting );
@@ -360,7 +363,7 @@ function mapInitialize () {
 	
 	
 	var listener_map_right_click  = google.maps.event.addListener(temp_map, 'rightclick', function(event) {  //rclk_menu_overlay
-		//alert("rclk"); // for debug
+
 		if (cu_01.get("work_mode") == "default"){
 			cu_01.get('rclk_menu_overlay').draw2(event.latLng); 
 			cu_01.get('rclk_menu_overlay').toggleOn();
