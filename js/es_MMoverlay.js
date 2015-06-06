@@ -214,13 +214,7 @@ MMoverlay.prototype.redirect_func = function (latLng, num){
 	if (EasySubOrg.RENTAL.rf_cu_01.get('cat') != num ) {
 		alert (" es_MMoverlay.js: write rf_cu_01 failed!");
 	}
-	
-	/*
-	var temp_rf_view = EasySubOrg.RENTAL.rf_view_01;
-	temp_rf_view.$('#ipt-lat').val( latLng.lat().toString());
-	temp_rf_view.$('#ipt-lng').val( latLng.lng().toString());
-	temp_rf_view.$('#num-catagory').val( num);
-	*/
+	EasySubOrg.INFO.info_div_reg.set("info_div_purpose","rental_form");
 	console.log("redirect_func");
 }
 // [END region_hideshow]

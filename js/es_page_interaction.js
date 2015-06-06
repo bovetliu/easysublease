@@ -661,7 +661,7 @@ $(document).ready( function() {
 	$("#title-housing").click ( function() {
 		if (  EasySubOrg.MAP.cu_01.get('work_mode') != "default") {
 			console.log("enter default mode"); 
-			EasySubOrg.INFO.info_div_reg.set('info_div_purpose', 'rental_form');
+			EasySubOrg.INFO.info_div_reg.set('info_div_purpose', 'default');
 			$("#rental-search-slot").show();
 			$("#travel-search-slot").hide();
 			hightlightTitle( "title-housing");
@@ -672,7 +672,17 @@ $(document).ready( function() {
 	
 	$("#travel-control-div").click (  function ()  {    // $("#travel-control-div") is among static parts of index.php
 		console.log("#travel-control-div clicked");
-		topLevelChangeToRideMode();
+		//topLevelChangeToRideMode();
+		if (  EasySubOrg.MAP.cu_01.get('work_mode') != "travel-mode") { 
+			//console.log( "top##"+JSON.stringify(EasySubOrg.RIDE.reg_of_cu));	
+			EasySubOrg.MAP.cu_01.set('work_mode', "travel-mode");//console.log("598");
+			EasySubOrg.INFO.info_div_reg.set('info_div_purpose','default');
+			
+			hightlightTitle( "travel-control-div");
+			$("#rental-search-slot").hide();
+			$("#travel-search-slot").show();
+			EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')._marker.setMap(null); // clear the marker of right-click overlay
+		}
 	});		
 	console.log("end of document ready at es_page_interaction.js");	
 });  // #### END of $(document).ready( ...   );######
@@ -683,19 +693,11 @@ $(document).ready( function() {
 
 
 //these several global function serve as utilities
-function  topLevelChangeToRideMode () {
+//function  topLevelChangeToRideMode () {
 		
-	if (  EasySubOrg.MAP.cu_01.get('work_mode') != "travel-mode") { 
-		//console.log( "top##"+JSON.stringify(EasySubOrg.RIDE.reg_of_cu));	
-		EasySubOrg.MAP.cu_01.set('work_mode', "travel-mode");//console.log("598");
-		EasySubOrg.INFO.info_div_reg.set('info_div_purpose','ride_form');
-		hightlightTitle( "travel-control-div");
-		$("#rental-search-slot").hide();
-		$("#travel-search-slot").show();
-		EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')._marker.setMap(null); // clear the marker of right-click overlay
-	}
+
 		
-}
+//}
 
 
 function  hightlightTitle (ID){

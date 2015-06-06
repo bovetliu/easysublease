@@ -77,11 +77,14 @@ $(document).ready( function() {
 
 					crossDomain:true,
 					success: function(data, status){ 
-						if (data.msg == "error"){
+						if (data.n == 0){
 							console.log("falied to set target expired." );
-						} else if (data.msg == "success") {
+						} else if (data.n == 1) {
 							console.log("successfully set target expired.")
 							EasySubOrg.MAP.cu_01.set('to_be_set_expired',"");
+						}
+						else{
+							console.log(data);
 						}	
 						//EasySubOrg.MAP.cu_01.set('to_be_set_expired',"");		 
 					},	

@@ -295,7 +295,7 @@ last-child {
 #map-div{
 	float:left;
 	display:block;
-	width:70%;
+	width:100%;
 	height:89%;
 	z-index:0;
 	overflow:scroll;
@@ -320,7 +320,7 @@ last-child {
 
 .info-div-results-style{
 	position: absolute;	
-	left:70%;
+	left:100%;
 	background-color:#FFF;
 	/*width:60%;*/
 }

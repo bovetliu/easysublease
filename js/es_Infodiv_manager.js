@@ -71,10 +71,8 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 				ClassRef.$el.addClass("input-group-dimension-control");	
 				break
 			case "ride_result":
-				if (this.model.get("bAnimate")) {
-					width = '60%';
-					left = '40%';
-				}
+				width = '60%';
+				left = '40%';
 				EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
 				ClassRef.show('#ride-results-slot');
 				ClassRef.$el.removeClass("input-group-dimension-control");
@@ -82,7 +80,7 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 				break
 			default:
 				width = "30%";
-				left = "70%"
+				left = "100%"
 				EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
 				ClassRef.show('#rental-form-slot');
 				ClassRef.$el.addClass("input-group-dimension-control");
