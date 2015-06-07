@@ -39,7 +39,7 @@ var OverLayMenu = Backbone.View.extend({
 	/*this should be utility function of toggleOn*/
 	correctRefPoint:function (pixel, new_center){
 
-		console.log( "sent in pixel" + pixel.x + " " + pixel.y +" x0:" + this.model.get("x0") + " y0:" + this.model.get("y0") );  // 
+		//console.log( "sent in pixel" + pixel.x + " " + pixel.y +" x0:" + this.model.get("x0") + " y0:" + this.model.get("y0") );  // 
 		var new_vecter =  this.overlay.getProjection().fromLatLngToDivPixel(new_center);
 		var xd = new_vecter.x - this.model.get("x0");
 		var yd = new_vecter.y - this.model.get("y0");
@@ -178,8 +178,6 @@ var OverLayMenu = Backbone.View.extend({
 		console.log("init() of OverLayMenu");
 		var ClassRef = this;
 		var map = EasySubOrg.MAP.cu_01.get('map');
-		
-
 		this.overlay = new MMoverlay( map); 
 
 		this.compiledMappingFunc = (function() {
@@ -238,7 +236,7 @@ MMoverlay.prototype.draw = function() {  //overwritten
 	div.style.borderStyle = 'solid';
 	div.style.borderWidth = '2px';
 	div.style.borderColor = "#000";
-	div.style.visibility = 'visible';
+	div.style.visibility = 'hidden';
 
 	// fromLatLngToDivPixel finished
 };
