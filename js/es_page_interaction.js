@@ -266,7 +266,7 @@ $(document).ready( function() {
 			//this.$('#num-catagory').val( ClassRef.associate_array2[ id_of_li] ); // hidden input filling  // to be deprecated
 			this.model.set('cat', ClassRef.associate_array2[ id_of_li] );
 			ClassRef.$('#btn-caption-cat').html( "Catagory: "+  ClassRef.$('#'+id_of_li).html())// document.getElementById(string2).firstChild.innerHTML )
-			console.log("es_page_interaction.js: RentalFormView.model: " + JSON.stringify(this.model) );
+			//console.log("es_page_interaction.js: RentalFormView.model: " + JSON.stringify(this.model) );
 		},
 		
 		clearInput : function() {

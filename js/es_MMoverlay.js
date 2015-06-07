@@ -38,11 +38,11 @@ var OverLayMenu = Backbone.View.extend({
 	},
 	/*this should be utility function of toggleOn*/
 	correctRefPoint:function (pixel, new_center){
+
+		console.log( "sent in pixel" + pixel.x + " " + pixel.y +" x0:" + this.model.get("x0") + " y0:" + this.model.get("y0") );  // 
 		var new_vecter =  this.overlay.getProjection().fromLatLngToDivPixel(new_center);
 		var xd = new_vecter.x - this.model.get("x0");
 		var yd = new_vecter.y - this.model.get("y0");
- 
-
 		pixel.y = pixel.y + $("#title-big-div").height() + $("div.search-div").height() - yd;
 		pixel.x = pixel.x- xd;
 		//console.log([$("#title-big-div").height() , $("div.search-div").height()]);
@@ -189,6 +189,15 @@ var OverLayMenu = Backbone.View.extend({
 
 		this.fillMenuDiv(); // compensate for missing first-time work_mode change 
 		this.listenTo(EasySubOrg.MAP.cu_01,'change:work_mode', this.fillMenuDiv); // when this one invoked, the first time work_mode change event has already happened
+		_.delay(function(){
+			var map = EasySubOrg.MAP.cu_01.get('map');
+			ClassRef.fromLatLngToDivPixel = function (latLng) {
+				return ClassRef.overlay.getProjection().fromLatLngToDivPixel(latLng);
+			};
+			ClassRef.model.set({"x0": ClassRef.fromLatLngToDivPixel(map.getBounds().getNorthEast()).x , "y0": ClassRef.fromLatLngToDivPixel(map.getBounds().getNorthEast()).y} );
+			console.log("reference vector:" + [ClassRef.model.get("x0"), ClassRef.model.get("y0")].toString());
+			//console.log([temp_overlay.model.get("x0"), temp_overlay.model.get("y0")]);
+		},200);
 	}
 }); // instance will be added at es_mapinteraction.js, it is EasySubOrg.MAP.cu_01.get('rclk_menu_overlay');
 
@@ -232,12 +241,4 @@ MMoverlay.prototype.draw = function() {  //overwritten
 	div.style.visibility = 'visible';
 
 	// fromLatLngToDivPixel finished
-	var temp_overlay = EasySubOrg.MAP.cu_01.get('rclk_menu_overlay');
-	var map = EasySubOrg.MAP.cu_01.get('map');
-	temp_overlay.fromLatLngToDivPixel = function (latLng) {
-		return temp_overlay.overlay.getProjection().fromLatLngToDivPixel(latLng) 
-	}
-	temp_overlay.model.set({"x0": temp_overlay.fromLatLngToDivPixel(map.getBounds().getNorthEast()).x , "y0": temp_overlay.fromLatLngToDivPixel (map.getBounds().getNorthEast()).y} );
-	console.log("reference vector:" + [temp_overlay.model.get("x0"), temp_overlay.model.get("y0")].toString());
-	//console.log([temp_overlay.model.get("x0"), temp_overlay.model.get("y0")]);
 };
