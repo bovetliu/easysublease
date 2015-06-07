@@ -250,7 +250,7 @@ last-child {
 }
 /*Travel form ends*/
 
-
+/*I put style definition of gadgets at here*/
 /* travel control panel div */
 #travel-control-panel {
 	position: absolute;
@@ -268,6 +268,7 @@ last-child {
 #travel-control-panel:hover {
 	background-color: #F0F0F0;
 }
+/* end of travel control panel div*/
 
 #about-panel{
 	position: absolute;
@@ -275,7 +276,7 @@ last-child {
 	left:10%;
 	width:80%;
 	height:80%;
-	z-index:11;
+	z-index:1;
 	padding:10px;
 	background-color: #fff;
 	border: 1px solid #999;	
@@ -284,8 +285,41 @@ last-child {
 	overflow: auto;
 }
 
-/* end of travel control panel div*/
-/**/
+#menu-panel{
+	border: 1px solid #BBB;	
+	background-color:#fff; 
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 0px;
+	cursor: default;
+	display: none;  /*at beginning this one cannot be shown*/
+	font-family: Roboto, Arial, sans-serif;
+	height: 87px;
+	left: 187px; /*temp*/
+	padding-bottom: 6px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 6px;
+	position: absolute;
+	top: 159px;
+	width: 178px;
+	z-index: 1;
+}
+#menu-panel> div {
+	color: rgb(51, 51, 51);
+	cursor: pointer;
+	display: block;
+	font-family: Roboto, Arial, sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	height: 25px;
+	padding-bottom: 4px;
+	padding-left: 16px;
+	padding-top: 4px;
+	position: relative;
+}
+#menu-panel> div:hover {
+	background-color: #f1f1f1;
+}
+/*### END of gadgets area####*/
 /**/
 
 .poped-up-a{

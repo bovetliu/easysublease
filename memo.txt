@@ -10,57 +10,22 @@ University of Michigan, Ann Arbor, MI
 University of Texas, Austin
 
 
+to be implemented:
 
-the computed css of #context-menu:div inside #hovercard:div
-background-attachment: scroll;
-background-clip: border-box;
-background-color: rgb(255, 255, 255);
-background-image: none;
-background-origin: padding-box;
-background-size: auto;
-border-bottom-color: rgba(0, 0, 0, 0.2);
-border-bottom-style: solid;
-border-bottom-width: 1px;
-border-image-outset: 0px;
-border-image-repeat: stretch;
-border-image-slice: 100%;
-border-image-source: none;
-border-image-width: 1;
-border-left-color: rgba(0, 0, 0, 0.2);
-border-left-style: solid;
-border-left-width: 1px;
-border-right-color: rgba(0, 0, 0, 0.2);
-border-right-style: solid;
-border-right-width: 1px;
-border-top-color: rgba(0, 0, 0, 0.2);
-border-top-style: solid;
-border-top-width: 1px;
-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 0px;
-cursor: default;
-display: block;
-font-family: Roboto, Arial, sans-serif;
-height: 125px;
-left: 561px;
-margin-bottom: 0px;
-margin-left: 0px;
-margin-right: 0px;
-margin-top: 0px;
-max-width: 265px;
-outline-color: rgb(0, 0, 0);
-outline-style: none;
-outline-width: 0px;
-padding-bottom: 6px;
-padding-left: 0px;
-padding-right: 0px;
-padding-top: 6px;
-position: fixed;
-top: 58px;
-transform: matrix(1, 0, 0, 1, 0, 0);
-white-space: nowrap;
-width: 177.953125px;
-z-index: 1;
+hide
 
+show
 
+toggle (latLng)
 
+clearTempMarker
+
+setTempMarker
+
+redirect 
+	setTempMarker
+	Rental.rf_cu_01 set
+		some updating
+	info_div_purpose
 
 

@@ -44,7 +44,6 @@
       </div>
       <!-- end of #title-big-div-->
       <div class = "search-div">
-        
         <div id = "rental-search-slot">
           <ul>
             <li>price per bed
@@ -138,16 +137,20 @@
         <div id = "sql-bash">
         </div>
       </div>
-      <!--<div class = "search-div">-->
-      <div id = "travel-control-panel">
-        plan route using Google service
+      <!-- end of <div class = "search-div">-->
+      <div class ="gadgets-container">
+        <div id = "travel-control-panel">
+          plan route using Google service
+        </div>
+        <div  id = "about-panel">
+          About will be shown here
+        </div>
+
+        <div id = "menu-panel" ></div> <!--the container of right click menu-->
+      </div> 
+      <div id = "map-div" > <!--this is where map is put in-->
       </div>
-      <div  id = "about-panel">
-        About will be shown here
-      </div>
-      <div id = "map-div" >
-      </div>
-      <!--this is where map is put in-->
+      
       
       <div id = "info-div" class="input-group-dimension-control info-div-results-style">
         <div  id = "rental-form-slot">
@@ -311,7 +314,20 @@
     <script src="js/es_utilities.js" type="text/javascript" ></script> 
     <script src="js/es_Infodiv_manager.js" type="text/javascript"></script> 
     
-    <!--temmplate--><!--location, cat, url_str, memo, id--> 
+    <div style=""></div>
+
+    <!--template-->
+    <!--following menu-template will receive html_content_ar as argument-->
+    <script type="text/template" id="menu-template">
+
+    <%_.each(html_content_ar, function (element, index, list) {%>
+      <div class="menu-option-div">
+        <%=element%>
+      </div>
+    <%});%>
+    
+    </script>
+      <!--location, cat, url_str, memo, id--> 
     <script type="text/template" id="marker-infowindow-template">  
 			<p style="font-weight:normal;"> 
 				click to check  <a href= "<%= source %>" target="_blank">source</a>

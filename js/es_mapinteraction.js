@@ -1,17 +1,17 @@
 // JavaScript DocumentEasySubOrg.UTILITIES.json_data_layer_bus_routes = 'js/bus_routes.json';
 EasySubOrg.createNS("EasySubOrg.MAP");
 // EasySubOrg.MAP.CONTROL_UNIT should be an extended Backbone model
-var MAP_CU = Backbone.Model.extend({  //EasySubOrg.MAP.cu_01
+var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	defaults:function(){
 		return {
 			data_layer_bus_routes:'js/bus_routes.json',
 			home_LatLng: new google.maps.LatLng(30.620600000000003, -96.32621),
 			test_LatLng: new google.maps.LatLng(30.618418, -96.327086),
 			rclk_menu_overlay: null,  // EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')placeholder
-			map_options:{ zoom: 14, center: new google.maps.LatLng(30.624013, -96.316689) },
+			map_options:{ draggingCursor:"move",draggableCursor:"auto" , zoom: 14, center: new google.maps.LatLng(30.624013, -96.316689) },
 			map:null, //EasySubOrg.MAP.cu_01.get('map')
 			work_mode:"default",   //EasySubOrg.MAP.cu_01.get('work_mode')
-			//rclk_menu_overlay:null,
+			// work_mode is listened by right-click-menu
 			
 			rental_search_result:[],  // this one will take something like following array of object(s)
 			//[{"_id":"556a5ec57ca147a019edc654","lat":30.65526502275242,"lng":-96.27568244934082,"beds":2,"baths":1.5,"price_single":null,
@@ -345,8 +345,8 @@ function mapInitialize () {
 	var cu_01 = EasySubOrg.MAP.cu_01;
 	cu_01.mapStart();// I move mapStart() to es_page_interaction.js
 	temp_map = cu_01.get("map"); // this method must be run after page loaded
-	cu_01.set('rclk_menu_overlay' , new MMoverlay(temp_map));  //require es_MMoverlay.js 
-	
+	cu_01.set('rclk_menu_overlay' , new OverLayMenu ( {model:EasySubOrg.MENU.reg})  );  //require es_MMoverlay.js 
+	//EasySubOrg.MENU.overlay_menu_01 = new OverLayMenu ( {model:EasySubOrg.MENU.reg});
 	
 	/*
 	home_marker = new google.maps.Marker({
@@ -361,17 +361,17 @@ function mapInitialize () {
 	} );   
 	*/
 	
-	
+	/*use right click on map*/
 	var listener_map_right_click  = google.maps.event.addListener(temp_map, 'rightclick', function(event) {  //rclk_menu_overlay
 
-		if (cu_01.get("work_mode") == "default"){
-			cu_01.get('rclk_menu_overlay').draw2(event.latLng); 
-			cu_01.get('rclk_menu_overlay').toggleOn();
-		}
-		else if (cu_01.get("work_mode") == "travel-mode") {
-
-			EasySubOrg.MAP.render_01.addNextOriDes (event.latLng);
-		}
+		//if (cu_01.get("work_mode") == "default"){
+			//cu_01.get('rclk_menu_overlay').draw2(event.latLng); 
+			//cu_01.get('rclk_menu_overlay').toggleOn(event.latLng);
+		//}
+		//else if (cu_01.get("work_mode") == "travel-mode") {
+			cu_01.get('rclk_menu_overlay').toggleOn(event.latLng);
+			//EasySubOrg.MAP.render_01.addNextOriDes (event.latLng);
+		//}
 	});
 	var listener_map_click = google.maps.event.addListener(temp_map, 'click', function(event) {
 		//alert("lclk"); // for debug
@@ -396,16 +396,18 @@ function mapInitialize () {
 	}); 
   // [END snippet-style]	
 	var listener_data_click = temp_map.data.addListener('click', function(event) {
-		console.log("clicked heared");
+		console.log("left clicked on data  heared");
 		//document.getElementById('txtHint').innerHTML = 
 		$('#txtHint').html( event.feature.getProperty('name')  + " is left clicked");
-		tempstr = null;
+		var tempstr = null;
 		
 		if (event.feature.getProperty('catagory') != null) {  //use this to determine whether this feature is one already-gen data, or to be gen
 			var idarray = event.feature.getProperty('idarray');
 			//alert(idarray);
 			tempstr = mapcc1.extractInformation(idarray) ;
+			if (!tempstr) alert("dashibuhao");
 		}
+		console.log([event.latLng, tempstr])
 		EasySubOrg.RIDE.cu_01.confirmRoute( event.latLng, tempstr);
 	});
 

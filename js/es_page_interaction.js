@@ -152,7 +152,7 @@ var RIDE_CONTROL_UNIT = Backbone.Model.extend({
 	* move values to hidden inputs, waiting for ajax POST   EasySubOrg.RIDE.cu_01.confirmRoute(  latLng, infostr)
 	*/
 	confirmRoute : function( latLng, infostr){
-		if (latLng != null && infostr != null) {  
+		if (latLng != null || infostr != null) {  
 			this.get('_infowindow').setContent(infostr); 
 			this.get('_infowindow').setPosition(latLng);
 			this.get('_infowindow').open(EasySubOrg.MAP.cu_01.get('map'));
@@ -266,7 +266,7 @@ $(document).ready( function() {
 			//this.$('#num-catagory').val( ClassRef.associate_array2[ id_of_li] ); // hidden input filling  // to be deprecated
 			this.model.set('cat', ClassRef.associate_array2[ id_of_li] );
 			ClassRef.$('#btn-caption-cat').html( "Catagory: "+  ClassRef.$('#'+id_of_li).html())// document.getElementById(string2).firstChild.innerHTML )
-			console.log("es_page_interaction.js: this.model: " + JSON.stringify(this.model) );
+			console.log("es_page_interaction.js: RentalFormView.model: " + JSON.stringify(this.model) );
 		},
 		
 		clearInput : function() {
@@ -301,7 +301,7 @@ $(document).ready( function() {
 				crossDomain:true,
 				success: function(){ 
 					console.log("es_page_interaction.js: successfully posted data");
-					EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').clearTempMarker();
+					EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').clearProperties();  // changed
 					ClassRef.clearInput();
 					ClassRef.resetModel();
 					EasySubOrg.comm_unit.getForRentalSearch();
@@ -578,6 +578,7 @@ $(document).ready( function() {
 				class_ref.requestSearchResult(); //travel get("normal") and render results
 				console.log("after ClassRef.requestSearchResult()");
 			});
+			
 			this.$("#ipt-startdate-tr-srch").datepicker();  // set #ipt-date-tr as date-picker
 			this.$("#ipt-enddate-tr-srch").datepicker();  // set #ipt-date-tr as date-picker	
 			console.log( "init() of RideSearchView()");	
