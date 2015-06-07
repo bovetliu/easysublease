@@ -209,6 +209,7 @@ function MMoverlay( map) {
 }
 /*member methods*/
 MMoverlay.prototype.onAdd = function() {   //overwritten		
+	console.log("onAdd()");
 	var div = document.createElement('div');
 
 	this.div_ = div;
