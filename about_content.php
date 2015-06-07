@@ -21,6 +21,6 @@
     Python Beautifulsoup package will be used for info extraction and organizing. Hoping that Solr search engine would be applied at end of year 2015. Client-site scripts have been written using Backbone.js. Server-side scripts have changed to (MongoDB+Node.js) from (php and MySQL).
     I am attempting to realize one single-page-application(SAP) that is RESTFUL and is capable of handling high concurrency user behaviour at minimum cost, a cost which is completely affordable to one common gradaute student. 
   </p>
-  developper: bovet@TAMU <br>
+  developer: bovet@TAMU <br>
   bowei_liu@ymail.com
 </div>
