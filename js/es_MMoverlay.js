@@ -5,11 +5,7 @@ EasySubOrg.MENU.reg = new Backbone.Model({
 	left:0,
 	width:178,
 	height:0,
-	latLng:null,
-
-	x0:null,
-	y0:null,
-
+	latLng:null
 });
 
 var OverLayMenu = Backbone.View.extend({ 
@@ -38,14 +34,7 @@ var OverLayMenu = Backbone.View.extend({
 	},
 	/*this should be utility function of toggleOn*/
 	correctRefPoint:function (pixel, new_center){
-
-		//console.log( "sent in pixel" + pixel.x + " " + pixel.y +" x0:" + this.model.get("x0") + " y0:" + this.model.get("y0") );  // 
-		var new_vecter =  this.overlay.getProjection().fromLatLngToDivPixel(new_center);
-		var xd = new_vecter.x - this.model.get("x0");
-		var yd = new_vecter.y - this.model.get("y0");
-		pixel.y = pixel.y + $("#title-big-div").height() + $("div.search-div").height() - yd;
-		pixel.x = pixel.x- xd;
-		//console.log([$("#title-big-div").height() , $("div.search-div").height()]);
+		pixel.y = pixel.y + $("#title-big-div").height() + $("div.search-div").height();
 		return pixel;
 	},
 	
@@ -54,9 +43,7 @@ var OverLayMenu = Backbone.View.extend({
 	updateRegs:function(latLng, new_center){
 		if (!latLng) { alert("updateRegs takes invalid argument");}
 		//var projection = this.overlay.getProjection();
-		var lefttop_pixel = this.correctRefPoint(  this.overlay.getProjection().fromLatLngToDivPixel(latLng) , new_center ); // convert latLng into screen position,
-		
-		//console.log(lefttop_pixel.x, lefttop_pixel.y );
+		var lefttop_pixel = this.correctRefPoint(  this.overlay.getProjection().fromLatLngToContainerPixel(latLng), new_center ); // convert latLng into screen position,
 		this.model.set({
 			"latLng": latLng,
 			"top":lefttop_pixel.y,
@@ -107,7 +94,7 @@ var OverLayMenu = Backbone.View.extend({
 	},
 	toggleOff: function( latLng , new_center) {
 		if (!latLng) { alert("toggleOff takes invalid argument"); } 
-		var lefttop_pixel =  this.correctRefPoint( this.overlay.getProjection().fromLatLngToDivPixel(latLng), new_center); 
+		var lefttop_pixel =  this.correctRefPoint(this.overlay.getProjection().fromLatLngToContainerPixel(latLng), new_center); 
 		if (! this.pointInMenuDom(lefttop_pixel)) { this.$el.hide(); }
 	},
 
@@ -184,22 +171,11 @@ var OverLayMenu = Backbone.View.extend({
 			if ( $('#menu-template').html() ) { return _.template( $('#menu-template').html() ); }
 			else { alert("#menu-template DOM not ready, compiledMappingFunc will be null"); return null; }
 		})();
-
 		this.fillMenuDiv(); // compensate for missing first-time work_mode change 
 		this.listenTo(EasySubOrg.MAP.cu_01,'change:work_mode', this.fillMenuDiv); // when this one invoked, the first time work_mode change event has already happened
-		_.delay(function(){
-			var map = EasySubOrg.MAP.cu_01.get('map');
-			ClassRef.fromLatLngToDivPixel = function (latLng) {
-				return ClassRef.overlay.getProjection().fromLatLngToDivPixel(latLng);
-			};
-			ClassRef.model.set({"x0": ClassRef.fromLatLngToDivPixel(map.getBounds().getNorthEast()).x , "y0": ClassRef.fromLatLngToDivPixel(map.getBounds().getNorthEast()).y} );
-			console.log("reference vector:" + [ClassRef.model.get("x0"), ClassRef.model.get("y0")].toString());
-			//console.log([temp_overlay.model.get("x0"), temp_overlay.model.get("y0")]);
-		},200);
+		this.listenTo(EasySubOrg.MAP.cu_01,'map_viewport_changed', function () { ClassRef.$el.hide() });
 	}
 }); // instance will be added at es_mapinteraction.js, it is EasySubOrg.MAP.cu_01.get('rclk_menu_overlay');
-
-
 /*
 	This is one class, representing the right-clicked generated white small box, google itself did not inherit OverlayView class
 */
@@ -231,11 +207,6 @@ MMoverlay.prototype.draw = function() {  //overwritten
 	var div = this.div_;
 	div.style.left = '50px';
 	div.style.top = '50px';
-	div.style.width = '10px';
-	div.style.height = '10px';
-	div.style.borderStyle = 'solid';
-	div.style.borderWidth = '2px';
-	div.style.borderColor = "#000";
 	div.style.visibility = 'hidden';
 
 	// fromLatLngToDivPixel finished

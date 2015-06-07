@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"_",
+				"_temp_infowindow"
+			],
+			[
+				"new",
+				"new_center"
+			],
+			[
+				"cla",
+				"ClassRef"
+			],
+			[
+				"latLng",
+				"latLng"
+			],
+			[
+				"get",
+				"getProjection"
+			],
+			[
 				"border",
 				"borderColor"
 			],
@@ -163,7 +183,7 @@
 			"file": "js/es_MMoverlay.js",
 			"settings":
 			{
-				"buffer_size": 13993,
+				"buffer_size": 8809,
 				"line_ending": "Unix"
 			}
 		},
@@ -187,7 +207,7 @@
 			"file": "js/es_page_interaction.js",
 			"settings":
 			{
-				"buffer_size": 29849,
+				"buffer_size": 29851,
 				"line_ending": "Unix"
 			}
 		},
@@ -195,7 +215,7 @@
 			"file": "js/es_mapinteraction.js",
 			"settings":
 			{
-				"buffer_size": 57954,
+				"buffer_size": 58079,
 				"line_ending": "Unix"
 			}
 		}
@@ -273,6 +293,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"x0",
+			"updateRegs",
 			"OverLayMenu",
 			"getForRideSearch",
 			"requestSearchResult",
@@ -372,8 +394,8 @@
 						"selection":
 						[
 							[
-								6847,
-								6847
+								5867,
+								5867
 							]
 						],
 						"settings":
@@ -381,10 +403,10 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 5266.0,
+						"translation.y": 4042.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -393,15 +415,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13993,
+						"buffer_size": 8809,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1393,
-								1393
+								7603,
+								7603
 							]
 						],
 						"settings":
@@ -410,7 +432,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 302.0,
+						"translation.y": 3024.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -442,7 +464,7 @@
 						"translation.y": 969.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -458,8 +480,8 @@
 						"selection":
 						[
 							[
-								1880,
-								1880
+								1707,
+								1707
 							]
 						],
 						"settings":
@@ -469,10 +491,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 459.0,
+						"translation.y": 255.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -481,15 +503,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 29849,
+						"buffer_size": 29851,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								27118,
-								27118
+								11734,
+								11734
 							]
 						],
 						"settings":
@@ -498,10 +520,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 11226.0,
+						"translation.y": 2905.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -510,15 +532,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 57954,
+						"buffer_size": 58079,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								15138,
-								15138
+								15784,
+								15784
 							]
 						],
 						"settings":
@@ -527,10 +549,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 12102.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]

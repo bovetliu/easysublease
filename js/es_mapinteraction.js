@@ -360,18 +360,17 @@ function mapInitialize () {
 		infowindow_home.open(map_cs, home_marker);
 	} );   
 	*/
-	
+	google.maps.event.addListener (temp_map, 'zoom_changed' ,function(){ 
+		//console.log("es_mapinteraction: zoom_changed");
+		cu_01.trigger("map_viewport_changed");
+	});
+	google.maps.event.addListener (temp_map, 'dragstart' ,function(){ 
+		//console.log("es_mapinteraction: dragstart");
+		cu_01.trigger("map_viewport_changed");
+	});
 	/*use right click on map*/
 	var listener_map_right_click  = google.maps.event.addListener(temp_map, 'rightclick', function(event) {  //rclk_menu_overlay
-
-		//if (cu_01.get("work_mode") == "default"){
-			//cu_01.get('rclk_menu_overlay').draw2(event.latLng); 
-			//cu_01.get('rclk_menu_overlay').toggleOn(event.latLng);
-		//}
-		//else if (cu_01.get("work_mode") == "travel-mode") {
 			cu_01.get('rclk_menu_overlay').toggleOn(event.latLng,  EasySubOrg.MAP.cu_01.get('map').getBounds().getNorthEast() );
-			//EasySubOrg.MAP.render_01.addNextOriDes (event.latLng);
-		//}
 	});
 	var listener_map_click = google.maps.event.addListener(temp_map, 'click', function(event) {
 		//alert("lclk"); // for debug
@@ -380,13 +379,11 @@ function mapInitialize () {
 	
   // [START snippet-load]
   // Load GeoJSON.
-
   temp_map.data.loadGeoJson(cu_01.get("data_layer_bus_routes") );  //'js/bus_routes.json'
   // [END snippet-load]
  
   // [START snippet-style]
   // Set the stroke width, and fill color for each polygon
-	
 	temp_map.data.setStyle(function(feature) {
 		return ({                                   ///@type {google.maps.Data.StyleOptions} 
 		strokeColor: feature.getProperty('strokeColor'),
@@ -420,7 +417,6 @@ function mapInitialize () {
 			EasySubOrg.MAP.render_01.addMarker(event.latLng,6, null,null,null,true);  //function(location, cat, url_str, memo, id, draggable)
 		}
 	});	
-
 
 	/*tb plase*/
 	debug = false;
@@ -506,10 +502,7 @@ function mapInitialize () {
 			}
 			else {  console.log( "A2 is NOT in seg2 bounds");	 }
 		}
-  
-	//console.log( tenTo52.tenInto52(12312));  //successful;
-	//console.log(tenTo52.ftInto10(tenTo52.tenInto52(12312))); // test successful
-	//console.log( tenTo52.ftInto10(tenTo52.ftOp( "i]E", "+", 5) )  ); // test successful
+
 	}// tb end		
 } // end of mapInitialize()
 google.maps.event.addDomListener(window, 'load', mapInitialize);   ///initialize is the last one to be executed
@@ -518,8 +511,6 @@ google.maps.event.addDomListener(window, 'load', mapInitialize);   ///initialize
 
 
 ///////////////////////////////////
-
-
 origin = new google.maps.LatLng(0,0);
 
 //constructor of this MapNode
