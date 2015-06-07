@@ -173,12 +173,12 @@ $(document).ready( function() {
 		initialize: function() {
 			// listen to several models, and retrieve data from server and feedback data to MAP_RENDER,	
 			//this.listenTo( EasySubOrg.RENTAL.rs_cu_01, 'change', this.getForRentalSearch);  // router will handle this
+			console.log("init() of COMMUNICATION_UNIT");		
 			this.listenTo( EasySubOrg.MAP.cu_01, 'change:to_be_set_expired' ,this.getAfterSettingExpired );
 			this.listenTo( EasySubOrg.MAP.cu_01, 'change:to_be_set_expired_ride' ,this.getAfterSettingExpiredRide );
-			console.log("init() of COMMUNICATION_UNIT");		
 		}	
 	});	// end of COMMUNICATION_UNIT class definition
-	EasySubOrg.comm_unit = new COMMUNICATION_UNIT(); 
+
 	
 	
 	/*
@@ -314,16 +314,19 @@ $(document).ready( function() {
 		initialize:function(){
 			//listening to rental search control unit, once there is a change in rental search control unit,
 			//the rentalSearchNavi will be called
+			console.log("init() of ES_Router");
 			var ClassRef = this;
 			this.listenTo(EasySubOrg.RENTAL.rs_cu_01,'change',this.rentalSearchNavi); // URL will change
 			this.listenTo(EasySubOrg.RIDE.reg_of_cu,'change',function() {
 				ClassRef.rideSearchNavi();  // this is regs control URL
 			});
-			console.log("init() of ES_Router");
+			
 		}
 	});
+	
+	EasySubOrg.comm_unit = new COMMUNICATION_UNIT(); 
 	EasySubOrg.UTILITIES.router = new ES_Router();
-	Backbone.history.start();
+	Backbone.history.start();	
 });
 
 //

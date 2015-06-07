@@ -1,27 +1,28 @@
 // JavaScript DocumentEasySubOrg.UTILITIES.json_data_layer_bus_routes = 'js/bus_routes.json';
+
 EasySubOrg.createNS("EasySubOrg.MAP");
 // EasySubOrg.MAP.CONTROL_UNIT should be an extended Backbone model
 var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
-	defaults:function(){
-		return {
-			data_layer_bus_routes:'js/bus_routes.json',
-			home_LatLng: new google.maps.LatLng(30.620600000000003, -96.32621),
-			test_LatLng: new google.maps.LatLng(30.618418, -96.327086),
-			rclk_menu_overlay: null,  // EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')placeholder
-			map_options:{ draggingCursor:"move",draggableCursor:"auto" , zoom: 14, center: new google.maps.LatLng(30.624013, -96.316689) },
-			map:null, //EasySubOrg.MAP.cu_01.get('map')
-			work_mode:"default",   //EasySubOrg.MAP.cu_01.get('work_mode')
-			// work_mode is listened by right-click-menu
-			
-			rental_search_result:[],  // this one will take something like following array of object(s)
-			//[{"_id":"556a5ec57ca147a019edc654","lat":30.65526502275242,"lng":-96.27568244934082,"beds":2,"baths":1.5,"price_single":null,
-			//"price_total":550,"cat":1,"post_date":"2015-05-31T01:07:17.000Z","isexpired":false,"community":"Campus view","source":"","memo":"test memo 
-			//0806","addr":"street","__v":0}]
-			travel_search_result:[],  //this one will take one object of objects  {"10047":{...} , "10089":{...},     }  EasySubOrg.MAP.cu_01.get("travel_search_result")
-			to_be_set_expired:"",
-			to_be_set_expired_ride:"",
-		}
+	defaults:{
+		data_layer_bus_routes:'js/bus_routes.json',
+		home_LatLng: new google.maps.LatLng(30.620600000000003, -96.32621),
+		test_LatLng: new google.maps.LatLng(30.618418, -96.327086),
+		rclk_menu_overlay: null,  // EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')placeholder
+		map_options:{ draggingCursor:"move",draggableCursor:"auto" , zoom: 14, center: new google.maps.LatLng(30.624013, -96.316689) },
+		map:null, //EasySubOrg.MAP.cu_01.get('map')
+		pano_options:  {  "pov": { heading: 34, pitch: 10}, "visible":true} ,
+		work_mode:"default",   //EasySubOrg.MAP.cu_01.get('work_mode')
+		// work_mode is listened by right-click-menu
+		rental_search_result:[],  // this one will take something like following array of object(s)
+		//[{"_id":"556a5ec57ca147a019edc654","lat":30.65526502275242,"lng":-96.27568244934082,"beds":2,"baths":1.5,"price_single":null,
+		//"price_total":550,"cat":1,"post_date":"2015-05-31T01:07:17.000Z","isexpired":false,"community":"Campus view","source":"","memo":"test memo 
+		//0806","addr":"street","__v":0}]
+		travel_search_result:[],  //this one will take one object of objects  {"10047":{...} , "10089":{...},     }  EasySubOrg.MAP.cu_01.get("travel_search_result")
+		to_be_set_expired:"",
+		to_be_set_expired_ride:"",
 	}, // end of defaults
+	panorama: null,
+
 	toggleWorkMode : function () {
 		if (this.get('work_mode') == "default") {  this.set('work_mode', 'travel-mode'); }
 		else if ( this.get('work_mode') == 'travel-mode') { this.set('work_mode', 'travel-mode');}
@@ -71,19 +72,22 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 			return null;
 		}
 	},
-	
-	mapStart :function() {
-		console.log("mapStart()");	
-		
-		this.set('map',  new google.maps.Map(  $('#map-div')[0],this.get('map_options') )); 
-		this.trigger("mapStarted"); 
-	},
+
 	initialize : function () {
+		var ClassRef = this;
+		ClassRef.set('map',  new google.maps.Map(  $('#map-div')[0],ClassRef.get('map_options') )); 
+		ClassRef.set('panorama', new google.maps.StreetViewPanorama(document.getElementById('pano-div'), ClassRef.get('pano_options')) ); 
+		ClassRef.get('map').setStreetView( ClassRef.get('panorama'));
 		console.log("init() of MAP_CU");
 	}
 	
 });
-EasySubOrg.MAP.cu_01 = new MAP_CU();
+
+
+
+var PANORAMA_RENDER = Backbone.Model.extend({
+	/*this one has not been implemented yet*/
+});
 
 /*
   This is the MAP_RENDER class of this map
@@ -91,8 +95,8 @@ EasySubOrg.MAP.cu_01 = new MAP_CU();
 */
 var MAP_RENDER = Backbone.Model.extend({
 	//model: EasySubOrg.MAP.cu_01  // this will be put in at instancialization
+	//model:"to be replaced",
 	defaults:{
-		model :EasySubOrg.MAP.cu_01,
 		marker_array : [],
 		ride_marker_array:[],
 		is_ori_added:false
@@ -102,7 +106,7 @@ var MAP_RENDER = Backbone.Model.extend({
 	templateRouteInfo  : function(){},    // template function placehoder
 	clearMapAddons :function () {  //EasySubOrg.MAP.render_01.clearMapAddons
 		this.set("is_ori_added", false);
-		var map = this.get('model').get('map');
+		var map = this.model.get('map');
 		console.log( " MAP_RENDER clearMapAddons");
 		if (map.data){
 			map.data.forEach(  function(feature)  {
@@ -205,25 +209,25 @@ var MAP_RENDER = Backbone.Model.extend({
 	
 	/*set ride entry outdated*/
 	rideSetStatus:function(  id, status_num){
-		this.get('model').set('to_be_set_expired_ride', id);  //this => EasySubOrg.comm_unit.getAfterSettingExpired
+		this.model.set('to_be_set_expired_ride', id);  //this => EasySubOrg.comm_unit.getAfterSettingExpired
 	},
 	
 	/*set rental entry outdated*/    ////EasySubOrg.MAP.render_01.set_status()
 	set_status : function (id, status_num, entry) {
     // id is mongoDB 24 char _id now  id is string now
-		this.get('model').set('to_be_set_expired', id); // this action => EasySubOrg.comm_unit.getAfterSettingExpired
+		this.model.set('to_be_set_expired', id); // this action => EasySubOrg.comm_unit.getAfterSettingExpired
 		this.get('marker_array')[entry].setMap(null);  // This one is For VISION control
 	},
 	
 	updateSetting : function (){
-		var map = this.get('model').get('map');
+		var map = this.model.get('map');
 		if (EasySubOrg.MAP.cu_01.get('work_mode') == "default") {
 			//this.setDefault();
 			console.log("MAP RENDER updateSetting: default-mode");
 			map.data.forEach(  function(feature)  {   // remove all
 				map.data.remove(feature);
 			});
-			map.data.loadGeoJson(  this.get('model').get('data_layer_bus_routes')    );  // addFeature // data_layer_url can be found at 
+			map.data.loadGeoJson(  this.model.get('data_layer_bus_routes')    );  // addFeature // data_layer_url can be found at 
 			this.deleteMarkers();
 
 			$('#travel-control-panel').hide();
@@ -266,13 +270,14 @@ var MAP_RENDER = Backbone.Model.extend({
 
 	renderRentalResults : function () {  //once the model has change at rental_search_result, this will be called
 		//just a placeholder
-		if( !this.get('model').isMapReady()){
+		console.log(this.model);
+		if( !this.model.isMapReady()){
 			console.log("WARN: entered EasySubOrg.MAP.render_01.renderRentalResults() when map is NOT ready ");
 		}
 		var ClassRef = this;
 		ClassRef.deleteMarkers(); //clear previous marker for next rendering
 		
-		var temp_result_array = this.get('model').get('rental_search_result');
+		var temp_result_array = this.model.get('rental_search_result');
 		//console.log( temp_result_array[0]);
 		
 		if (temp_result_array.length > 0 ) {
@@ -293,7 +298,7 @@ var MAP_RENDER = Backbone.Model.extend({
 	renderRideResults: function(){
 		this.clearMapAddons();
 		mapcc1.reset() ;
-		var search_result = mapcc1._proparray = this.get('model').get("travel_search_result");
+		var search_result = mapcc1._proparray = this.model.get("travel_search_result");
 		var beta = document.getElementById("checkbox-adv-routing").checked;
 		//mapcc1._proparray = EasySubOrg.MAP.cu_01.get('travel_search_result'); 
 		if (search_result && !beta){
@@ -325,29 +330,21 @@ var MAP_RENDER = Backbone.Model.extend({
 		}
 	},
 	
-	initialize :function () {
+	initialize :function ( ) {
 		console.log("init() of MAP_RENDER");
-		this.listenTo( this.get('model'), 'change:travel_search_result', this.renderRideResults);	
-		this.listenTo( this.get('model'), 'change:rental_search_result', this.renderRentalResults);	
-		this.listenTo( this.get('model'), 'change:work_mode', this.updateSetting );
-		this.listenTo( this.get('model'), 'mapStarted', function(){   //this part is to realize sharable URL 
-			this.mapAdaptiveRender( this.get('model').get('work_mode') );
-		});	
+		this.model = EasySubOrg.MAP.cu_01 ;
+		this.listenTo( EasySubOrg.MAP.cu_01 , 'change:travel_search_result', this.renderRideResults);	
+		this.listenTo( EasySubOrg.MAP.cu_01 , 'change:rental_search_result', this.renderRentalResults);	
+		this.listenTo( EasySubOrg.MAP.cu_01 , 'change:work_mode', this.updateSetting );
 	}	
 	
 });  // end of MAP_RENDER() class definition
-EasySubOrg.MAP.render_01 = new MAP_RENDER( ); // model has been put in
+
 
 
 function mapInitialize () {
-	EasySubOrg.MAP.render_01.templateMarkerInfo = _.template( $('#marker-infowindow-template').html() );//temp_template;
-	EasySubOrg.MAP.render_01.templateRouteInfo  = _.template( $('#route-infowindow-template').html() ); // making template function
 	var cu_01 = EasySubOrg.MAP.cu_01;
-	cu_01.mapStart();// I move mapStart() to es_page_interaction.js
-	temp_map = cu_01.get("map"); // this method must be run after page loaded
-	cu_01.set('rclk_menu_overlay' , new OverLayMenu ( {model:EasySubOrg.MENU.reg})  );  //require es_MMoverlay.js 
-	//EasySubOrg.MENU.overlay_menu_01 = new OverLayMenu ( {model:EasySubOrg.MENU.reg});
-	
+	var temp_map = cu_01.get("map"); // this method must be run after page loaded	
 	/*
 	home_marker = new google.maps.Marker({
 		map:map_cs,

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"update",
+				"updateOthersDefaultQuick"
+			],
+			[
+				"add",
+				"addListener"
+			],
+			[
 				"_",
 				"_temp_infowindow"
 			],
@@ -42,10 +50,6 @@
 			[
 				"po",
 				"pointInMenuDom"
-			],
-			[
-				"update",
-				"updateRegs"
 			],
 			[
 				"upd",
@@ -172,30 +176,6 @@
 	"buffers":
 	[
 		{
-			"file": "css/es_custom_css1.css",
-			"settings":
-			{
-				"buffer_size": 8188,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/es_MMoverlay.js",
-			"settings":
-			{
-				"buffer_size": 8809,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "js/es_Infodiv_manager.js",
-			"settings":
-			{
-				"buffer_size": 5987,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "index.html",
 			"settings":
 			{
@@ -204,18 +184,26 @@
 			}
 		},
 		{
-			"file": "js/es_page_interaction.js",
+			"file": "/home/boweiliu/my_projects/javascript_Exercise/learnStreetView.html",
 			"settings":
 			{
-				"buffer_size": 29851,
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "js/es_mapinteraction.js",
+			"file": "css/es_custom_css1.css",
 			"settings":
 			{
-				"buffer_size": 58079,
+				"buffer_size": 8552,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/es_MMoverlay.js",
+			"settings":
+			{
+				"buffer_size": 8122,
 				"line_ending": "Unix"
 			}
 		}
@@ -252,18 +240,20 @@
 	},
 	"expanded_folders":
 	[
-		"/home/boweiliu/my_projects/easysublease_lk",
-		"/home/boweiliu/my_projects/easysublease_lk/css",
-		"/home/boweiliu/my_projects/easysublease_lk/js"
 	],
 	"file_history":
 	[
-		"/home/boweiliu/my_projects/easysublease_lk/memo.txt",
-		"/home/boweiliu/my_projects/easysublease_lk/js/es_mapinteraction.js",
-		"/home/boweiliu/my_projects/easysublease_lk/js/es_Infodiv_manager.js",
+		"/home/boweiliu/my_projects/javascript_Exercise/learnStreetView.html",
+		"/home/boweiliu/my_projects/esapi/index.html",
 		"/home/boweiliu/my_projects/easysublease_lk/css/es_custom_css1.css",
-		"/home/boweiliu/my_projects/easysublease_lk/js/es_utilities.js",
+		"/home/boweiliu/my_projects/easysublease_lk/js/es_MMoverlay.js",
+		"/home/boweiliu/my_projects/easysublease_lk/js/es_Infodiv_manager.js",
+		"/home/boweiliu/my_projects/easysublease_lk/index.html",
 		"/home/boweiliu/my_projects/easysublease_lk/js/es_page_interaction.js",
+		"/home/boweiliu/my_projects/easysublease_lk/js/es_mapinteraction.js",
+		"/home/boweiliu/my_projects/easysublease_lk/about_content.php",
+		"/home/boweiliu/my_projects/easysublease_lk/memo.txt",
+		"/home/boweiliu/my_projects/easysublease_lk/js/es_utilities.js",
 		"/home/boweiliu/my_projects/easysublease2_lk/css/es_custom_css1.css",
 		"/home/boweiliu/my_projects/easysublease2_lk/js/es_MMoverlay.js",
 		"/home/boweiliu/my_projects/easysublease2_lk/js/es_page_interaction.js",
@@ -293,6 +283,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"search-div",
+			"map-div",
+			"main_div",
 			"x0",
 			"updateRegs",
 			"OverLayMenu",
@@ -383,68 +376,39 @@
 			[
 				{
 					"buffer": 0,
-					"file": "css/es_custom_css1.css",
+					"file": "index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8188,
+						"buffer_size": 18598,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5867,
-								5867
+								4105,
+								4105
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 4042.0,
+						"translation.y": 1382.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "js/es_MMoverlay.js",
+					"file": "/home/boweiliu/my_projects/javascript_Exercise/learnStreetView.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8809,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7603,
-								7603
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3024.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "js/es_Infodiv_manager.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5987,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
@@ -457,11 +421,38 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/HTML/HTML.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 969.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "css/es_custom_css1.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8552,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7411,
+								7411
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 5572.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -469,49 +460,19 @@
 				},
 				{
 					"buffer": 3,
-					"file": "index.html",
+					"file": "js/es_MMoverlay.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 18598,
+						"buffer_size": 8122,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1707,
-								1707
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 255.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "js/es_page_interaction.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 29851,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								11734,
-								11734
+								930,
+								930
 							]
 						],
 						"settings":
@@ -520,39 +481,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2905.0,
+						"translation.y": 128.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "js/es_mapinteraction.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 58079,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15784,
-								15784
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 12102.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

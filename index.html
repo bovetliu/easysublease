@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
-    <!--two important global variables-->
     
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEgp09_feK-aKfo_2h3tOcWfzbrByZwDw&libraries=geometry"></script>
   </head>
@@ -145,12 +144,15 @@
         <div  id = "about-panel">
           About will be shown here
         </div>
-
         <div id = "menu-panel" ></div> <!--the container of right click menu-->
       </div> 
+
       <div id = "map-div" > <!--this is where map is put in-->
       </div>
-      
+
+      <!-- this is where pano will be put in, much css style will be lif info-div-->
+      <div id="pano-div"> 
+      </div> 
       
       <div id = "info-div" class="input-group-dimension-control info-div-results-style">
         <div  id = "rental-form-slot">
@@ -296,8 +298,9 @@
         </div> <!--end of ride-results-slot#-->
       </div>
       <!--#info div-->
+
       
-    </div>
+    </div> <!-- end of #main-div-->
     <script src="js/jquery.min.js"></script> 
     <script src="js/jquery-ui.js"></script> 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 

@@ -9,13 +9,20 @@ Texas A&M University
 University of Michigan, Ann Arbor, MI
 University of Texas, Austin
 
-首先, 每次生成的 pixel 位置,是根据鼠标在地图上点击的 位置 与 mmoverlay之间的相对 屏幕向量计算得出的  v_mousem
-在地图一生成的时候,记录下,地图中心与mmoverlay的屏幕相对向量   v_cm_0
-
-
-新的点击时候,会产生新地图中心与mmoverlay之间的向量   v_cm_1
-
-v_map_move = v_cm_1 - v_cm_0
-
-v_mousem - v_map_move = v_wanted
-要求鼠标点击与屏幕左上角的相对向量 v_wanted 
+	opacity: 0;
+	position: absolute;	
+	left:-70%;
+	background-color:#FFF;
+	z-index:2;
+	text-align:left;
+  float:left;
+  width:70%;  /* normally info-div form mode, the width is 30%, so add them together 100%*/
+	/* Firefox */
+	height: -moz-calc(100% - 88px);
+	/* WebKit */
+	height: -webkit-calc(100% - 88px);
+	/* Opera */
+	height: -o-calc(100% - 88px);
+	/* Standard */
+	height: calc(100% - 88px);
+	overflow: auto;

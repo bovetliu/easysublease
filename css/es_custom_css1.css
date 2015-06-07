@@ -330,19 +330,53 @@ last-child {
 	float:left;
 	display:block;
 	width:100%;
-	height:89%;
+	/* Firefox */
+	height: -moz-calc(100% - 88px);
+	/* WebKit */
+	height: -webkit-calc(100% - 88px);
+	/* Opera */
+	height: -o-calc(100% - 88px);
+	/* Standard */
+	height: calc(100% - 88px);
 	z-index:0;
 	overflow:scroll;
 
+}
+#pano-div{
+	/*border-left:2px #CCC solid;*/
+	/*at the beginning, this dive locates at left virtual place of the screen*/
+	/*opacity: 0.6;*/
+	position: absolute;	
+	left:-70%;
+	display: block;
+	z-index:0;
+
+  float:left;
+  width:70%;  /* normally info-div form mode, the width is 30%, so add them together 100%*/
+	/* Firefox */
+	height: -moz-calc(100% - 88px);
+	/* WebKit */
+	height: -webkit-calc(100% - 88px);
+	/* Opera */
+	height: -o-calc(100% - 88px);
+	/* Standard */
+	height: calc(100% - 88px);
+	overflow:scroll;
 }
 #info-div{
 	border-left:2px #CCC solid;
 	z-index:2;
 	text-align:left;
   float:left;
-
   width:30%;
-	height:89%;
+	/* Firefox */
+	height: -moz-calc(100% - 88px);
+	/* WebKit */
+	height: -webkit-calc(100% - 88px);
+	/* Opera */
+	height: -o-calc(100% - 88px);
+	/* Standard */
+	height: calc(100% - 88px);
 	overflow: auto;
 }
 

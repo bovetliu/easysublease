@@ -25,11 +25,12 @@ var OverLayMenu = Backbone.View.extend({
 		"default": [
 			"Want to lease here",
 			"Want rent here",
-			"Seek co-lessee here"
+			"Seek co-lessee here",
+			"street view here"
 		],
 		"travel-mode" :[
-			"Start route here",
-			"End route here"
+			"Place route start here",
+			"Place route end here"
 		]
 	},
 	/*this should be utility function of toggleOn*/
@@ -127,17 +128,74 @@ var OverLayMenu = Backbone.View.extend({
 		google.maps.event.addListener(propertyMarker , 'click', function() { propertyInfowindow.open( EasySubOrg.MAP.cu_01.get('map'), propertyMarker); } ); 	
 	},
 
+	updateOthersDefaultQuick : function (latLng, num) {
+		this.setTempMarker ( latLng, num);	
+		EasySubOrg.RENTAL.rf_cu_01.set( {"lat": latLng.lat(), "lng":latLng.lng() }  );
+		EasySubOrg.INFO.info_div_reg.set("info_div_purpose","rental_form");   
+	},
 	updateOthers:function (latLng, num){
-		if (num <= 3) {
-			this.setTempMarker ( latLng, num);	
-			EasySubOrg.RENTAL.rf_cu_01.set( {"lat": latLng.lat(), "lng":latLng.lng() }  );
-			if (num == 1) {EasySubOrg.RENTAL.rf_view_01.updateCat( "li-cat-lease");}
-			else if (num == 2) { EasySubOrg.RENTAL.rf_view_01.updateCat( "li-cat-rent");}
-			else if (num == 3) { EasySubOrg.RENTAL.rf_view_01.updateCat( "li-cat-activity"); }
-			if (EasySubOrg.RENTAL.rf_cu_01.get('cat') != num ) {
-				alert (" es_MMoverlay.js: write rf_cu_01 failed!");
+		var ClassRef = this;
+		if (EasySubOrg.MAP.cu_01.get('work_mode') == "default" ) {
+			switch(num) {
+				case 1:
+					ClassRef.updateOthersDefaultQuick(latLng, num);
+					EasySubOrg.RENTAL.rf_view_01.updateCat( "li-cat-lease");
+					break;
+				case 2:
+					ClassRef.updateOthersDefaultQuick(latLng, num);	
+					EasySubOrg.RENTAL.rf_view_01.updateCat( "li-cat-rent");
+					break;
+				case 3:
+					ClassRef.updateOthersDefaultQuick(latLng, num);
+					EasySubOrg.RENTAL.rf_view_01.updateCat( "li-cat-activity"); 
+					break;
+				case 4:
+					//EasySubOrg.MAP.cu_01.get('map').panBy(-400,0);
+					EasySubOrg.MAP.cu_01.get('map').getStreetView().setPosition( EasySubOrg.MAP.cu_01.get('map').getCenter());
+					console.log(EasySubOrg.MAP.cu_01.get('map').getStreetView().getVisible() )
+					console.log(EasySubOrg.MAP.cu_01.get('map').getStreetView().getPosition() );
+					EasySubOrg.MAP.cu_01.get('panorama').setVisible(true);
+					$('#pano-div').animate({
+							left:"10%"
+						},
+						200,
+						function(){
+						
+						}
+					);
+/*
+					if (EasySubOrg.MAP.cu_01.get('panorama').getVisible()) {
+						//EasySubOrg.MAP.cu_01.get('map').panBy(400,0);
+						$('#pano-div').animate({
+								left:"-70%"
+							},
+							200,
+							function(){
+							EasySubOrg.MAP.cu_01.get('panorama').setVisible(false);
+							}
+						);
+					}
+					else {
+						//EasySubOrg.MAP.cu_01.get('map').panBy(-400,0);
+						EasySubOrg.MAP.cu_01.get('panorama').setPosition( EasySubOrg.MAP.cu_01.get('map').getCenter());
+						EasySubOrg.MAP.cu_01.get('panorama').setVisible(true);
+						$('#pano-div').animate({
+								left:"0%"
+							},
+							200,
+							function(){
+							
+							}
+						);
+					}
+*/
+					console.log("pano");
+					break;
+				default:
+					alert (" es_MMoverlay.js: write rf_cu_01 failed!");
+					break;
 			}
-			EasySubOrg.INFO.info_div_reg.set("info_div_purpose","rental_form");   
+			
 		}
 		else {
 			EasySubOrg.MAP.render_01.addMarker(latLng, num,null,null,null,true);
@@ -153,7 +211,7 @@ var OverLayMenu = Backbone.View.extend({
 		EasySubOrg.INFO.info_div_reg.set("info_div_purpose","default"); 
 	},
 
-	fillMenuDiv:function () {
+	fillMenuDiv:function () {  // this is one listenTo callee
 		var ClassRef = this;
 		var work_mode = EasySubOrg.MAP.cu_01.get('work_mode');
 		this.model.set("height",ClassRef.html_content[work_mode].length * 25 + 12);
@@ -177,7 +235,7 @@ var OverLayMenu = Backbone.View.extend({
 	}
 }); // instance will be added at es_mapinteraction.js, it is EasySubOrg.MAP.cu_01.get('rclk_menu_overlay');
 /*
-	This is one class, representing the right-clicked generated white small box, google itself did not inherit OverlayView class
+	I keep this one is just to utilize one method of this MMoverlay, which is fromLatLngToContainerPixel(latLng)	
 */
 MMoverlay.prototype = new google.maps.OverlayView();  ///MMoverlay:class inherits OverlayView:class
 /** @constructor */
@@ -192,7 +250,7 @@ function MMoverlay( map) {
 }
 /*member methods*/
 MMoverlay.prototype.onAdd = function() {   //overwritten		
-	console.log("onAdd()");
+	console.log("es_MMoverlay.js: onAdd()");
 	var div = document.createElement('div');
 
 	this.div_ = div;
@@ -203,7 +261,7 @@ MMoverlay.prototype.onAdd = function() {   //overwritten
 
 MMoverlay.prototype.draw = function() {  //overwritten
 	// This draw method will be invoked when map is loaded, so i have to hide it
-	console.log("draw()");
+	console.log("es_MMoverlay.js: draw()");
 	var div = this.div_;
 	div.style.left = '50px';
 	div.style.top = '50px';

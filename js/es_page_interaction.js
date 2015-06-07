@@ -236,6 +236,9 @@ var RIDE_CONTROL_UNIT = Backbone.Model.extend({
 
 $(document).ready( function() {
 
+
+
+
 	//EasySubOrg.RENTAL.rf_view_01
 	var RentalFormView = Backbone.Epoxy.View.extend({
 		//DOM ELEMENT of RENTAL FORM VIEW
@@ -612,16 +615,22 @@ $(document).ready( function() {
 			this.$("#ipt-date-tr").datepicker();  // set #ipt-date-tr as date-picker	
 
 		},
-	});  
+	}); 
 
+
+	EasySubOrg.MAP.cu_01 = new MAP_CU();
+	EasySubOrg.MAP.cu_01.set('rclk_menu_overlay' , new OverLayMenu ( {model:EasySubOrg.MENU.reg})  );  //require es_MMoverlay.js 
+	
+	EasySubOrg.MAP.render_01 = new MAP_RENDER( {model:EasySubOrg.MAP.cu_01}); // model has been put in	
+	EasySubOrg.MAP.render_01.templateMarkerInfo = _.template( $('#marker-infowindow-template').html() );//temp_template;
+	EasySubOrg.MAP.render_01.templateRouteInfo  = _.template( $('#route-infowindow-template').html() ); // making template function
 
 	EasySubOrg.RENTAL.rs_view_01 = new RentalSearchView( {model:EasySubOrg.RENTAL.rs_cu_01 });
 	EasySubOrg.RENTAL.rf_view_01 = new RentalFormView  ( {model:EasySubOrg.RENTAL.rf_cu_01});		
-	
 	EasySubOrg.RIDE.cu_01 = new RIDE_CONTROL_UNIT();	
-	
 	EasySubOrg.RIDE.search_view_01 = new RideSearchView({ model:EasySubOrg.RIDE.cu_01} ); 
 	EasySubOrg.RIDE.form_view_01 = new RideFormView({ model:EasySubOrg.RIDE.cu_01 });
+
 	
 	//////////////////////////start of jQuery  toplevel page logic control///////////////////////////	
 	//////////////////////////I should merge thsoe toplevel logic control into repective models ///////////////////////////	

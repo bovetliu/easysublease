@@ -157,6 +157,7 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 		return tbr;
 	},
 	initialize : function () {
+		console.log( "init() of InfoView" );
 		var ClassRef = this;
 		ClassRef.$el = $('#info-div'); 
 		ClassRef.jq_about_panel = $('#about-panel');
