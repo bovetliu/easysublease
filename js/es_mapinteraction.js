@@ -369,13 +369,13 @@ function mapInitialize () {
 			//cu_01.get('rclk_menu_overlay').toggleOn(event.latLng);
 		//}
 		//else if (cu_01.get("work_mode") == "travel-mode") {
-			cu_01.get('rclk_menu_overlay').toggleOn(event.latLng);
+			cu_01.get('rclk_menu_overlay').toggleOn(event.latLng,  EasySubOrg.MAP.cu_01.get('map').getBounds().getNorthEast() );
 			//EasySubOrg.MAP.render_01.addNextOriDes (event.latLng);
 		//}
 	});
 	var listener_map_click = google.maps.event.addListener(temp_map, 'click', function(event) {
 		//alert("lclk"); // for debug
-		cu_01.get('rclk_menu_overlay').toggleOff(event.latLng);	
+		cu_01.get('rclk_menu_overlay').toggleOff(event.latLng,  EasySubOrg.MAP.cu_01.get('map').getBounds().getNorthEast()  );	
 	});
 	
   // [START snippet-load]
