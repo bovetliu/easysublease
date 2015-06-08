@@ -26,11 +26,18 @@ var OverLayMenu = Backbone.View.extend({
 			"Want to lease here",
 			"Want rent here",
 			"Seek co-lessee here",
-			"Toggle street view here"
+			"Start street view here"
 		],
 		"travel-mode" :[
 			"Place route start here",
 			"Place route end here"
+		],
+		"default-in-street-view": [
+			"Want to lease here",
+			"Want rent here",
+			"Seek co-lessee here",
+			"End Street view",
+			"Start new street view here"
 		]
 	},
 	/*this should be utility function of toggleOn*/
@@ -135,6 +142,7 @@ var OverLayMenu = Backbone.View.extend({
 	},
 	updateOthers:function (latLng, num){
 		var ClassRef = this;
+		var cu = EasySubOrg.MAP.cu_01;
 		if (EasySubOrg.MAP.cu_01.get('work_mode') == "default" ) {
 			switch(num) {
 				case 1:
@@ -150,7 +158,6 @@ var OverLayMenu = Backbone.View.extend({
 					EasySubOrg.RENTAL.rf_view_01.updateCat( "li-cat-activity"); 
 					break;
 				case 4:
-					//EasySubOrg.MAP.cu_01.get('map').panBy(-400,0);
 					var pano = EasySubOrg.MAP.cu_01.get('map').getStreetView();
 					var cu =EasySubOrg.MAP.cu_01;
 					console.log("before click pano.getVisible():" + pano.getVisible());
@@ -160,11 +167,12 @@ var OverLayMenu = Backbone.View.extend({
 					}
 					else { // not visible yet
 						//pano.setPosition( EasySubOrg.MAP.cu_01.get('map').getCenter());
-						cu.panSV.getPanoramaByLocation(latLng,49,cu.updatePanoramaAndMapPosition )
+						cu.panSV.getPanoramaByLocation(latLng,49,cu.updatePanoramaAndMapPosition );
 					}
-
-
-					console.log("pano control");
+					//console.log("pano control");
+					break;
+				case 5:
+					cu.panSV.getPanoramaByLocation(latLng,49,cu.updatePanoramaAndMapPosition);
 					break;
 				default:
 					alert (" es_MMoverlay.js: no corresponding logic implemented for this num");
@@ -186,9 +194,11 @@ var OverLayMenu = Backbone.View.extend({
 		EasySubOrg.INFO.info_div_reg.set("info_div_purpose","default"); 
 	},
 
-	fillMenuDiv:function () {  // this is one listenTo callee
+	fillMenuDiv:function () {  // this is one listenTo callee, cu_01 change:work_mode handler
 		var ClassRef = this;
-		var work_mode = EasySubOrg.MAP.cu_01.get('work_mode');
+		var cu_01 = EasySubOrg.MAP.cu_01;
+		var work_mode = cu_01.get('work_mode');
+		if (work_mode == "default" && cu_01.panorama.getPosition()) work_mode= "default-in-street-view";
 		this.model.set("height",ClassRef.html_content[work_mode].length * 25 + 12);
 		this.$el.css("height", this.model.get("height").toString()+"px") // 12 is menu top and bottom padding, respective 6px
 		ClassRef.$el.html( ClassRef.compiledMappingFunc( { html_content_ar: ClassRef.html_content[work_mode]} ));
@@ -206,6 +216,7 @@ var OverLayMenu = Backbone.View.extend({
 		})();
 		this.fillMenuDiv(); // compensate for missing first-time work_mode change 
 		this.listenTo(EasySubOrg.MAP.cu_01,'change:work_mode', this.fillMenuDiv); // when this one invoked, the first time work_mode change event has already happened
+		this.listenTo(EasySubOrg.MAP.cu_01,'bb_panorama_position_changed', this.fillMenuDiv)
 		this.listenTo(EasySubOrg.MAP.cu_01,'map_viewport_changed', function () { ClassRef.$el.hide() });
 	}
 }); // instance will be added at es_mapinteraction.js, it is EasySubOrg.MAP.cu_01.get('rclk_menu_overlay');

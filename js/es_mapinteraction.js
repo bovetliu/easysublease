@@ -13,7 +13,7 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 		pano_options:  {  "pov": { heading: 34, pitch: 10}, "visible":false} ,
 		work_mode:"default",   //EasySubOrg.MAP.cu_01.get('work_mode')
 		// work_mode is listened by right-click-menu
-
+		listeners_obj:{},
 		pano_expected_visbility:false,  // this one listened by this it class instance it
 		rental_search_result:[],  // this one will take something like following array of object(s)
 		//[{"_id":"556a5ec57ca147a019edc654","lat":30.65526502275242,"lng":-96.27568244934082,"beds":2,"baths":1.5,"price_single":null,
@@ -31,27 +31,44 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 		var ClassRef = EasySubOrg.MAP.cu_01; // workaround
 		if (status == google.maps.StreetViewStatus.OK) {
 	    var temp_location = data.location;
-	   	ClassRef.togglePanoOn(temp_location.latLng);
+	    ClassRef.panorama.setPosition(temp_location.latLng);
+	    ClassRef.panorama.setVisible(true);
+	   	//ClassRef.togglePanoOn(temp_location.latLng);
 	  } else {
 	    alert('Street View data not found for this location.');
 	  }
 	},
-	togglePanoOn:function(latLng){
+	panoPositionHandler:function(){ // this is handler function of pano_expected_visbility:
+		/*pay attention, call this after position and visible are set*/
 		var ClassRef = this;
+		if ( ClassRef.panorama.getVisible() && ClassRef.panorama.getPosition() ) {
+			ClassRef.togglePanoOn();
+		}else {
+			console.log("panoPositionHandler ignore turning off, or invalid panorama preset data: position and visibility")
+		}
+		this.trigger("bb_panorama_position_changed");
+	},
+	togglePanoOn:function(){
+		var ClassRef = this;
+		latLng = ClassRef.panorama.getPosition();
 	 	ClassRef.get('map').panTo(latLng);
-    ClassRef.get('map').getStreetView().setPosition( ClassRef.get('map').getCenter() );
 	 	ClassRef.get('map').panBy($("#map-div").width()*0.35 * -1, 0);
-		ClassRef.get('map').getStreetView().setVisible(true);
-		_.delay(function(){
-			$('#pano-div').animate({
-					left:"0%",
-					opacity:1
-				},
-				300,
-				function(){
-				}
-			);
-		} ,100);
+		//if (!ClassRef.panorama.getVisible()) {		
+		//	ClassRef.get('map').getStreetView().setVisible(true);
+		//}
+		if ($("#pano-div").css("opacity")< 1){
+			_.delay(function(){
+				$('#pano-div').animate({
+						left:"0%",
+						opacity:1
+					},
+					300,
+					function(){
+					}
+				);
+			} ,100);
+		}
+
 	},
 	togglePanoOff:function(){
 		var ClassRef = this;
@@ -62,6 +79,7 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 			},
 			300,
 			function(){
+				ClassRef.panorama.setPosition(null);
 				ClassRef.panorama.setVisible(false);
 			}
 		);
@@ -79,7 +97,7 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	*/
 	isMapReady:function(){
 		var classRef = this;
-		console.log(this);
+		//console.log(this);
 		if ( classRef.get('map')==null ||typeof(classRef.get('map'))=='undefined')  
 		{
 			return false;
@@ -123,8 +141,13 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 		var ClassRef = this;
 		ClassRef.set('map',  new google.maps.Map(  $('#map-div')[0],ClassRef.get('map_options') )); 
 		ClassRef.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano-div'), ClassRef.get('pano_options')) ; 
-		ClassRef.panorama.setPosition(ClassRef.get('map').getCenter());
+		//ClassRef.panorama.setPosition(ClassRef.get('map').getCenter());
 		ClassRef.get('map').setStreetView( ClassRef.panorama);
+		// push listeners here
+		ClassRef.get("listeners_obj").visibility_listener = google.maps.event.addListener(ClassRef.panorama,'position_changed',function(){  
+			ClassRef.panoPositionHandler();
+		});
+
 		console.log("init() of MAP_CU");
 	}
 	
@@ -317,7 +340,7 @@ var MAP_RENDER = Backbone.Model.extend({
 
 	renderRentalResults : function () {  //once the model has change at rental_search_result, this will be called
 		//just a placeholder
-		console.log(this.model);
+		//console.log(this.model);
 		if( !this.model.isMapReady()){
 			console.log("WARN: entered EasySubOrg.MAP.render_01.renderRentalResults() when map is NOT ready ");
 		}
@@ -404,6 +427,7 @@ function mapInitialize () {
 		infowindow_home.open(map_cs, home_marker);
 	} );   
 	*/
+
 	google.maps.event.addListener (temp_map, 'zoom_changed' ,function(){ 
 		//console.log("es_mapinteraction: zoom_changed");
 		cu_01.trigger("map_viewport_changed");
@@ -421,13 +445,9 @@ function mapInitialize () {
 		cu_01.get('rclk_menu_overlay').toggleOff(event.latLng,  EasySubOrg.MAP.cu_01.get('map').getBounds().getNorthEast()  );	
 	});
 	
-  // [START snippet-load]
-  // Load GeoJSON.
+	//load initial school shuttle data 
   temp_map.data.loadGeoJson(cu_01.get("data_layer_bus_routes") );  //'js/bus_routes.json'
-  // [END snippet-load]
- 
-  // [START snippet-style]
-  // Set the stroke width, and fill color for each polygon
+  // give feature to school shuttle data
 	temp_map.data.setStyle(function(feature) {
 		return ({                                   ///@type {google.maps.Data.StyleOptions} 
 		strokeColor: feature.getProperty('strokeColor'),
@@ -435,7 +455,7 @@ function mapInitialize () {
 		strokeOpacity:0.5
 		});
 	}); 
-  // [END snippet-style]	
+	// add listener to newly added school shuttle data
 	var listener_data_click = temp_map.data.addListener('click', function(event) {
 		console.log("left clicked on data  heared");
 		//document.getElementById('txtHint').innerHTML = 
@@ -546,7 +566,6 @@ function mapInitialize () {
 			}
 			else {  console.log( "A2 is NOT in seg2 bounds");	 }
 		}
-
 	}// tb end		
 } // end of mapInitialize()
 google.maps.event.addDomListener(window, 'load', mapInitialize);   ///initialize is the last one to be executed
