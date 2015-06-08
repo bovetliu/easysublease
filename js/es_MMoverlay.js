@@ -48,7 +48,7 @@ var OverLayMenu = Backbone.View.extend({
 	/*this should be utility function of toggleOn*/
 	correctRefPoint:function (pixel, new_center){
 		pixel.y = pixel.y + $("#title-big-div").height() + $("div.search-div").height();
-		pixel.x = pixel.x + parseInt($("#map-div").position().left);
+		pixel.x = pixel.x + $("#map-div").position().left;
 		return pixel;
 	},
 	

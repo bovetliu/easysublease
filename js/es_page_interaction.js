@@ -508,6 +508,17 @@ $(document).ready( function() {
 	var RideSearchView = Backbone.View.extend({   // Gives logic to the travel-search-div
 		el:$('#travel-search-div'),
 		
+		/*This function is moved from global function*/
+		topLevelChangeToRideMode:function(){  //EasySubOrg.RIDE.search_view_01.topLevelChangeToRideMode();
+			if (  EasySubOrg.MAP.cu_01.get('work_mode') != "travel-mode") { 
+				//console.log( "top##"+JSON.stringify(EasySubOrg.RIDE.reg_of_cu));	
+				EasySubOrg.MAP.cu_01.set('work_mode', "travel-mode");// who is listen to this				
+				hightlightTitle( "travel-control-div");
+				$("#rental-search-slot").hide();
+				$("#travel-search-slot").show();
+				EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').clearProperties(); // clear the marker of right-click overlay
+			}
+		},
 		/* request comm unit to send out request for ride search result*/
 		requestSearchResult:function( ){ 
 			var ClassRef = this;
@@ -677,24 +688,15 @@ $(document).ready( function() {
 	
 	$("#travel-control-div").click (  function ()  {    // $("#travel-control-div") is among static parts of index.php
 		console.log("#travel-control-div clicked");
-		//topLevelChangeToRideMode();
-		if (  EasySubOrg.MAP.cu_01.get('work_mode') != "travel-mode") { 
-			//console.log( "top##"+JSON.stringify(EasySubOrg.RIDE.reg_of_cu));	
-			EasySubOrg.MAP.cu_01.set('work_mode', "travel-mode");// who is listen to this
-			//EasySubOrg.INFO.info_div_reg.set('info_div_purpose','default');  // listenedBy info_view_01
-			
-			hightlightTitle( "travel-control-div");
-			$("#rental-search-slot").hide();
-			$("#travel-search-slot").show();
-			EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').clearProperties(); // clear the marker of right-click overlay
-		}
+		EasySubOrg.RIDE.search_view_01.topLevelChangeToRideMode();
+
 	});		
 	console.log("......end of $(document).ready(...) at es_page_interaction.js");	
 });  // #### END of $(document).ready( ...   );######
 
 
 //these several global function serve as utilities
-//function  topLevelChangeToRideMode () {
+
 function  hightlightTitle (ID){
 	document.getElementById('title-housing').className = "title-options1";
 	document.getElementById('juju').className = "title-options1";

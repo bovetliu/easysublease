@@ -277,14 +277,15 @@ $(document).ready( function() {
 						console.log("##########Map Not Ready##########");
 						setTimeout( function(){
 							//get_reg_object_ref = EasySubOrg.RIDE.reg_of_cu.toJSON();
-							topLevelChangeToRideMode();		
+
+							EasySubOrg.RIDE.search_view_01.topLevelChangeToRideMode()	;
 							EasySubOrg.RIDE.reg_of_cu.set(get_reg_object_ref, {silent:true});		
 							EasySubOrg.RIDE.search_view_01.requestSearchResult();				
 						},500);
 					}
 					else{
 					  console.log("map ready situaiton, ride search");
-						topLevelChangeToRideMode();				
+						EasySubOrg.RIDE.search_view_01.topLevelChangeToRideMode()	;			
 						EasySubOrg.RIDE.search_view_01.requestSearchResult();			
 					}
 				}

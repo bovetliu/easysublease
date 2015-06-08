@@ -56,15 +56,21 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	togglePanoOn:function(){
 		var ClassRef = this;
 		latLng = ClassRef.panorama.getPosition();
+		//ClassRef.get('map').panTo(latLng);
+		//ClassRef.get("map").panBy( $("#map-div").width() *0.35 ,0);
 		if ($("#pano-div").css("opacity")< 1){ // currently not shown to user
+			$('#map-div').css({left:"70%", width:"30%"});
+			google.maps.event.trigger(ClassRef.get('map') , 'resize');
+			ClassRef.get('map').panTo(latLng);
+			
 			_.delay(function(){
+				/*
 				$('#map-div').animate({ left:"70%",width:"30%" }, 300, function(){  
-				/* trigger map bounds changed event*/
-					//ClassRef.get('map').panTo(latLng);
+				//trigger map bounds changed event
 					google.maps.event.trigger(ClassRef.get('map') , 'resize');
 					ClassRef.get('map').panTo(latLng);
 				});
-
+				*/
 				$('#pano-div').animate({
 						left:"0%",
 						opacity:1
@@ -83,10 +89,14 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	togglePanoOff:function(){
 		var ClassRef = this;
 		var previous_pos = this.panorama.getPosition();
-		//ClassRef.get('map').panBy($("#map-div").width()*0.35 * 1, 0);
-		$('#map-div').animate({ left:"0%",width:"100%" }, 300, function(){  
 		/* trigger map bounds changed event*/
-			google.maps.event.trigger(EasySubOrg.MAP.cu_01.get('map') , 'resize'); // fire resizing event of map
+		// fire resizing event of map
+		$('#map-div').css({width:"100%"});
+		google.maps.event.trigger(EasySubOrg.MAP.cu_01.get('map') , 'resize');
+		ClassRef.get("map").panBy( $("#map-div").width()*0.35 * -1 ,0);
+		
+		$('#map-div').animate({ left:"0%"}, 300, function(){  
+
 			ClassRef.get("map").panTo(ClassRef.panorama.getPosition());  // I think there is inner location copy
 			ClassRef.panorama.setPosition(null);
 			ClassRef.panorama.setVisible(false);
