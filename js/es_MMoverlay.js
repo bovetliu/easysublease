@@ -1,4 +1,4 @@
-
+"use strict";
 EasySubOrg.createNS("EasySubOrg.MENU");
 EasySubOrg.MENU.reg = new Backbone.Model({
 	top:0,
@@ -26,7 +26,7 @@ var OverLayMenu = Backbone.View.extend({
 			"Want to lease here",
 			"Want rent here",
 			"Seek co-lessee here",
-			"street view here"
+			"Toggle street view here"
 		],
 		"travel-mode" :[
 			"Place route start here",
@@ -151,48 +151,23 @@ var OverLayMenu = Backbone.View.extend({
 					break;
 				case 4:
 					//EasySubOrg.MAP.cu_01.get('map').panBy(-400,0);
-					EasySubOrg.MAP.cu_01.get('map').getStreetView().setPosition( EasySubOrg.MAP.cu_01.get('map').getCenter());
-					console.log(EasySubOrg.MAP.cu_01.get('map').getStreetView().getVisible() )
-					console.log(EasySubOrg.MAP.cu_01.get('map').getStreetView().getPosition() );
-					EasySubOrg.MAP.cu_01.get('panorama').setVisible(true);
-					$('#pano-div').animate({
-							left:"10%"
-						},
-						200,
-						function(){
-						
-						}
-					);
-/*
-					if (EasySubOrg.MAP.cu_01.get('panorama').getVisible()) {
-						//EasySubOrg.MAP.cu_01.get('map').panBy(400,0);
-						$('#pano-div').animate({
-								left:"-70%"
-							},
-							200,
-							function(){
-							EasySubOrg.MAP.cu_01.get('panorama').setVisible(false);
-							}
-						);
+					var pano = EasySubOrg.MAP.cu_01.get('map').getStreetView();
+					var cu =EasySubOrg.MAP.cu_01;
+					console.log("before click pano.getVisible():" + pano.getVisible());
+
+					if (pano.getVisible()) { // already visible
+						cu.togglePanoOff();
 					}
-					else {
-						//EasySubOrg.MAP.cu_01.get('map').panBy(-400,0);
-						EasySubOrg.MAP.cu_01.get('panorama').setPosition( EasySubOrg.MAP.cu_01.get('map').getCenter());
-						EasySubOrg.MAP.cu_01.get('panorama').setVisible(true);
-						$('#pano-div').animate({
-								left:"0%"
-							},
-							200,
-							function(){
-							
-							}
-						);
+					else { // not visible yet
+						//pano.setPosition( EasySubOrg.MAP.cu_01.get('map').getCenter());
+						cu.panSV.getPanoramaByLocation(latLng,49,cu.updatePanoramaAndMapPosition )
 					}
-*/
-					console.log("pano");
+
+
+					console.log("pano control");
 					break;
 				default:
-					alert (" es_MMoverlay.js: write rf_cu_01 failed!");
+					alert (" es_MMoverlay.js: no corresponding logic implemented for this num");
 					break;
 			}
 			

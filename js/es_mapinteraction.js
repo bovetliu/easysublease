@@ -8,11 +8,13 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 		home_LatLng: new google.maps.LatLng(30.620600000000003, -96.32621),
 		test_LatLng: new google.maps.LatLng(30.618418, -96.327086),
 		rclk_menu_overlay: null,  // EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')placeholder
-		map_options:{ draggingCursor:"move",draggableCursor:"auto" , zoom: 14, center: new google.maps.LatLng(30.624013, -96.316689) },
+		map_options:{ draggingCursor:"move",draggableCursor:"auto" , zoom: 14, center: new google.maps.LatLng(30.625513, -96.316689) },
 		map:null, //EasySubOrg.MAP.cu_01.get('map')
-		pano_options:  {  "pov": { heading: 34, pitch: 10}, "visible":true} ,
+		pano_options:  {  "pov": { heading: 34, pitch: 10}, "visible":false} ,
 		work_mode:"default",   //EasySubOrg.MAP.cu_01.get('work_mode')
 		// work_mode is listened by right-click-menu
+
+		pano_expected_visbility:false,  // this one listened by this it class instance it
 		rental_search_result:[],  // this one will take something like following array of object(s)
 		//[{"_id":"556a5ec57ca147a019edc654","lat":30.65526502275242,"lng":-96.27568244934082,"beds":2,"baths":1.5,"price_single":null,
 		//"price_total":550,"cat":1,"post_date":"2015-05-31T01:07:17.000Z","isexpired":false,"community":"Campus view","source":"","memo":"test memo 
@@ -21,9 +23,52 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 		to_be_set_expired:"",
 		to_be_set_expired_ride:"",
 	}, // end of defaults
+
 	panorama: null,
+	panSV:new google.maps.StreetViewService(),
+
+	updatePanoramaAndMapPosition:function (data, status){  // callback function of this.panSV.getPanoramaByLocation()
+		var ClassRef = EasySubOrg.MAP.cu_01; // workaround
+		if (status == google.maps.StreetViewStatus.OK) {
+	    var temp_location = data.location;
+	   	ClassRef.togglePanoOn(temp_location.latLng);
+	  } else {
+	    alert('Street View data not found for this location.');
+	  }
+	},
+	togglePanoOn:function(latLng){
+		var ClassRef = this;
+	 	ClassRef.get('map').panTo(latLng);
+    ClassRef.get('map').getStreetView().setPosition( ClassRef.get('map').getCenter() );
+	 	ClassRef.get('map').panBy($("#map-div").width()*0.35 * -1, 0);
+		ClassRef.get('map').getStreetView().setVisible(true);
+		_.delay(function(){
+			$('#pano-div').animate({
+					left:"0%",
+					opacity:1
+				},
+				300,
+				function(){
+				}
+			);
+		} ,100);
+	},
+	togglePanoOff:function(){
+		var ClassRef = this;
+		ClassRef.get('map').panBy($("#map-div").width()*0.35 * 1, 0);
+		$('#pano-div').animate({
+				left:"-70%",
+				opacity:0
+			},
+			300,
+			function(){
+				ClassRef.panorama.setVisible(false);
+			}
+		);
+	},
 
 	toggleWorkMode : function () {
+		console.log(this);
 		if (this.get('work_mode') == "default") {  this.set('work_mode', 'travel-mode'); }
 		else if ( this.get('work_mode') == 'travel-mode') { this.set('work_mode', 'travel-mode');}
 		console.log(  this.get('work_mode'));
@@ -34,6 +79,7 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	*/
 	isMapReady:function(){
 		var classRef = this;
+		console.log(this);
 		if ( classRef.get('map')==null ||typeof(classRef.get('map'))=='undefined')  
 		{
 			return false;
@@ -76,8 +122,9 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	initialize : function () {
 		var ClassRef = this;
 		ClassRef.set('map',  new google.maps.Map(  $('#map-div')[0],ClassRef.get('map_options') )); 
-		ClassRef.set('panorama', new google.maps.StreetViewPanorama(document.getElementById('pano-div'), ClassRef.get('pano_options')) ); 
-		ClassRef.get('map').setStreetView( ClassRef.get('panorama'));
+		ClassRef.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano-div'), ClassRef.get('pano_options')) ; 
+		ClassRef.panorama.setPosition(ClassRef.get('map').getCenter());
+		ClassRef.get('map').setStreetView( ClassRef.panorama);
 		console.log("init() of MAP_CU");
 	}
 	

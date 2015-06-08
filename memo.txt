@@ -26,3 +26,28 @@ University of Texas, Austin
 	/* Standard */
 	height: calc(100% - 88px);
 	overflow: auto;
+
+
+	map_options:{
+	 draggingCursor:"move",
+	 draggableCursor:"auto" , 
+	 zoom: 14, 
+	 center: new google.maps.LatLng(30.624013, -96.316689) 
+	},
+
+	pano_options:  {  
+		"pov": { heading: 34, pitch: 10}, 
+		"visible":
+		true
+	}
+
+google.maps.StreetViewPanoramaData 
+	copyright
+	imageDate	
+	links	Array<StreetViewLink>	
+	location	StreetViewLocation
+		description : <string>
+		latLng: latLng
+		pano: <string>	A unique identifier for the panorama. This is stable within a session but unstable across sessions.
+		shortDescription : <string>
+	tiles	StreetViewTileData	
