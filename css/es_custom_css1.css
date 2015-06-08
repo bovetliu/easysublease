@@ -364,6 +364,7 @@ last-child {
 	overflow:scroll;
 }
 #info-div{
+	opacity: 0.85;
 	border-left:2px #CCC solid;
 	z-index:2;
 	text-align:left;
@@ -378,6 +379,9 @@ last-child {
 	/* Standard */
 	height: calc(100% - 88px);
 	overflow: auto;
+}
+#info-div:hover{
+	opacity:1;
 }
 
 .easysub-form-control{
@@ -397,6 +401,8 @@ last-child {
 .input-group-dimension-control{   /*info-div style control*/
  
 }	
+.form-rtn-btn {
+}
 .btn-cusom-contrl {
 		width:10%;
 	   margin-left:10%;

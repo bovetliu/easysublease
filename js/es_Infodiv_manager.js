@@ -162,8 +162,10 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
 		ClassRef.$el = $('#info-div'); 
 		ClassRef.jq_about_panel = $('#about-panel');
 		ClassRef.setPurpose();
-		ClassRef.$("#travel-search-results-rtn-btn").click(function (){
-			ClassRef.model.set('info_div_purpose','default');
+		_.each( ClassRef.$(".form-rtn-btn"),function(dom,index,ar){
+			dom.onclick = function(){
+				ClassRef.model.set('info_div_purpose','default');
+			}		
 		});
 		this.listenTo ( EasySubOrg.INFO.info_div_reg , 'change:info_div_purpose', this.setPurpose);
 	},

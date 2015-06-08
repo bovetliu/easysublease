@@ -3,18 +3,13 @@ EasySubOrg.createNS("EasySubOrg.RIDE");
 
 // RENTAL FORM CONTROL UNIT, this one basically I did not use
 EasySubOrg.RENTAL.rf_cu_01 = new Backbone.Model({
-	"lat":   null,
-	"lng":   null,
-	"beds"    :null,
-	"baths"   :null,
-	"price_single":null,
-	"price_total" :null,
+	"lat":   null,"lng":   null,
+	"beds"    :null,"baths"   :null,
+	"price_single":null,"price_total" :null,
 	"cat"     :null,  // by default, 0 should be rejected
 	"post_date": new Date("2013-01-01"),
-	"isexpired"  : false,
-	"community"  : "",
-  "source"     : "",
-	"memo"       : "",
+	"isexpired"  : false,"community"  : "",
+  "source"     : "","memo"       : "",
 	"addr"       : ""
 });
 	
@@ -698,18 +693,8 @@ $(document).ready( function() {
 });  // #### END of $(document).ready( ...   );######
 
 
-
-
-
-
 //these several global function serve as utilities
 //function  topLevelChangeToRideMode () {
-		
-
-		
-//}
-
-
 function  hightlightTitle (ID){
 	document.getElementById('title-housing').className = "title-options1";
 	document.getElementById('juju').className = "title-options1";
