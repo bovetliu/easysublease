@@ -10,7 +10,7 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 		rclk_menu_overlay: null,  // EasySubOrg.MAP.cu_01.get('rclk_menu_overlay')placeholder
 		map_options:{ draggingCursor:"move",draggableCursor:"auto" , zoom: 14, center: new google.maps.LatLng(30.625513, -96.316689) },
 		map:null, //EasySubOrg.MAP.cu_01.get('map')
-		pano_options:  {  "pov": { heading: 34, pitch: 10}, "visible":false} ,
+		pano_options:  {  "pov": { heading: 34, pitch: 10}, "visible":false, enableCloseButton:true} ,
 		work_mode:"default",   //EasySubOrg.MAP.cu_01.get('work_mode')
 		// work_mode is listened by right-click-menu
 		listeners_obj:{},
@@ -37,6 +37,11 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	  } else {
 	    alert('Street View data not found for this location.');
 	  }
+	},
+	panoVisibleHandler:function() {
+		if (!this.panorama.getVisible() &&  $("#pano-div").css("opacity")== 1) {
+			this.togglePanoOff();
+		}
 	},
 	panoPositionHandler:function(){ // this is handler function of pano_expected_visbility:
 		/*pay attention, call this after position and visible are set*/
@@ -72,6 +77,7 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	},
 	togglePanoOff:function(){
 		var ClassRef = this;
+
 		ClassRef.get('map').panBy($("#map-div").width()*0.35 * 1, 0);
 		$('#pano-div').animate({
 				left:"-70%",
@@ -83,6 +89,7 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 				ClassRef.panorama.setVisible(false);
 			}
 		);
+		
 	},
 
 	toggleWorkMode : function () {
@@ -144,10 +151,12 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 		//ClassRef.panorama.setPosition(ClassRef.get('map').getCenter());
 		ClassRef.get('map').setStreetView( ClassRef.panorama);
 		// push listeners here
-		ClassRef.get("listeners_obj").visibility_listener = google.maps.event.addListener(ClassRef.panorama,'position_changed',function(){  
+		ClassRef.get("listeners_obj").position_listener = google.maps.event.addListener(ClassRef.panorama,'position_changed',function(){  
 			ClassRef.panoPositionHandler();
 		});
-
+		ClassRef.get("listeners_obj").visible_listener = google.maps.event.addListener(ClassRef.panorama,'visible_changed',function(){  
+			ClassRef.panoVisibleHandler();
+		});
 		console.log("init() of MAP_CU");
 	}
 	
