@@ -40,6 +40,11 @@ var OverLayMenu = Backbone.View.extend({
 			"Start new street view here"
 		]
 	},
+	/* lb is left bound of actual view */
+	customPanto:function (latLng, lb, rb) {
+
+		//this.
+	},
 	/*this should be utility function of toggleOn*/
 	correctRefPoint:function (pixel, new_center){
 		pixel.y = pixel.y + $("#title-big-div").height() + $("div.search-div").height();

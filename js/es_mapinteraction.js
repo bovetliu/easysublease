@@ -56,13 +56,15 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 	togglePanoOn:function(){
 		var ClassRef = this;
 		latLng = ClassRef.panorama.getPosition();
-	 	ClassRef.get('map').panTo(latLng);
-	 	ClassRef.get('map').panBy($("#map-div").width()*0.35 * -1, 0);
-		//if (!ClassRef.panorama.getVisible()) {		
-		//	ClassRef.get('map').getStreetView().setVisible(true);
-		//}
-		if ($("#pano-div").css("opacity")< 1){
+		if ($("#pano-div").css("opacity")< 1){ // currently not shown to user
 			_.delay(function(){
+				$('#map-div').animate({ left:"70%",width:"30%" }, 300, function(){  
+				/* trigger map bounds changed event*/
+					//ClassRef.get('map').panTo(latLng);
+					google.maps.event.trigger(ClassRef.get('map') , 'resize');
+					ClassRef.get('map').panTo(latLng);
+				});
+
 				$('#pano-div').animate({
 						left:"0%",
 						opacity:1
@@ -71,22 +73,32 @@ var MAP_CU = Backbone.Model.extend({  //to refer him: EasySubOrg.MAP.cu_01
 					function(){
 					}
 				);
-			} ,100);
+			} ,100); // $('#pano-div').animate ends
+		} // end of opacity < 1 condition
+		else { // currently panorama being displayed
+			ClassRef.get('map').panTo(latLng);
 		}
 
 	},
 	togglePanoOff:function(){
 		var ClassRef = this;
+		var previous_pos = this.panorama.getPosition();
+		//ClassRef.get('map').panBy($("#map-div").width()*0.35 * 1, 0);
+		$('#map-div').animate({ left:"0%",width:"100%" }, 300, function(){  
+		/* trigger map bounds changed event*/
+			google.maps.event.trigger(EasySubOrg.MAP.cu_01.get('map') , 'resize'); // fire resizing event of map
+			ClassRef.get("map").panTo(ClassRef.panorama.getPosition());  // I think there is inner location copy
+			ClassRef.panorama.setPosition(null);
+			ClassRef.panorama.setVisible(false);
+		});
 
-		ClassRef.get('map').panBy($("#map-div").width()*0.35 * 1, 0);
 		$('#pano-div').animate({
 				left:"-70%",
 				opacity:0
 			},
 			300,
 			function(){
-				ClassRef.panorama.setPosition(null);
-				ClassRef.panorama.setVisible(false);
+
 			}
 		);
 		
