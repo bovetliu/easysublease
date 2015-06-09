@@ -664,7 +664,7 @@ $(document).ready( function() {
 		location.href='index.html';	
 	});
 	
-  jQuery.get('about_content.php', function(data) {
+  jQuery.get('about_content.html', function(data) {
 		$('#about-panel').html( data ); 
 	});
 	
