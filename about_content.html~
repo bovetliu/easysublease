@@ -1,11 +1,12 @@
 <div>
 	<p> click to check <a href="https://boweiliu.wordpress.com/" target="_blank">Official Blog</a></p>
   <p >本站制作目的，主要在于方便college station村民发布转租，求租,自驾游,搭车,聚聚等。
-    转租求租非常简单，就是在地图上对应位置右键，然后选择对应选项: 求租的选择want to rent here(红)，转租，要转租的want to lease here(紫),要找人一起租的co-lessee(蓝色),点击图标，会出现infowindow,再点击source.
-    就可以导向到对应的CSSA论坛的帖子。本站直观的标明了这个房源离校车线路有多远，离大学有多远，或者周围生活设设施有多远. 右键菜单也可以调出嵌入的google街景.
+    转租求租非常简单，就是在地图上对应位置右键，然后选择对应选项: 求租的选择want to rent here，转租，求室友的want to lease here
+  转租出现的图标是红色的，求租紫色的。点击图标，会出现infowindow,再点击source，
+    就可以导向到对应的CSSA论坛的帖子。本站直观的标明了这个房源离校车线路有多远，离大学有多远，或者周围生活设设施有多远
   还有搭车出行功能，首先点击Ride，在地图上右键点出起终点，再点击calculate route， 输入日期，memo，求车还是提供车，然后create发布。
     就可以让本站用户看到你提供什么路段的搭车，或者求搭车。
-    </p>
+    后续的功能有，在地图上发起活动，比如party,野餐。点击图标可以选择"我要参加"</p>
   <p>消除本弹出页，请再点击about一次<br>
   今后数据会采用 python Beautifulsoup包抓取和整理， 希望2015年年底能用上Solr搜索引擎<br>目前本站客户端代码已经使用 Backbone.js & Backbone.epoxy 改写了,服务器端已经改为 Node.js + MongoDB,力争以最
   	小成本实现一个能处理高并发的, 符合RESTFUL要求的Single-Page-Application 
