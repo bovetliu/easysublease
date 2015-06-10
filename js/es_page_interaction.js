@@ -710,7 +710,7 @@ function changecolor(element) {
   element.style.cursor = "pointer";
 }
 function backcolor(element) {
-  element.style.fontWeight = "normal";  
+  //element.style.fontWeight = "normal";  
   element.style.color = "#000000";
 }
 function set_status(id, status_num, entry) {

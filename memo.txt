@@ -51,3 +51,5 @@ google.maps.StreetViewPanoramaData
 		pano: <string>	A unique identifier for the panorama. This is stable within a session but unstable across sessions.
 		shortDescription : <string>
 	tiles	StreetViewTileData	
+
+	<span onclick="travel_set_status( '5577862bf359f464105f75c5' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style="font-weight: normal; color: rgb(0, 0, 0); cursor: pointer;">mark it as outdated</span>

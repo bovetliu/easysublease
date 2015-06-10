@@ -433,16 +433,49 @@ last-child {
 	
 }
 .travel_data_entry_div {
-	border-top:2px #CCC solid;
+	border-top:1px #CCC solid;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	/*height:150px;*/
+	text-align: left;
+
+	/*border:1px dashed #000;*/
 	
 }
-.travel_data_entry_div > div {
-	margin-left:20px;
+.travel_data_entry_div > div{
+	padding-left:20px;
 }
+div.TDE_origin_pad, div.TDE_destiny_pad, div.TDE_origin, div.TDE_destiny{
+	float: left;
+}
+
+div.TDE_origin_pad, div.TDE_destiny_pad{
+	display:inline-block;
+	/*height:60px;*/ 
+	overflow: auto;
+}
+div.TDE_origin, div.TDE_destiny{
+	display:inline-block;
+	/*padding-top: 5px;*/
+	padding-bottom:10px;
+	/*height:60px; */
+	width :40%;
+	/*border:1px dashed #000;*/
+}
+
+
+div.TDE_cat, div.TDE_date, div.TDE_source,div.TDE_markoutdated  {
+	display:inline-block;
+	height:30px;
+	width:120px;
+}
+
+
 .travel_data_entry_div .TDE_bold {
 	font-weight:bold;
 	
 }
 #info-div #travel_search_results_container>.travel_data_entry_div:hover  {
-	background-color:#CCC;
+	box-shadow: inset 0px 0px 8px #85C2FF;
+
 }

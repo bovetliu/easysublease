@@ -287,8 +287,18 @@
             </div>
           </form>
         </div>
+        <div id = "rental-sesults-slot" >
+          <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
+          <div  id="rental_search_results_container" > 
+          <!-- EasySubOrg.INFO.info_view_01 poplulate will templated results, 
+          template:route-infowindow-template-->
+          rental results placeholder (dev)
+          </div>
+          <!--end of travel_search_results_container-->
+
+        </div>
+
         <!--ride-form-slot-->
-        
         <div id="ride-results-slot">
           <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
           <div  id="travel_search_results_container" > <!-- EasySubOrg.INFO.info_view_01 poplulate will templated results, template:route-infowindow-template-->
@@ -343,17 +353,27 @@
 		</script> 
      <!--focusOn = function ( width_ratio, height_ratio, offset_ratio, focusID) -->
     <script type="text/template" id="route-infowindow-template"> 
-		<div class="travel_data_entry_div" onclick="mapcc1.focusOn(  0.4, 1, 0.3 , '<%=id%>')"> 
-			<div class="TDE_origin"><span class="TDE_bold">Origin:</span><%= origin %></div>
-			<div class="TDE_destiny"><span class="TDE_bold">Destiny:</span><%= destiny %></div>
-			<div class="TDE_cat"><span class="TDE_bold">Category:</span><%= cat_string%></div>
-			<div><span class="TDE_bold">Departure Date:</span><%=depart_date%></div>
-			<div>click to check <a target="_blank" href= "<%=source%>" >source</a></div>
+    <% // ( width_ratio, height_ratio, offset_ratio, focusID)
+    	//var width_ratio = $("#info-div").width()/ $("#map-div").width();
+    	//passed in argument include width_ratio
+    	var width_ratio = 0.4
+    	var height_ratio = 1; // currently i did not change it, so I made on assumption
+    	var offset_ratio = 0.5- (width_ratio/2);
+    	var depart_date = depart_date.slice(0,10)
+
+    %>
+		<div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
+			<div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
+			<div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
+			<div class="TDE_cat TDE_bold"><%= cat_string%></div>
+			<div class="TDE_bold TDE_date"><%=depart_date%></div>
+			<div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
+
+			<div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
+
+			<div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 
 			<div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
-			<div class="TDE_sharable_url"><span class="TDE_bold">Shrable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>"><%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%></a> </div> 
-			<div class="TDE_NONE_DISPLAY" id="TDE_<%=id%>"><%=id%></div> 
 		</div>		
- 		<br>
     </script> 
   </body>
 </html>

@@ -48,6 +48,7 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
     $('#ride-results-slot').hide();
     $('#ride-form-slot').hide();
     $('#rental-form-slot').hide();
+    $('#rental-sesults-slot').hide();
     $( jq_id_str).show();
   },
 
@@ -56,7 +57,7 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
     //modeliteral consider using this.model.get('info_div_mode')
     var modeliteral = this.model.get('info_div_purpose');
 
-    var width = this.$el.css("width"), left = this.$el.css("left") ;
+    var width = this.$el.css("width"), left = this.$el.css("left") ;  // in es_custom_css1.css, default width is 30% (it is out of screen at that time)
     switch ( modeliteral ) {
       case "rental_form":
         left = '70%';
@@ -71,8 +72,11 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
         ClassRef.$el.addClass("input-group-dimension-control"); 
         break
       case "ride_result":
-        width = '60%';
-        left = '40%';
+        //left = '800px';
+        //width = ($("#map-div").width()-parseInt(left.slice(0,-2))  ).toString() + "px";
+        
+        left= "40%",
+        width="60%",
         //EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
         ClassRef.show('#ride-results-slot');
         ClassRef.$el.removeClass("input-group-dimension-control");
@@ -84,7 +88,6 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
         //EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
         ClassRef.show('#rental-form-slot');
         ClassRef.$el.addClass("input-group-dimension-control");
-        //console.log( "info div default mode");
     } // end of switch
     // start animation part
     if ($("#info-div")){   //info-div
@@ -118,20 +121,27 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
   },
   OriginDestinyComp : function ( originStr, destinyStr) {  // this need to change
     //if (originStr ==  destinyStr) { alert( originStr + "   " + destinyStr);}
-    var splitedOrigin = originStr.split(", ");
-    var splitedDestiny = destinyStr.split(", ");
-    splitedOrigin[2] = splitedOrigin[2].split(" ")[0];  // "TX 77840"  => "TX" 
-    splitedDestiny[2] = splitedDestiny[2].split(" ")[0];
-    var tbr_origin_destiny = ["",""];
-    var endOfSlice = 4;
-    while( splitedOrigin[endOfSlice-1] == splitedDestiny[endOfSlice-1] ) {
-      endOfSlice = endOfSlice -1;
-      if (endOfSlice == 0) break;
+    pattern = /[A-Z]{2}\s\d{5}/i;
+    console.log(originStr);
+    console.log(destinyStr);
+    console.log("test");
+    originStr= originStr.replace(pattern, function(matched){return matched.slice(0,2) });
+    destinyStr= destinyStr.replace(pattern, function(matched){return matched.slice(0,2) });
+
+    var splitedOrigin = originStr.split(",");
+    var splitedDestiny = destinyStr.split(",");
+    //var lengths = [splitedOrigin.length, splitedDestiny.length];
+    var o_index = splitedOrigin.length, d_index = splitedDestiny.length;
+    for (o_index, d_index ; o_index >=0 && d_index>=0 ; o_index--,d_index-- ) {
+      if (splitedOrigin[o_index] != splitedDestiny[d_index]) {
+        break
+      }
     }
-    if (endOfSlice <= 1) {endOfSlice = 2;}
-    tbr_origin_destiny[0] = splitedOrigin.slice(0,endOfSlice).join(", ");
-    tbr_origin_destiny[1] = splitedDestiny.slice(0,endOfSlice).join(", ");
+    var tbr_origin_destiny = []
+    tbr_origin_destiny[0] = splitedOrigin.slice(0, o_index+1).join(",");
+    tbr_origin_destiny[1] = splitedDestiny.slice(0,d_index+1).join(",");
     return tbr_origin_destiny;
+
   },
 
   generate_dataentry_div : function( entry_data_ary) {
@@ -139,13 +149,13 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
     //                                 origin, and destiny are all characters
     var cat_string = "";
     if ( entry_data_ary['cat'] == 1) {
-      cat_string = "provide a ride";  
+      cat_string = "Provide a ride";  
     }
     else if ( entry_data_ary['cat'] == 2) {
-      cat_string = "need a ride";
+      cat_string = "Need a ride";
     }
     else if (entry_data_ary['cat'] ==3) {
-      cat_string = "self-drive travel";
+      cat_string = "Self-drive travel";
     } 
     var origin_destiny = this.OriginDestinyComp(entry_data_ary['origin'],entry_data_ary['destiny'] );
     
