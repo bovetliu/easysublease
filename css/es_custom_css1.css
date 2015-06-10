@@ -458,18 +458,33 @@ div.TDE_origin, div.TDE_destiny{
 	display:inline-block;
 	/*padding-top: 5px;*/
 	padding-bottom:10px;
-	/*height:60px; */
+	height:50px; 
 	width :40%;
+	overflow: auto;
 	/*border:1px dashed #000;*/
 }
 
-
-div.TDE_cat, div.TDE_date, div.TDE_source,div.TDE_markoutdated  {
+div.TDE_cat {
+	clear:left;
+}
+div.TDE_cat, div.TDE_date, div.TDE_source {
 	display:inline-block;
-	height:30px;
+	height:20px;
 	width:120px;
 }
-
+div.TDE_markoutdated {
+		display:inline-block;
+		height:20px;
+		/* Firefox */
+		width: -moz-calc(100% - 390px);
+		/* WebKit */
+		width: -webkit-calc(100% - 390px);
+		/* Opera */
+		width: -o-calc(100% - 390px);
+		/* Standard */
+		width: calc(100% - 390px);
+		text-align: right;
+}
 
 .travel_data_entry_div .TDE_bold {
 	font-weight:bold;

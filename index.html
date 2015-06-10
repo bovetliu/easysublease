@@ -342,38 +342,40 @@
     </script>
       <!--location, cat, url_str, memo, id--> 
     <script type="text/template" id="marker-infowindow-template">  
-			<p style="font-weight:normal;"> 
-				click to check  <a href= "<%= source %>" target="_blank">source</a>
-			</p>	
-			<p style="color:#000; font-weight:normal;  font-family: "Times New Roman", Times, serif; "><%= memo %></p>
-			<p style = "font-weight : normal;" > 
-				<span  onclick = 'EasySubOrg.MAP.render_01.set_status( "<%=id %>" , true, <%=  index%>);' onmouseover = "changecolor(this);" onmouseout="backcolor(this);">
-				mark it as outdated</span>
-			</p>
-		</script> 
+      <p style="font-weight:normal;"> 
+        click to check  <a href= "<%= source %>" target="_blank">source</a>
+      </p>  
+      <p style="color:#000; font-weight:normal;  font-family: "Times New Roman", Times, serif; "><%= memo %></p>
+      <p style = "font-weight : normal;" > 
+        <span  onclick = 'EasySubOrg.MAP.render_01.set_status( "<%=id %>" , true, <%=  index%>);' onmouseover = "changecolor(this);" onmouseout="backcolor(this);">
+        mark it as outdated</span>
+      </p>
+    </script> 
      <!--focusOn = function ( width_ratio, height_ratio, offset_ratio, focusID) -->
     <script type="text/template" id="route-infowindow-template"> 
     <% // ( width_ratio, height_ratio, offset_ratio, focusID)
-    	//var width_ratio = $("#info-div").width()/ $("#map-div").width();
-    	//passed in argument include width_ratio
-    	var width_ratio = 0.4
-    	var height_ratio = 1; // currently i did not change it, so I made on assumption
-    	var offset_ratio = 0.5- (width_ratio/2);
-    	var depart_date = depart_date.slice(0,10)
+      //var width_ratio = $("#info-div").width()/ $("#map-div").width();
+      //passed in argument include width_ratio
+      var width_ratio = 0.4
+      var height_ratio = 1; // currently i did not change it, so I made on assumption
+      var offset_ratio = 0.5- (width_ratio/2);
+      var depart_date = depart_date.slice(0,10)
 
     %>
-		<div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
-			<div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
-			<div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
-			<div class="TDE_cat TDE_bold"><%= cat_string%></div>
-			<div class="TDE_bold TDE_date"><%=depart_date%></div>
-			<div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
+    <div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
+      <div class="TDE_ori_des_container">
+        <div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
+        <div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
+      </div>
+      <div class="TDE_cat TDE_bold"><%= cat_string%></div>
+      <div class="TDE_bold TDE_date"><%=depart_date%></div>
+      <div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
 
-			<div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
+      <div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
 
-			<div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 
-			<div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
-		</div>		
+      <div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 
+      <div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
+    </div>    
     </script> 
   </body>
 </html>
