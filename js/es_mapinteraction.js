@@ -199,6 +199,7 @@ var MAP_RENDER = Backbone.Model.extend({
   //model:"to be replaced",
   defaults:{
     marker_array : [],
+    mirrored_marker_array:[],
     ride_marker_array:[],
     is_ori_added:false
   },
@@ -222,16 +223,22 @@ var MAP_RENDER = Backbone.Model.extend({
     this.get('marker_array').forEach( function ( marker, index, ar) {
       marker.setMap(  map);
     });
+
     this.get('ride_marker_array').forEach( function ( marker, index, ar) {
       marker.setMap(  map);
     });
+
+    if (map != null){ map =EasySubOrg.MAP.cu_01.panorama   }
+    this.get("mirrored_marker_array").forEach( function ( marker, index, ar ){
+      marker.setMap( map);
+    });
+ 
     
   },
   
   deleteMarkers : function () {
     this.setMarkersMap(null);
-    this.set('marker_array' , []);
-    this.set('ride_marker_array' , []);
+    this.set({ 'marker_array' : [], "mirrored_marker_array":[] , 'ride_marker_array' : [] });
   },
   addNextOriDes :function( latLng) {
     if (!this.get('is_ori_added')){
@@ -243,6 +250,7 @@ var MAP_RENDER = Backbone.Model.extend({
       this.set('is_ori_added', false) 
     }
   },
+
   addMarker : function(location, cat, url_str, memo, id, draggable) {   //EasySubOrg.MAP.render_01.addMarker(location, cat, url_str, memo, id, draggable);  
     ClassRef = this;
     if (typeof(draggable) === 'undefined'){ draggable = false;}
@@ -253,8 +261,15 @@ var MAP_RENDER = Backbone.Model.extend({
       draggable:draggable,
       animation: google.maps.Animation.DROP
     });
+
+    var marker_mirrored = new google.maps.Marker({
+      position:location,
+      map:EasySubOrg.MAP.cu_01.panorama,
+      draggable:draggable,
+    })
     //alert("addMarker: " + map_cs);
     //this.get('marker_array').push(marker);
+    var the_mirrored_marker_array = this.get('mirrored_marker_array');
     var the_marker_array = this.get('marker_array');
     
     switch(cat) {
@@ -264,6 +279,14 @@ var MAP_RENDER = Backbone.Model.extend({
             ClassRef.templateMarkerInfo( {"source":url_str, "memo":memo,"id":id,"index": the_marker_array.length-1  } )
           });
           google.maps.event.addListener(marker, 'click', function() { temp_infowindow.open(EasySubOrg.MAP.cu_01.get("map"), marker); }); 
+          /*mirror part*/
+          var image_mirrored = {url:'images/icon1_mirror.png'};
+          this.get('mirrored_marker_array').push(marker_mirrored);
+          var temp_infowindow_mirrored = new google.maps.InfoWindow({content:  
+            this.templateMarkerInfo( {"source":url_str, "memo":memo,"id":id,"index": the_mirrored_marker_array.length-1  } )
+          });
+          google.maps.event.addListener(marker_mirrored, 'click', function() { temp_infowindow_mirrored.open(EasySubOrg.MAP.cu_01.panorama, marker_mirrored); } ); 
+          marker_mirrored.setIcon(image_mirrored);
           break;
       case 2:
           this.get('marker_array').push(marker);
@@ -271,8 +294,16 @@ var MAP_RENDER = Backbone.Model.extend({
             this.templateMarkerInfo( {"source":url_str, "memo":memo,"id":id,"index": the_marker_array.length-1  } )
           });
           google.maps.event.addListener(marker, 'click', function() { temp_infowindow.open(EasySubOrg.MAP.cu_01.get("map"), marker); } ); 
-          var image = 'images/icon2.png';
+          var image = { url:'images/icon2.png'};
           marker.setIcon(image);
+          /*mirror part*/
+          var image_mirrored = {url:'images/icon2_mirror.png'};
+          this.get('mirrored_marker_array').push(marker_mirrored);
+          var temp_infowindow_mirrored = new google.maps.InfoWindow({content:  
+            this.templateMarkerInfo( {"source":url_str, "memo":memo,"id":id,"index": the_mirrored_marker_array.length-1  } )
+          });
+          google.maps.event.addListener(marker_mirrored, 'click', function() { temp_infowindow_mirrored.open(EasySubOrg.MAP.cu_01.panorama, marker_mirrored); } ); 
+          marker_mirrored.setIcon(image_mirrored);
           break
       case 3:  // need to change here
           this.get('marker_array').push(marker);
@@ -282,6 +313,14 @@ var MAP_RENDER = Backbone.Model.extend({
           google.maps.event.addListener(marker, 'click', function() { temp_infowindow.open(EasySubOrg.MAP.cu_01.get("map"), marker); } ); 
           var image = 'images/icon3.png';
           marker.setIcon(image);
+          /*mirror part*/
+          var image_mirrored = {url:'images/icon3_mirror.png'};
+          this.get('mirrored_marker_array').push(marker_mirrored);
+          var temp_infowindow_mirrored = new google.maps.InfoWindow({content:  
+            this.templateMarkerInfo( {"source":url_str, "memo":memo,"id":id,"index": the_mirrored_marker_array.length-1  } )
+          });
+          google.maps.event.addListener(marker_mirrored, 'click', function() { temp_infowindow_mirrored.open(EasySubOrg.MAP.cu_01.panorama, marker_mirrored); } ); 
+          marker_mirrored.setIcon(image_mirrored);
           break
       case 4:
           if ( this.get('ride_marker_array')[0] != null ) { this.get('ride_marker_array')[0].setMap(null); this.get('ride_marker_array')[0] =null;  }
@@ -305,6 +344,8 @@ var MAP_RENDER = Backbone.Model.extend({
       default:
           console.log("encountered default,  check cat" + cat);
           break;
+
+
     }  // end of switch(cat)
   }, // end of addMarker
   
@@ -318,6 +359,7 @@ var MAP_RENDER = Backbone.Model.extend({
     // id is mongoDB 24 char _id now  id is string now
     this.model.set('to_be_set_expired', id); // this action => EasySubOrg.comm_unit.getAfterSettingExpired
     this.get('marker_array')[entry].setMap(null);  // This one is For VISION control
+    this.get('mirrored_marker_array')[entry].setMap(null);
   },
   
   updateSetting : function (){

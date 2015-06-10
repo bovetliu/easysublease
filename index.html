@@ -359,18 +359,28 @@
       var width_ratio = 0.4
       var height_ratio = 1; // currently i did not change it, so I made on assumption
       var offset_ratio = 0.5- (width_ratio/2);
-      var depart_date = depart_date.slice(0,10)
+      var depart_date = depart_date.slice(0,10);
+      var cat_bgcolor = ""
+      if (cat_string == "Provide a ride") cat_bgcolor = "#1A4C80";
+      else if (cat_string == "Need a ride") cat_bgcolor = "#00B800";
+      else cat_bgcolor = "#993399"; 
 
+      var depart_date_tmp = new Date(depart_date);
+      var current_date = new Date();
+      var date_bgcolor = "#8a8a8a";
+      if (depart_date_tmp < current_date) { date_bgcolor = "#B80000";}
     %>
     <div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
       <div class="TDE_ori_des_container">
         <div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
         <div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
       </div>
-      <div class="TDE_cat TDE_bold"><%= cat_string%></div>
-      <div class="TDE_bold TDE_date"><%=depart_date%></div>
+      <div class="TDE_cat TDE_bold" style ="background-color:<%=cat_bgcolor%>"><%= cat_string%></div>
+      <div class="TDE_bold TDE_date" style="background-color:<%=date_bgcolor%>"><%=depart_date%></div>
       <div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
-
+      <div class ="TDE_padding_btw_markoutdated_source" >
+      <!--This is actually one padding-->
+      </div>
       <div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
 
       <div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 

@@ -362,6 +362,7 @@ last-child {
 	/* Standard */
 	height: calc(100% - 88px);
 	overflow:scroll;
+	box-shadow: 3px 0px 5px #888888;
 }
 #info-div{
 	opacity: 0.85;
@@ -428,6 +429,10 @@ last-child {
 
 /*for travel results content*/
 /*for travel results content*/
+
+#ride-results-slot{ /*The container div of ride results*/
+
+}
 #info-div #travel_search_results_container>.travel_data_entry_div>.TDE_NONE_DISPLAY {
 	display:none;
 	
@@ -438,7 +443,7 @@ last-child {
 	padding-bottom: 5px;
 	/*height:150px;*/
 	text-align: left;
-
+	background-color: #F5F5F0;
 	/*border:1px dashed #000;*/
 	
 }
@@ -453,6 +458,7 @@ div.TDE_origin_pad, div.TDE_destiny_pad{
 	display:inline-block;
 	/*height:60px;*/ 
 	overflow: auto;
+	width:10%;
 }
 div.TDE_origin, div.TDE_destiny{
 	display:inline-block;
@@ -461,29 +467,53 @@ div.TDE_origin, div.TDE_destiny{
 	height:50px; 
 	width :40%;
 	overflow: auto;
-	/*border:1px dashed #000;*/
+
 }
 
 div.TDE_cat {
 	clear:left;
 }
-div.TDE_cat, div.TDE_date, div.TDE_source {
+div.TDE_cat, div.TDE_date{
+
+  -webkit-border-radius: 2;
+  -moz-border-radius: 2;
+  border-radius: 2px;
+  color: #ffffff;
+  background-color: #8a8a8a;
+  padding: 2px 5px 2px 5px;
+  text-decoration: none;
+
+	display:inline-block;
+
+	text-align: center;
+	margin-left: 20px;
+}
+div.TDE_date{
+	margin-left:10px;
+}
+ div.TDE_source {
+ 	display:inline-block;
+	text-align: center;
+ }
+div.TDE_padding_btw_markoutdated_source{
+	visibility: hidden;
 	display:inline-block;
 	height:20px;
-	width:120px;
+		border:1px dashed #000;
+	/* Firefox */
+	width: -moz-calc(100% - 570px);
+	/* WebKit */
+	width: -webkit-calc(100% - 570px);
+	/* Opera */
+	width: -o-calc(100% - 570px);
+	/* Standard */
+	width: calc(100% - 570px);
+
 }
 div.TDE_markoutdated {
 		display:inline-block;
 		height:20px;
-		/* Firefox */
-		width: -moz-calc(100% - 390px);
-		/* WebKit */
-		width: -webkit-calc(100% - 390px);
-		/* Opera */
-		width: -o-calc(100% - 390px);
-		/* Standard */
-		width: calc(100% - 390px);
-		text-align: right;
+		width:120px;
 }
 
 .travel_data_entry_div .TDE_bold {
