@@ -159,15 +159,6 @@
           <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
 
           <form id="rental-form"  >
-            <!--action="form_process.php" method="post"-->
-            <div style=" display:none" class="input-group" id = "haha">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Latitude</span>
-              <input type="text" class="form-control  easysub-form-control" placeholder="right clk on map, then choose"   id = "ipt-lat" name = "ipt-lat">
-            </div>
-            <div style=" display:none" class="input-group">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Longitude</span>
-              <input type="text" class="form-control easysub-form-control" placeholder="right clk on map, then choose"   id = "ipt-lng" name = "ipt-lng">
-            </div>
             <div class="input-group ">
               <span class="input-group-addon easysub-form-control" id="basic-addon1">Community</span>
               <input type="text" data-bind="value:community, events:['keyup']" class="form-control easysub-form-control" placeholder="Like: Cedar ridge, filling suggested "  >
@@ -209,18 +200,13 @@
             <div class="btn-group btn-cusom-contrl ">
               <button id = "btn-caption-cat" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> category <span class="caret"></span> </button>
               <ul class="dropdown-menu" role="menu" id = "ul-catagory">
-                <li id = "li-cat-rent">Want to rent</li>
                 <li id = "li-cat-lease">Want to lease</li>
+                <li id = "li-cat-rent">Want to rent</li>
                 <li id = "li-cat-activity">Seek co-lessee(一起租)</li>
               </ul>
             </div>
-            <!--floor plan dropdown btn-->
-            <input style=" display:none" id = "num-beds" name = "num-beds">
-            </input>
-            <input style=" display:none" id = "num-baths" name = "num-baths">
-            </input>
-            <input style=" display:none" id = "num-catagory" name = "num-catagory">
-            </input>
+            <!--end floor plan dropdown btn-->
+
             <textarea data-bind="value:memo, events:['keyup']" class="form-control  easysub-form-control" rows="4" placeholder = "Enter additional memo here" id="textarea-memo" name ="memo"></textarea>
             <div>
               <input  class="btn btn-success " value="Create"  id="rental-form-submit">
@@ -228,7 +214,6 @@
             </div>
           </form>
           <p data-bind ="text:addr">
-            
           </p>
         </div><!--/rental-form-slot-->
         

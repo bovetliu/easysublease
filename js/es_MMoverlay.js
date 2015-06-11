@@ -112,18 +112,31 @@ var OverLayMenu = Backbone.View.extend({
     if (! this.pointInMenuDom(lefttop_pixel)) { this.$el.hide(); }
   },
 
+  adjustMarkerColor:function(num){ //EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').adjustMarkerColor(num)
+    switch(num){
+      case 1: this._marker.setIcon(null);
+        break;
+      case 2: this._marker.setIcon("images/icon2.png");
+        break;
+      case 3: this._marker.setIcon("images/icon3.png");
+        break;
+      default:this._marker.setIcon(null);
+        console.log("WARN: does not know this num  : es_MMoverlay.js");
+        break;
+    }
+  },
   setTempMarker:function( latLng, num) {
     var cancel_string ='<a onclick="EasySubOrg.MAP.cu_01.get(\'rclk_menu_overlay\').clearProperties();"> cancel this point</a>'
     var somestring = "";
     switch(num) {
       case 1:
           this._marker.setIcon(null);
-          somestring = "user indicates renting behavior<br>" + cancel_string;
+          somestring = "user indicates leasing behavior<br>" + cancel_string;
           break;
       case 2:
           var image = 'images/icon2.png';
           this._marker.setIcon(image);
-          somestring = "user indicates leasing behavior<br>" + cancel_string;
+          somestring = "user indicates renting behavior<br>" + cancel_string;
           break;
       case 3:
           var image = 'images/icon3.png';

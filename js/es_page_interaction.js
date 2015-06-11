@@ -233,11 +233,6 @@ $(document).ready( function() {
     "li-b30b30":[3,3], "li-b40b30":[4,3], "li-b40b40":[4,4]  },
     associate_array2: {"li-cat-lease":1,"li-cat-rent":2,"li-cat-activity":3},
     
-    // filling blank of inputs
-    fillInput : function (value, jQueryObject) {
-      jQueryObject.val(value);
-    },
-    
     updatebb : function ( id) {
       
       this.model.set({"beds": this.associate_array[id][0], "baths": this.associate_array[id][1]});
@@ -250,6 +245,7 @@ $(document).ready( function() {
       //this.$('#num-catagory').val( ClassRef.associate_array2[ id_of_li] ); // hidden input filling  // to be deprecated
       this.model.set('cat', ClassRef.associate_array2[ id_of_li] );
       ClassRef.$('#btn-caption-cat').html( "Catagory: "+  ClassRef.$('#'+id_of_li).html())// document.getElementById(string2).firstChild.innerHTML )
+      EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').adjustMarkerColor(ClassRef.associate_array2[ id_of_li]);
       //console.log("es_page_interaction.js: RentalFormView.model: " + JSON.stringify(this.model) );
     },
     
