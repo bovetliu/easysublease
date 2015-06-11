@@ -222,7 +222,7 @@
           <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
           <form  id="ride-form" >
             <div class="input-group ">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Right</span>
+              <span class="input-group-addon easysub-form-control" id="basic-addon1">Origin</span>
               <input type="text" class="form-control easysub-form-control" placeholder="Right click on map to set"  id = "ipt-origin-tr" name = "ipt-origin-tr">
             </div>
             <div class="input-group">
@@ -238,11 +238,11 @@
               <input type="text" class="form-control easysub-form-control" placeholder="MM/DD/YYYY"  id = "ipt-date-tr" name = "ipt-date-tr">
             </div>
             <div class="btn-group btn-cusom-contrl ">
-              <button id = "btn-caption-cat-tr" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> catagory <span class="caret"></span> </button>
+              <button id = "btn-caption-cat-tr" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> category <span class="caret"></span> </button>
               <ul class="dropdown-menu" role="menu" id = "ul-catagory-tr">
-                <li onClick="updatecat_tr(this.id)" id = "li-cat-p-ride">Provide a ride</li>
-                <li onClick="updatecat_tr(this.id)" id = "li-cat-n-ride">Need a ride</li>
-                <li onClick="updatecat_tr(this.id)" id = "li-cat-sdt">Self-driving travel</li>
+                <li onClick="EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)" id = "li-cat-p-ride">Provide a ride</li>
+                <li onClick="EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)" id = "li-cat-n-ride">Need a ride</li>
+                <li onClick="EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)" id = "li-cat-sdt">Self-driving travel</li>
               </ul>
             </div>
             <!--floor plan dropdown btn--> 

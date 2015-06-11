@@ -574,9 +574,9 @@ $(document).ready( function() {
   
   var RideFormView = Backbone.View.extend( {
     el:$('#ride-form-slot'),  
-    /*
-    * EasySubOrg.RIDE.form_view_01.clearInputs()
+    /*EasySubOrg.RIDE.form_view_01.clearInputs()
     */
+    li_id_lookup : {"li-cat-p-ride":1 , "li-cat-n-ride":2, "li-cat-sdt":3  },
     clearInputs :function() {
       console.log("EasySubOrg.RIDE.form_view_01.clearInputs is invoked" );
       $.each(this.$('input'),function(  index, dom_element){
@@ -585,6 +585,13 @@ $(document).ready( function() {
       this.$('#btn-caption-cat-tr').html("catagory");
       this.$('#memo-tr').val(""); 
       this.$('#travel-form-submit').val('Create');    
+    },
+    /*EasySubOrg.RIDE.form_view_01.updatecat_tr(id_of_li)
+    */
+    updatecat_tr: function (id_of_li) {
+      var ClassRef = this;
+      $(document.getElementById('num-catagory-tr')).val(ClassRef.li_id_lookup[id_of_li]);
+      $(document.getElementById('btn-caption-cat-tr')).html("Category:"+ $(document.getElementById(id_of_li)).html());
     },
     
     initialize:function(){
