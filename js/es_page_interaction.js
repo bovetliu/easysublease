@@ -15,17 +15,12 @@ EasySubOrg.RENTAL.rf_cu_01 = new Backbone.Model({
   
 // RENTAL SEARCH CONTROL UNIT
 EasySubOrg.RENTAL.rs_cu_01 = new Backbone.Model({
-  "price_single_hb":null,
-  "price_single_lb":null,
-  "beds_hb":null,
-  "beds_lb":null,
-  "baths_hb": null,
-  "baths_lb": null,
+  "price_single_hb":null, "price_single_lb":null,
+  "beds_hb":null, "beds_lb":null,
+  "baths_hb": null, "baths_lb": null,
   "cat":null ,
-  "lng_hb":null,
-  "lng_lb":null,
-  "lat_hb":null,
-  "lat_lb":null,
+  "lng_hb":null, "lng_lb":null,
+  "lat_hb":null, "lat_lb":null,
   "isexpired":false
    // category is the right spelling
 });
@@ -44,21 +39,16 @@ EasySubOrg.RIDE.reg_of_cu = new Backbone.Model({
 var RIDE_CONTROL_UNIT = Backbone.Model.extend({
   /*instance properties*/ 
   defaults:{    // EasySubOrg.RIDE.cu_01.get('[following property variables]')
-    _array1:null,
-    _called_back_from_get_request:false,
-    _next:0,
     _myroute:null,
     _overview_path:null,  //EasySubOrg.RIDE.cu_01.get('_overview_path')
-    _overview_polyline:"",
-    _ride_div:null ,
+    _overview_polyline:"", 
+    _ride_div:null ,   // #travel-control-div
     _control_panel: null ,//document.getElementById("travel-control-panel") will be added when doc ready
     _infowindow: new google.maps.InfoWindow({content: "default string"}),  // EasySubOrg.RIDE.cu_01.get('_infowindow') 
     directionsService: new google.maps.DirectionsService(),
     _geocoder: new google.maps.Geocoder(),  
-    /*parameters that want to GET from server, this one will be listened by EasySubOrg.comm_unit*/
-    /*what I need to do is just update and manage this array*/      //EasySubOrg.RIDE.cu_01.get('get_reg'); 
-    get_reg: EasySubOrg.RIDE.reg_of_cu
-    
+    /*this one will be listened by EasySubOrg.comm_unit*/    
+    get_reg: EasySubOrg.RIDE.reg_of_cu     ////EasySubOrg.RIDE.cu_01.get('get_reg'); 
   },
   
   initialize:function(){
@@ -230,10 +220,6 @@ var RIDE_CONTROL_UNIT = Backbone.Model.extend({
 });  //RIDE_CONTROL_UNIT class definition ends
 
 $(document).ready( function() {
-
-
-
-
   //EasySubOrg.RENTAL.rf_view_01
   var RentalFormView = Backbone.Epoxy.View.extend({
     //DOM ELEMENT of RENTAL FORM VIEW
@@ -349,9 +335,6 @@ $(document).ready( function() {
     } // end of RentalFormView constructor { }
   });   //###END of RentalFormView class definition
   
-
-
-  
   //EasySubOrg.RENTAL  indicate the current name space
   // instance of following RentalSearchView : EasySubOrg.RENTAL.rs_view_01
   var RentalSearchView = Backbone.View.extend({
@@ -398,8 +381,7 @@ $(document).ready( function() {
       console.log( "verify resetCat(): " + this.model.get("cat"));  
     },
     
-    updateMapBounds: function(coeff, maxspan ) {
-      
+    updateMapBounds: function(coeff, maxspan ) {    
       if (typeof (coeff) == 'undefined')  coeff = 1;
       if (typeof (maxspan) == 'undefined')  maxspan = 0.8;
       var boundsarray = EasySubOrg.MAP.cu_01.reportBounds(coeff, maxspan);
@@ -500,9 +482,7 @@ $(document).ready( function() {
         }
       });  //end of $.each() regarding #ul_types_srch
       
-    } // end of initialize(){}
-    
-      // place new method here
+    } // end of initialize(){}   // place new method here behind
   });  //end of RentalSearchView definition
   
   var RideSearchView = Backbone.View.extend({   // Gives logic to the travel-search-div
@@ -530,7 +510,7 @@ $(document).ready( function() {
           return;
         } 
       }
-      EasySubOrg.comm_unit.getForRideSearch( true); // animation is true
+      EasySubOrg.comm_unit.getForRideSearch( true); // results in infodiv coming out animation is true
     },
     
     initialize :function() {
@@ -622,8 +602,7 @@ $(document).ready( function() {
 
     },
   }); 
-
-
+  // main components initialization here
   EasySubOrg.MAP.cu_01 = new MAP_CU();
   EasySubOrg.MAP.cu_01.set('rclk_menu_overlay' , new OverLayMenu ( {model:EasySubOrg.MENU.reg})  );  //require es_MMoverlay.js 
   
@@ -637,17 +616,14 @@ $(document).ready( function() {
   EasySubOrg.RIDE.search_view_01 = new RideSearchView({ model:EasySubOrg.RIDE.cu_01} ); 
   EasySubOrg.RIDE.form_view_01 = new RideFormView({ model:EasySubOrg.RIDE.cu_01 });
 
-  
   //////////////////////////start of jQuery  toplevel page logic control/////////////////////////// 
   //////////////////////////I should merge thsoe toplevel logic control into repective models /////////////////////////// 
   mapcc1 = new MapCommonCalc();
   EasySubOrg.INFO.info_view_01 = new InfoView({model:EasySubOrg.INFO.info_div_reg});
 
-  
   hightlightTitle( "title-housing");
-
-  $("#travel-search-slot").hide();
-  
+  //$("#travel-search-slot").hide();  // hide #travel-search-slot now using css
+  /* this part should be moved to rental form init
   $("#ipt-url").change(function(){  //$("#ipt-url") is in the dynamic range, this one has bug!!   
       var source1 = this.value;
       $.post("form_process.php",
@@ -659,16 +635,16 @@ $(document).ready( function() {
          $("#txtHint").html(data);
       });
   });
-  
-  $("#title-label-div").click( function() {  // click logo, go to this index.php
-    location.href='index.html'; 
+  */
+  $( document.getElementById('title-label-div')).click( function() {  // click logo, go to this index.php
+    location.href='./'; 
   });
   
   jQuery.get('about_content.html', function(data) {
     $('#about-panel').html( data ); 
   });
   
-  $("#about-div").click(   function (){  
+  $(document.getElementById('about-div')).click(   function (){  
     EasySubOrg.INFO.info_view_01.toggle_about();
   });
   
@@ -705,7 +681,7 @@ function  hightlightTitle (ID){
   document.getElementById(ID).className = "title-selected"; 
 }
 function changecolor(element) {
-  element.style.fontWeight = "bold";
+  //element.style.fontWeight = "bold";
   element.style.color = "#FF0000";
   element.style.cursor = "pointer";
 }
@@ -713,22 +689,11 @@ function backcolor(element) {
   //element.style.fontWeight = "normal";  
   element.style.color = "#000000";
 }
-function set_status(id, status_num, entry) {
-  search_ajax1.set_status(id,status_num, entry);
-}
+
 function travel_set_status(id, status_num) {  // travel_control_i
   console.log(id.toString() + " " + status_num.toString() );
   EasySubOrg.MAP.render_01.rideSetStatus(id,status_num);
 }
-
-function updatecat_tr(id_string) {
-  //console.log("updatecat_tr()" + id_string);
-  var associate_array3 = {"li-cat-p-ride":1,"li-cat-n-ride":2,"li-cat-sdt":3};
-  document.getElementById('num-catagory-tr').value =  associate_array3[id_string];  
-  document.getElementById('btn-caption-cat-tr').innerHTML = "catagory: " + document.getElementById(id_string).innerHTML;
-  //console.log("updatecat_tr() finished, " + document.getElementById('num-catagory-tr').value);
-}
-
 
 function travel_post (){  //travel_control_i1.post do form post verification
   console.log("travel_post() called");

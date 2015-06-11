@@ -6,24 +6,6 @@ EasySubOrg.createNS("EasySubOrg.UTILITIES");
 EasySubOrg.createNS("EasySubOrg.comm_unit");
 //console.log("name space EasySubOrg.comm_unit");
 
-
-EasySubOrg.UTILITIES.compareSortedArrayByValue = function(array1, array2) {
-  if(array1 == null || typeof(array1) == 'undefined' || array2 == null || typeof(array2) == 'undefined'  ){
-    alert("illegal arguments for EasySubOrg.UTILITIES.compareSortedArrayByValue(value1, value2) "); 
-  }
-  if (array1.length != array2.length) {
-    return false; 
-  }
-  else {
-    array1.every( function(element,index, ar){
-      if (array1[index] != array1[index] ) {
-        return false;
-      }
-    });
-  }
-  return true;
-}
-
 $(document).ready( function() {
   var COMMUNICATION_UNIT = Backbone.Model.extend({
     /*
@@ -329,7 +311,3 @@ $(document).ready( function() {
   EasySubOrg.UTILITIES.router = new ES_Router();
   Backbone.history.start(); 
 });
-
-//
-
-

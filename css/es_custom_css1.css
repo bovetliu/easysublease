@@ -190,8 +190,10 @@ last-child {
 	display:inline;
 }
 
-/*////// start travel search div //////*/
-/*////// start travel search div //////*/
+/*////// start travel search slot //////*/
+#travel-search-slot{
+	display: none;
+}
 
 #travel-search-div {
   font: bold 12px/18px sans-serif;

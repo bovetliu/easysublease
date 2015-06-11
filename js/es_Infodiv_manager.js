@@ -6,16 +6,6 @@ Object.size = function(obj) {   // zhuan men yong lai gaoding associative array
     return size;
 };
 
-function arrayUnique(array) {
-    var a = array.concat();
-    for(var i=0; i<a.length; ++i) {
-        for(var j=i+1; j<a.length; ++j) {
-            if(a[i] === a[j])
-                a.splice(j--, 1);
-        }
-    }
-    return a;
-};
 EasySubOrg.createNS("EasySubOrg.INFO");
 
 EasySubOrg.INFO.info_div_reg = new Backbone.Model({
@@ -61,23 +51,19 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
     switch ( modeliteral ) {
       case "rental_form":
         left = '70%';
-        //EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
         ClassRef.show('#rental-form-slot');
         ClassRef.$el.addClass("input-group-dimension-control"); 
         break
       case "ride_form":
         left = '70%';
-        ///EasySubOrg.RIDE.cu_01.get('_control_panel').show();
         ClassRef.show('#ride-form-slot');
         ClassRef.$el.addClass("input-group-dimension-control"); 
         break
       case "ride_result":
         //left = '800px';
         //width = ($("#map-div").width()-parseInt(left.slice(0,-2))  ).toString() + "px";
-        
         left= "40%",
         width="60%",
-        //EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
         ClassRef.show('#ride-results-slot');
         ClassRef.$el.removeClass("input-group-dimension-control");
         this.model.set("bAnimate",true);  
@@ -85,7 +71,6 @@ var InfoView = Backbone.View.extend({  //InfoView class defition
       default:
         width = "30%";
         left = "100%"
-        //EasySubOrg.RIDE.cu_01.get('_control_panel').hide();
         ClassRef.show('#rental-form-slot');
         ClassRef.$el.addClass("input-group-dimension-control");
     } // end of switch

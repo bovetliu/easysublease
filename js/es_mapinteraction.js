@@ -810,14 +810,14 @@ SegmentNode.prototype.shareWith = function(  incomingNode) {
   if (this.dominatedBy(incomingNode)) {
     this.occupiers = this.occupiers.concat(incomingNode.occupiers);
     //console.log(this.occupiers.toString() + " ksdw188");
-    this.occupiers = arrayUnique(this.occupiers.sort( ) );  // sort according to char 
+    this.occupiers = _.uniq(this.occupiers.sort( ),true );  // sort according to char 
     //console.log(this.occupiers.toString() + " ksdw190");
     if (debug) { console.log(  "after dominating, this dominated by that: this.occupiers: " + this.occupiers);}
   }
   if ( incomingNode.dominatedBy (this)) {
     incomingNode.occupiers = incomingNode.occupiers.concat(this.occupiers);
     //console.log(this.occupiers.toString() + " ksdw188");
-    incomingNode.occupiers = arrayUnique(incomingNode.occupiers.sort(  ) );
+    incomingNode.occupiers = _.uniq(incomingNode.occupiers.sort(  ) ,true);
     //console.log(this.occupiers.toString() + " ksdw190");
     if (debug) { console.log(  "after dominating, that dominated by this: that.occupiers: " + incomingNode.occupiers );}
   }
