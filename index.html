@@ -209,7 +209,11 @@
 
             <textarea data-bind="value:memo, events:['keyup']" class="form-control  easysub-form-control" rows="4" placeholder = "Enter additional memo here" id="textarea-memo" name ="memo"></textarea>
             <div>
-              <input  class="btn btn-success " value="Create"  id="rental-form-submit">
+              <input  class="btn btn-success " value="Quick Listing"  id="rental-form-submit">
+              </input>
+            </div>
+            <div>
+              <input  class="btn btn-primary " value="Detailed Listing"  id="detailed-listing-submit">
               </input>
             </div>
           </form>
@@ -270,6 +274,8 @@
               <input class="btn btn-success " value="Create" id="travel-form-submit" onClick="travel_post()">
               </input>
             </div>
+
+
           </form>
         </div>
         <div id = "rental-sesults-slot" >
@@ -372,5 +378,6 @@
       <div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
     </div>    
     </script> 
+    <meta id="default-detailed-rental-listing" name="default-detailed-rental-listing" content='{"unit_traits":{"lat":30.615976343318405,"lng":-96.31885528564453,"price_single":null,"price_total":null,"community":"community name","addr":"addr string","beds":2,"baths":1,"property_type":"apartment","pet_friendly":false,"amenities_status":{"kitchen":true,"internet":true,"tv":false,"essentials":true,"shampoo":true,"heating":true,"air_conditiong":true,"washer":true,"dryer":true,"free_parking_on_premises":false,"wireless_internet":true,"cable_TV":false,"breakfast":false,"pets_allowed":false,"family/kid_friendly":false,"suitable_for_events":false,"smoking_allowed":true,"wheelchair_accessible":false,"elevator_in_building":false,"indoor_fireplace":true,"buzzer/wireless_Interoom":false,"doorman":false,"pool":false,"hot_tub":false,"gym":false},"description":[["title1","h1"],["content1",null]],"house_rules":"Please be kind, clean, respectful, peaceful.","safety_features":{"smoke_detector":true,"carbon_monoxide_detector":true,"first_aid_kit":true,"safety_card":true,"fire_extinguisher":true},"availability":"from July 2015 to June 2016"},"user_behavior":{"cat":1,"target_whole_unit":false,"target_single_room":true},"listing_related":{"title":"Listing Title","about_this_listing":"Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask","isexpired":false,"images":[],"cover_image":"default.png","post_date":"2015-06-01T09:46:16.000Z","optional_traits_switch":{"unit_traits.description":false,"unit_traits.house_rules":false,"unit_traits.safety_features":false}}}'>
   </body>
 </html>

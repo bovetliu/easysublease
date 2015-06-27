@@ -14,7 +14,7 @@ $(document).ready( function() {
     apiServerURL:function(){
       if (window.location.href.slice(0,16) != "http://localhost")
       return "http://esapi-u7yhjm.rhcloud.com";
-      else return "http://localhost:3000";
+      else return "http://localhost:3001";
     },
     getAfterSettingExpiredRide:function(){
       var ClassRef =this;
@@ -70,7 +70,7 @@ $(document).ready( function() {
             } 
             //EasySubOrg.MAP.cu_01.set('to_be_set_expired',"");    
           },  
-        }); // and of $.ajax        
+        }); // end of $.ajax        
         
       }
     },

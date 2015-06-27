@@ -251,7 +251,7 @@ $(document).ready( function() {
     
     clearInput : function() {
       $.each( this.$('input'), function (index, dom_element) {
-        if (dom_element.id != 'rental-form-submit'){
+        if (dom_element.id != 'rental-form-submit' && dom_element.id != 'detailed-listing-submit' ){
           dom_element.value= "";  
         }
       });
@@ -288,7 +288,33 @@ $(document).ready( function() {
         },  
       }); // and of $.ajax
     }, // end of requestPostToCommUnit 
-    
+
+    requestDetailedListing:function(){
+      var ClassRef = this;
+      var temp_instance = JSON.parse($('meta[name="default-detailed-rental-listing"]').attr("content"));
+      temp_instance.listing_related.post_date = new Date();
+      temp_instance.unit_traits.lat = ClassRef.model.get("lat");
+      temp_instance.unit_traits.lng = ClassRef.model.get("lng");
+      console.log(temp_instance);
+      $.ajax({
+        url:  EasySubOrg.comm_unit.apiServerURL()+'/db_models/DetailedRentalListing',
+        data:temp_instance,
+        crossDomain: true,
+        dataType: "json",
+        type:"POST",
+        success:function( dataReturned, status){
+          console.log(status);
+          EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').clearProperties();  // changed
+          ClassRef.clearInput();
+          ClassRef.resetModel();
+          EasySubOrg.comm_unit.getForRentalSearch(); 
+          //$('a').attr("href","http://localhost:3000/listing/"+dataReturned._id).attr("target","_blank").click();     
+
+        }
+      });
+
+    },
+
     resetModel : function () {
       this.model.set(  {
         "lat":   null,
@@ -325,6 +351,9 @@ $(document).ready( function() {
       
       this.$('#rental-form-submit').click(function() {
         ClassRef.requestPostToCommUnit(); 
+      });
+      this.$('#detailed-listing-submit').click(function(){
+        ClassRef.requestDetailedListing();
       });
     
       console.log("init() of RentalFormView"); 
