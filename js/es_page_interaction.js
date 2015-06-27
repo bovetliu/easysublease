@@ -233,6 +233,30 @@ $(document).ready( function() {
     "li-b30b30":[3,3], "li-b40b30":[4,3], "li-b40b40":[4,4]  },
     associate_array2: {"li-cat-lease":1,"li-cat-rent":2,"li-cat-activity":3},
     
+    updateDetailedListing:function( m){
+      // simplified_modal is the this.model
+  // "lat":   null,"lng":   null,
+  // "beds"    :null,"baths"   :null,
+  // "price_single":null,"price_total" :null,
+  // "cat"     :null,  // by default, 0 should be rejected
+  // "post_date": new Date("2013-01-01"),
+  // "isexpired"  : false,"community"  : "",
+  // "source"     : "","memo"       : "",
+  // "addr"       : ""
+
+      var ClassRef = this;
+      var temp_instance = JSON.parse($('meta[name="default-detailed-rental-listing"]').attr("content"));
+      var tu = temp_instance.unit_traits;
+      _.each(["lat","lng","beds","baths","price_single","price_total","community","addr"],function(keyname,index, array){
+        tu[keyname] = m.get(keyname)
+      });
+
+      temp_instance.listing_related.post_date = new Date();
+      temp_instance.listing_related.about_this_listing = m.get("memo");
+      temp_instance.user_behavior.cat = m.get("cat");
+      return temp_instance;
+    },
+
     updatebb : function ( id) {
       
       this.model.set({"beds": this.associate_array[id][0], "baths": this.associate_array[id][1]});
@@ -291,11 +315,7 @@ $(document).ready( function() {
 
     requestDetailedListing:function(){
       var ClassRef = this;
-      var temp_instance = JSON.parse($('meta[name="default-detailed-rental-listing"]').attr("content"));
-      temp_instance.listing_related.post_date = new Date();
-      temp_instance.unit_traits.lat = ClassRef.model.get("lat");
-      temp_instance.unit_traits.lng = ClassRef.model.get("lng");
-      console.log(temp_instance);
+      var temp_instance = this.updateDetailedListing(this.model);
       $.ajax({
         url:  EasySubOrg.comm_unit.apiServerURL()+'/db_models/DetailedRentalListing',
         data:temp_instance,
@@ -304,12 +324,13 @@ $(document).ready( function() {
         type:"POST",
         success:function( dataReturned, status){
           console.log(status);
-          EasySubOrg.MAP.cu_01.get('rclk_menu_overlay').clearProperties();  // changed
-          ClassRef.clearInput();
-          ClassRef.resetModel();
-          EasySubOrg.comm_unit.getForRentalSearch(); 
-          //$('a').attr("href","http://localhost:3000/listing/"+dataReturned._id).attr("target","_blank").click();     
-
+          var source_url = 'http://localhost:3000/listing/'+dataReturned._id
+          ClassRef.model.set("source",source_url );
+          var a = $('<a href="'+ source_url +'" target="_blank" >a</a>').get(0);
+          var e = document.createEvent('MouseEvents');
+          e.initEvent('click', true, true);
+          a.dispatchEvent(e);   
+          ClassRef.requestPostToCommUnit();
         }
       });
 
