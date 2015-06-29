@@ -8,6 +8,11 @@ EasySubOrg.createNS("EasySubOrg.comm_unit");
 
 $(document).ready( function() {
   var COMMUNICATION_UNIT = Backbone.Model.extend({
+    default:{
+      listingServerURL:"",    // in local environment, three collections in one db, but when it comes online, it is not the case
+      is_local_listing_server:true
+    },
+
     /*
     * EasySubOrg.comm_unit.apiServerURL()
     */
@@ -15,6 +20,23 @@ $(document).ready( function() {
       if (window.location.href.slice(0,16) != "http://localhost")
       return "http://esapi-u7yhjm.rhcloud.com";
       else return "http://localhost:3001";
+    },
+    postDetailedListing:function(tobeSubmittedModel, callback){
+      var targetURL = "";
+      if(this.get("is_local_listing_server")){
+        targetURL = this.apiServerURL() + "/db_models/DetailedRentalListing";
+      }else {
+        targetURL = this.get("listingServerURL") + "/listing";
+      }
+      console.log("postDetailedListing targetURL: " + targetURL);
+      $.ajax({
+        url:  targetURL,
+        data: tobeSubmittedModel,
+        crossDomain: true,
+        dataType: "json",
+        type:"POST",
+        success: callback  
+      });
     },
     getAfterSettingExpiredRide:function(){
       var ClassRef =this;
@@ -158,6 +180,11 @@ $(document).ready( function() {
       console.log("init() of COMMUNICATION_UNIT");    
       this.listenTo( EasySubOrg.MAP.cu_01, 'change:to_be_set_expired' ,this.getAfterSettingExpired );
       this.listenTo( EasySubOrg.MAP.cu_01, 'change:to_be_set_expired_ride' ,this.getAfterSettingExpiredRide );
+      // If this website is running locally, it will use local listing server, if it is running online, it will use online server
+      var temp_listing_server_position = (window.location.host == 'localhost')? "http://localhost:3000":"http://listingtest-u7yhjm.rhcloud.com"
+      this.set("is_local_listing_server", (window.location.host=='localhost'));
+      this.set('listingServerURL',temp_listing_server_position);
+      console.log("running with listingServerURL: " + this.get("listingServerURL"));
     } 
   }); // end of COMMUNICATION_UNIT class definition
 

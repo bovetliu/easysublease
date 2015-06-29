@@ -248,12 +248,12 @@ $(document).ready( function() {
       var temp_instance = JSON.parse($('meta[name="default-detailed-rental-listing"]').attr("content"));
       var tu = temp_instance.unit_traits;
       _.each(["lat","lng","beds","baths","price_single","price_total","community","addr"],function(keyname,index, array){
-        tu[keyname] = m.get(keyname)
+        if(m.get(keyname))  tu[keyname] = m.get(keyname)
       });
 
       temp_instance.listing_related.post_date = new Date();
-      temp_instance.listing_related.about_this_listing = m.get("memo");
-      temp_instance.user_behavior.cat = m.get("cat");
+      temp_instance.listing_related.about_this_listing = (m.get("memo"))?(m.get("memo")):temp_instance.listing_related.about_this_listing;
+      temp_instance.user_behavior.cat = (m.get("cat"))?(m.get("cat")):temp_instance.user_behavior.cat;
       return temp_instance;
     },
 
@@ -313,27 +313,19 @@ $(document).ready( function() {
       }); // and of $.ajax
     }, // end of requestPostToCommUnit 
 
-    requestDetailedListing:function(){
+    requestPostDetailedListing:function(){
       var ClassRef = this;
       var temp_instance = this.updateDetailedListing(this.model);
-      $.ajax({
-        url:  EasySubOrg.comm_unit.apiServerURL()+'/db_models/DetailedRentalListing',
-        data:temp_instance,
-        crossDomain: true,
-        dataType: "json",
-        type:"POST",
-        success:function( dataReturned, status){
-          console.log(status);
-          var source_url = 'http://localhost:3000/listing/'+dataReturned._id
-          ClassRef.model.set("source",source_url );
-          var a = $('<a href="'+ source_url +'" target="_blank" >a</a>').get(0);
-          var e = document.createEvent('MouseEvents');
-          e.initEvent('click', true, true);
-          a.dispatchEvent(e);   
-          ClassRef.requestPostToCommUnit();
-        }
-      });
-
+      console.log(temp_instance);
+      EasySubOrg.comm_unit.postDetailedListing(temp_instance, function(dataReturned, status){
+        console.log(status);
+        var source_url = EasySubOrg.comm_unit.get("listingServerURL")+'/listing/'+dataReturned._id
+        ClassRef.model.set("source",source_url );
+        var e = document.createEvent('MouseEvents');
+        e.initEvent('click', true, true);
+        $('<a href="'+ source_url +'" target="_blank" >a</a>').get(0).dispatchEvent(e);   
+        ClassRef.requestPostToCommUnit();
+      });      
     },
 
     resetModel : function () {
@@ -374,7 +366,7 @@ $(document).ready( function() {
         ClassRef.requestPostToCommUnit(); 
       });
       this.$('#detailed-listing-submit').click(function(){
-        ClassRef.requestDetailedListing();
+        ClassRef.requestPostDetailedListing();
       });
     
       console.log("init() of RentalFormView"); 
