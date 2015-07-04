@@ -317,14 +317,16 @@ $(document).ready( function() {
       var ClassRef = this;
       var temp_instance = this.updateDetailedListing(this.model);
       console.log(temp_instance);
-      EasySubOrg.comm_unit.postDetailedListing(temp_instance, function(dataReturned, status){
+      EasySubOrg.comm_unit.postDetailedListing(JSON.stringify(temp_instance), function(dataReturned, status){
         console.log(status);
+        console.log(dataReturned);
         var source_url = EasySubOrg.comm_unit.get("listingServerURL")+'/listing/'+dataReturned._id
         ClassRef.model.set("source",source_url );
-        var e = document.createEvent('MouseEvents');
-        e.initEvent('click', true, true);
-        $('<a href="'+ source_url +'" target="_blank" >a</a>').get(0).dispatchEvent(e);   
         ClassRef.requestPostToCommUnit();
+        
+        // var e = document.createEvent('MouseEvents');
+        // e.initEvent('click', true, true);
+        // $('<a href="'+ source_url +'" target="_blank" >a</a>').get(0).dispatchEvent(e);   
       });      
     },
 

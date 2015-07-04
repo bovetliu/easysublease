@@ -17,23 +17,20 @@ $(document).ready( function() {
     * EasySubOrg.comm_unit.apiServerURL()
     */
     apiServerURL:function(){
-      if (window.location.href.slice(0,16) != "http://localhost")
+      if ( !this.get("is_local_listing_server") )
       return "http://esapi-u7yhjm.rhcloud.com";
       else return "http://localhost:3001";
     },
     postDetailedListing:function(tobeSubmittedModel, callback){
-      var targetURL = "";
-      if(this.get("is_local_listing_server")){
-        targetURL = this.apiServerURL() + "/db_models/DetailedRentalListing";
-      }else {
-        targetURL = this.get("listingServerURL") + "/listing";
-      }
+      // tobeSubmittedModel is JSON stringified
+      targetURL = this.get("listingServerURL") + "/listing";
+      
       console.log("postDetailedListing targetURL: " + targetURL);
+      console.log(tobeSubmittedModel);
       $.ajax({
         url:  targetURL,
-        data: tobeSubmittedModel,
+        data: {model:tobeSubmittedModel},
         crossDomain: true,
-        dataType: "json",
         type:"POST",
         success: callback  
       });
@@ -170,7 +167,6 @@ $(document).ready( function() {
       tbr = tbr.join("").slice(0,-1);
       return tbr;
     },
-    
     /*
     *COMMUNICATION_UNIT.initialize() 
     */
@@ -181,8 +177,12 @@ $(document).ready( function() {
       this.listenTo( EasySubOrg.MAP.cu_01, 'change:to_be_set_expired' ,this.getAfterSettingExpired );
       this.listenTo( EasySubOrg.MAP.cu_01, 'change:to_be_set_expired_ride' ,this.getAfterSettingExpiredRide );
       // If this website is running locally, it will use local listing server, if it is running online, it will use online server
-      var temp_listing_server_position = (window.location.host == 'localhost')? "http://localhost:3000":"http://listingtest-u7yhjm.rhcloud.com"
+      
+
+
       this.set("is_local_listing_server", (window.location.host=='localhost'));
+      var temp_listing_server_position = this.get("is_local_listing_server")? "http://localhost:3000":"http://listing.easysublease.com"
+
       this.set('listingServerURL',temp_listing_server_position);
       console.log("running with listingServerURL: " + this.get("listingServerURL"));
     } 
