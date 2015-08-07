@@ -1,0 +1,300 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title EasySublease.org
+    // Bootstrap
+    link(type='text/css', href='css/bootstrap.min.css', rel='stylesheet')
+    // Custom styles for this template
+    link(href='css/es_custom_css1.css', rel='stylesheet', type='text/css')
+    link(href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400', rel='stylesheet', type='text/css')
+    // HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+      script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    link(rel='stylesheet', href='css/jquery-ui.css')
+    link(rel='stylesheet', href='css/jquery-ui.structure.css')
+    link(rel='stylesheet', href='css/jquery-ui.theme.css')
+    script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDEgp09_feK-aKfo_2h3tOcWfzbrByZwDw&libraries=geometry')
+
+  body
+    #main_div
+      #title-big-div
+        #title-label-div
+          | EasySublease
+        #title-housing.title-options1
+          | Housing
+        #juju.title-options1
+          | Meetup
+          // <img src="images/work_in_progress.png" width="44" height="20" alt="some_text">
+        #travel-control-div.title-options1
+          | Ride
+        #about-div.title-options1
+          | About
+      // end of #title-big-div
+      .search-div
+        #rental-search-slot
+          ul
+            li
+              | price per bed
+              ul#ul_price_pbed_srch
+                li#301-350 301-350/bedroom
+                li#351-400 351-400/bedroom
+                li#401-450 401-450/bedroom
+                li#451-500 451-500/bedroom
+                li#501-550 501-550/bedroom
+                li#551-600 551-600/bedroom
+                li#551-600
+                  input#price-min-ipt(type='text', name='price-min-ipt', placeholder='price-min')
+                  input#price-max-ipt(type='text', name='price-max-ipt', placeholder='price-max')
+                li reset 取消价格限制
+            li
+              | Bedrooms/Baths
+              ul#ul_bb_srch
+                li 1/1
+                li 2/1
+                li 2/1.5
+                li 2/2
+                li 3/1
+                li 3/2
+                li 3/3
+                li
+                  input#beds-min-ipt(type='text', name='beds-min-ipt', placeholder='beds-min')
+                  input#beds-max-ipt(type='text', name='beds-max-ipt', placeholder='beds-max')
+                  input#baths-min-ipt(type='text', name='baths-min-ipt', placeholder='baths-min')
+                  input#baths-max-ipt(type='text', name='baths-max-ipt', placeholder='baths-max')
+                li reset取消户型限制
+            li
+              | Category
+              ul#ul_types_srch
+                li#seeking-to-lease(data-rs-cat='1') seeking to lease
+                li#seeking-to-rent(data-rs-cat='2') seeking to rent
+                li#for-2-activity(data-rs-cat='3') seeking co-lessee
+                li reset 取消类型限制
+        // rental-search-slot ends
+        #travel-search-slot
+          .search-div-padding
+          #travel-search-div
+            .travel-search-inputgrp-contrl
+              select#slct-cat-tr-srch.form-control(name='slct-cat-tr-srch')
+                option(value='2') Those requiring ride
+                option(value='1') Those providing ride
+                option(value='3') Self-driving travel
+            .travel-search-inputgrp-contrl
+              input#ipt-origin-tr-srch.form-control(type='text', placeholder='Origin', name='ipt-origin-tr-srch')
+            .travel-search-inputgrp-contrl
+              input#ipt-destiny-tr-srch.form-control(type='text', placeholder='Destiny', name='ipt-destiny-tr-srch')
+            .travel-search-inputgrp-contrl
+              input#ipt-startdate-tr-srch.form-control(type='text', placeholder='mm/dd/yy', name='ipt-startdate-tr-srch')
+            .travel-search-inputgrp-contrl
+              input#ipt-enddate-tr-srch.form-control(type='text', placeholder='mm/dd/yy', name='ipt-enddate-tr-srch')
+            .travel-search-inputgrp-contrl
+              button#btn-submit-tr-srch.travel-search-btn(type='submit') Search
+            .travel-search-advanced_routing
+              label
+                input#checkbox-adv-routing(name='checkbox-adv-routing', type='checkbox', value='yes', unchecked='')
+                |                 Route Combining Algs
+            .travel-search-hidden-inputgrp-contrl
+              input#ipt-ori-lat(type='text', name='ipt-ori-lat', value='')
+              input#ipt-ori-lng(type='text', name='ipt-ori-lng', value='')
+              input#ipt-des-lat(type='text', name='ipt-des-lat', value='')
+              input#ipt-des-lng(type='text', name='ipt-des-lng', value='')
+          // travel-search-div
+        // travel-search-slot
+        #sql-bash
+      // end of <div class = "search-div">
+      .gadgets-container
+        #travel-control-panel
+          | plan route using Google service
+        #about-panel
+          | About will be shown here
+        #menu-panel
+        // the container of right click menu
+      #map-div
+        // this is where map is put in
+      // this is where pano will be put in, much css style will be lif info-div
+      #pano-div
+      #info-div.input-group-dimension-control.info-div-results-style
+        #rental-form-slot
+          img.form-rtn-btn(src='images/rtn.png', alt='return', height='32', width='32')
+          form#rental-form
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control Community
+              input.form-control.easysub-form-control(type='text', data-bind="value:community, events:['keyup']", placeholder='Like: Cedar ridge, filling suggested ')
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control Address
+              input.form-control.easysub-form-control(type='text', data-bind="value:addr, events:['keyup']", placeholder='Street, City, Apt, not necessary')
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control Source URL
+              input.form-control.easysub-form-control(type='text', data-bind="value:source, events:['keyup']", placeholder='http:// (necessary)')
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control total rent per month
+              input.form-control.easysub-form-control(type='text', data-bind="value:price_total, events:['keyup']", placeholder='$ ')
+            .btn-group.btn-cusom-contrl
+              button#btn-captioin-bb.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='false')
+                | floor plan 
+                span.caret
+              ul#ul-floorplan.dropdown-menu(role='menu')
+                li#li-b10b10 1b/1b
+                li#li-b20b10 2b/1b
+                li#li-b20b15 2b/1.5b
+                li#li-b20b20 2b/2b
+                li#li-b30b20 3b/2b
+                li#li-b30b30 3b/3b
+                li.divider
+                #n-bdrm
+                  | Bdrm number:
+                  br
+                  input#custom-n-bdrm(type='text')
+                #n-btrm
+                  | Bathrm number:
+                  br
+                  input#custom-n-btrm(type='text')
+            // floor plan dropdown btn
+            .btn-group.btn-cusom-contrl
+              button#btn-caption-cat.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='false')
+                | category 
+                span.caret
+              ul#ul-catagory.dropdown-menu(role='menu')
+                li#li-cat-lease Want to lease
+                li#li-cat-rent Want to rent
+                li#li-cat-activity Seek co-lessee(一起租)
+            // end floor plan dropdown btn
+            textarea#textarea-memo.form-control.easysub-form-control(data-bind="value:memo, events:['keyup']", rows='4', placeholder='Enter additional memo here', name='memo')
+            div
+              input#rental-form-submit.btn.btn-success(value='Quick Listing')
+            div
+              input#detailed-listing-submit.btn.btn-primary(value='Detailed Listing')
+          p(data-bind='text:addr')
+        // /rental-form-slot
+        #ride-form-slot
+          img.form-rtn-btn(src='images/rtn.png', alt='return', height='32', width='32')
+          form#ride-form
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control Origin
+              input#ipt-origin-tr.form-control.easysub-form-control(type='text', placeholder='Right click on map to set', name='ipt-origin-tr')
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control Destiny
+              input#ipt-destiny-tr.form-control.easysub-form-control(type='text', placeholder='Right click on map to set', name='ipt-destiny-tr')
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control Source URL
+              input#ipt-url-tr.form-control.easysub-form-control(type='text', placeholder='http:// ( not necessary)', name='ipt-url-tr')
+            .input-group
+              span#basic-addon1.input-group-addon.easysub-form-control Departure Date
+              input#ipt-date-tr.form-control.easysub-form-control(type='text', placeholder='MM/DD/YYYY', name='ipt-date-tr')
+            .btn-group.btn-cusom-contrl
+              button#btn-caption-cat-tr.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='false')
+                | category 
+                span.caret
+              ul#ul-catagory-tr.dropdown-menu(role='menu')
+                li#li-cat-p-ride(onclick='EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)') Provide a ride
+                li#li-cat-n-ride(onclick='EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)') Need a ride
+                li#li-cat-sdt(onclick='EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)') Self-driving travel
+            // floor plan dropdown btn
+            // hidden inputs
+            input#num-catagory-tr(style=' display:none', name='num-catagory-tr')
+            input#num-origin-lat-tr(style=' display:none', name='num-origin-lat-tr')
+            input#num-origin-lng-tr(style=' display:none', name='num-origin-lng-tr')
+            input#num-destiny-lat-tr(style=' display:none', name='num-destiny-lat-tr')
+            input#num-destiny-lng-tr(style=' display:none', name='num-destiny-lng-tr')
+            // <input style=" display:none" id = "string-jsonfied-tr" name = "string-jsonfied-tr"></input>
+            input#encoded-polyline(style=' display:none', name='encoded-polyline')
+            // encoded polyline is going to be decoded into Array:LatLng
+            // /hidden inputs
+            textarea#memo-tr.form-control(rows='4', placeholder='Enter additional information here, such as contact, what time you want to go, or some preference', name='memo-tr')
+            div
+              input#travel-form-submit.btn.btn-success(value='Create', onclick='travel_post()')
+        #rental-sesults-slot
+          img.form-rtn-btn(src='images/rtn.png', alt='return', height='32', width='32')
+          #rental_search_results_container
+            //
+              EasySubOrg.INFO.info_view_01 poplulate will templated results,
+              template:route-infowindow-template
+            | rental results placeholder (dev)
+          // end of travel_search_results_container
+        // ride-form-slot
+        #ride-results-slot
+          img.form-rtn-btn(src='images/rtn.png', alt='return', height='32', width='32')
+          #travel_search_results_container
+            // EasySubOrg.INFO.info_view_01 poplulate will templated results, template:route-infowindow-template
+          // end of travel_search_results_container
+        // end of ride-results-slot#
+      // #info div
+    // end of #main-div
+
+    script(src='js/jquery.min.js')
+    script(src='js/jquery-ui.js')
+    // jQuery (necessary for Bootstrap's JavaScript plugins)
+    script(src='js/bootstrap.js')
+    // <script src="js/page_interaction.js">   </script>   mainly control form
+    script(src='js/underscore.js', type='text/javascript')
+    script(src='js/backbone.js', type='text/javascript')
+    // require underscore.js,  jquery.js
+    script(src='js/backbone.epoxy.min.js')
+    // self-defiled classes
+    script(src='js/es_createNS.js', type='text/javascript')
+    script(src='js/es_MMoverlay.js', type='text/javascript')
+    script(src='js/es_mapinteraction.js', type='text/javascript')
+    // require MMoverlay.js,
+    script(src='js/es_page_interaction.js', type='text/javascript')
+    script(src='js/es_utilities.js', type='text/javascript')
+    script(src='js/es_Infodiv_manager.js', type='text/javascript')
+    div(style='')
+
+    script( type="text/template" id="menu-template").
+      <%_.each(html_content_ar, function (element, index, list) {%>
+        <div class="menu-option-div">
+          <%=element%>
+        </div>
+      <%});%>
+      
+    //location, cat, url_str, memo, id
+    script( type="text/template" id="marker-infowindow-template").
+      <p style="font-weight:normal;"> 
+        click to check  <a href= "<%= source %>" target="_blank">source</a>
+      </p>  
+      <p style="color:#000; font-weight:normal;  font-family: "Times New Roman", Times, serif; "><%= memo %></p>
+      <p style = "font-weight : normal;" > 
+        <span  onclick = 'EasySubOrg.MAP.render_01.set_status( "<%=id %>" , true, <%=  index%>);' onmouseover = "changecolor(this);" onmouseout="backcolor(this);"> mark it as outdated</span>
+      </p>
+
+
+    // focusOn = function ( width_ratio, height_ratio, offset_ratio, focusID) 
+    script( type="text/template" id="route-infowindow-template").
+      <% 
+        // ( width_ratio, height_ratio, offset_ratio, focusID)
+        //var width_ratio = $("#info-div").width()/ $("#map-div").width();
+        //passed in argument include width_ratio
+        var width_ratio = 0.4
+        var height_ratio = 1; // currently i did not change it, so I made on assumption
+        var offset_ratio = 0.5- (width_ratio/2);
+        var depart_date = depart_date.slice(0,10);
+        var cat_bgcolor = ""
+        if (cat_string == "Provide a ride") cat_bgcolor = "#1A4C80";
+        else if (cat_string == "Need a ride") cat_bgcolor = "#00B800";
+        else cat_bgcolor = "#993399"; 
+        var depart_date_tmp = new Date(depart_date);
+        var current_date = new Date();
+        var date_bgcolor = "#8a8a8a";
+        if (depart_date_tmp < current_date) { date_bgcolor = "#B80000";}
+      %>
+      <div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
+        <div class="TDE_ori_des_container">
+          <div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
+          <div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
+        </div>
+        <div class="TDE_cat TDE_bold" style ="background-color:<%=cat_bgcolor%>"><%= cat_string%></div>
+        <div class="TDE_bold TDE_date" style="background-color:<%=date_bgcolor%>"><%=depart_date%></div>
+        <div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
+        <div class ="TDE_padding_btw_markoutdated_source" >
+          <!--This is actually one padding-->
+        </div>
+        <div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
+
+        <div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 
+        <div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
+      </div>    
+

@@ -1,6 +1,7 @@
 html {
 	height:100%;
 	overflow: hidden;
+	font-family: 'Open Sans', sans-serif;
 }
 body {
 	height: 100%;
@@ -22,7 +23,7 @@ body {
 	width:15%;
 	height:100%;
 	font-size:23px;
-	font-family:sans-serif;
+	/*font-family:sans-serif;*/
 	color:#FFF;
 	padding-left:8px;
 	padding-top:3px;
@@ -34,7 +35,7 @@ body {
 	width:10%;
 	/*height:100%;*/
 	text-align:center;
-	font-family:open sans condensed,sans-serif;
+	/*font-family:open sans condensed,sans-serif;*/
 	color:#FFF;
 	font-size: 18px ;
 	padding-top:3px;
@@ -56,7 +57,7 @@ body {
 	width:10%;
 	/*height:100%;*/
 	text-align:center;
-	font-family:sans-serif;
+	/*font-family:sans-serif;*/
 	color:#000;
 	font-size: 18px ;
 	background-color:#FFF;
@@ -102,7 +103,7 @@ display:inline-block;
 #rental-search-slot > ul> li {  /*This decorating price-range per bed, Bedrooms/Baths and so on*/
 	color:#666;
 	font-size:15px;
-	font-family:sans-serif;
+	/*font-family:sans-serif;*/
 	/*font:  15px sans-serif;*/
 	display: inline-block;
 	margin-right: -4px;
@@ -150,7 +151,7 @@ last-child {
 #rental-search-slot > ul li ul li { 
 
 	font-size:15px;
-	font-family:sans-serif;
+	/*font-family:sans-serif;*/
 	/*font:  15px sans-serif;*/
 
   margin-right: -4px;
@@ -228,7 +229,7 @@ last-child {
 .travel-search-btn { 
 	background-color:#666;
 	color:#fff;
-	font-family:sans-serif;
+	/*font-family:sans-serif;*/
 	font-size:15px;
 	border-width:0px;
 	border-radius:2px;
@@ -293,7 +294,7 @@ last-child {
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px 0px;
 	cursor: default;
 	display: none;  /*at beginning this one cannot be shown*/
-	font-family: Roboto, Arial, sans-serif;
+	/*font-family: Roboto, Arial, sans-serif;*/
 	height: 87px;
 	left: 187px; /*temp*/
 	padding-bottom: 6px;
@@ -309,7 +310,7 @@ last-child {
 	color: rgb(51, 51, 51);
 	cursor: pointer;
 	display: block;
-	font-family: Roboto, Arial, sans-serif;
+	/*font-family: Roboto, Arial, sans-serif;*/
 	font-size: 13px;
 	font-weight: normal;
 	height: 25px;
