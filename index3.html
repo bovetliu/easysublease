@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EasySublease.org</title>
+    <!-- Yeti Bootstrap-->
+    <link type="text/css" href="css/yeti_bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="css/es_custom_css2.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400" rel="stylesheet" type="text/css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
+    <!--if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    -->
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery-ui.structure.css">
+    <link rel="stylesheet" href="css/jquery-ui.theme.css">
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEgp09_feK-aKfo_2h3tOcWfzbrByZwDw&amp;libraries=geometry"></script>
+  </head>
+  <body>
+    <div id="my-nav" class="my-container">
+      <nav class="navbar navbar-default cancel-margin">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Mainsite | EasySublease</a>
+            <form role="search" class="navbar-form navbar-left">
+              <div class="form-group">
+                <input type="text" placeholder="Search" class="form-control">
+              </div>
+            </form>
+          </div>
+          <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Link </a></li>
+              <li><a href="#">Link</a></li>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">recently browsed <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="#">This droptoggle will be remake</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="nav navbar-nav navbar-right margin-top-5px"><a href="#" class="btn btn-primary">List Your Space</a></div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div id="site-content" class="container-fluid main">
+      <div class="row filter-container">
+        <div class="row top-options">
+          <div data-expansion-target="#expanded-panel-duration" class="col-sm-3 text-center top-option">Duration</div>
+          <div data-expansion-target="#expanded-panel-roomtype" class="col-sm-3 text-center left-border top-option">Room Type</div>
+          <div data-expansion-target="#expanded-panel-category" class="col-sm-3 text-center left-border top-option">Category</div>
+          <div class="col-sm-3 text-center left-border">Price</div>
+        </div>
+        <div id="expanded-panel-duration" class="row expanded-panel">
+          <div class="col-sm-9">
+            <div class="row panel">
+              <div class="col-sm-2">Duration</div>
+              <div class="col-sm-10 filter-duraton-container">
+                <div data-month="7" class="filter-month pull-left text-center">Aug.</div>
+                <div data-month="8" class="filter-month pull-left text-center">Sept.</div>
+                <div data-month="9" class="filter-month pull-left text-center">Oct.</div>
+                <div data-month="10" class="filter-month pull-left text-center">Nov.</div>
+                <div data-month="11" class="filter-month pull-left text-center">Dec.</div>
+                <div data-month="0" class="filter-month pull-left text-center">Jan.</div>
+                <div data-month="1" class="filter-month pull-left text-center">Feb.</div>
+                <div data-month="2" class="filter-month pull-left text-center">Mar.</div>
+                <div data-month="3" class="filter-month pull-left text-center">Apr.</div>
+                <div data-month="4" class="filter-month pull-left text-center">May.</div>
+                <div data-month="5" class="filter-month pull-left text-center">Jun.</div>
+                <div data-month="6" class="filter-month pull-left text-center">Jul.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="expanded-panel-roomtype" class="row expanded-panel">
+          <div class="col-sm-9">
+            <div class="row panel">
+              <div class="col-sm-2">Room Type?</div>
+              <div class="col-sm-3">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="filter-roomtype" value="">Entire Place
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="filter-roomtype" value="">One Room 
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="filter-roomtype" value="">Shared Place 
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="expanded-panel-category" class="row expanded-panel">
+          <div class="col-sm-9">
+            <div class="row panel">
+              <div class="col-sm-2">Category</div>
+              <div class="col-sm-3">
+                <div class="radio">
+                  <label>
+                    <input id="optionsRadios1" type="radio" name="filter-category" value="rent" checked="">Want to rent
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="radio">
+                  <label>
+                    <input id="optionsRadios1" type="radio" name="filter-category" value="lease" checked="">Want to lease
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="radio">
+                  <label>
+                    <input id="optionsRadios1" type="radio" name="filter-category" value="co-lessee" checked="">Seeking co-lesseew 
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
+    <script src="js/bootstrap.js"></script>
+    <!-- <script src="js/page_interaction.js">   </script>   mainly control form-->
+    <script src="js/underscore.js" type="text/javascript"></script>
+    <script src="js/backbone.js" type="text/javascript"></script>
+    <!-- require underscore.js,  jquery.js-->
+    <script src="js/backbone.epoxy.min.js"></script>
+    <script src="js/es_mainsite_ui.js" type="text/javascript"></script>
+    <script type="text/template" id="menu-template">
+      <%_.each(html_content_ar, function (element, index, list) {%>
+        <div class="menu-option-div">
+          <%=element%>
+        </div>
+      <%});%>
+      
+    </script>
+    <!--location, cat, url_str, memo, id-->
+    <script type="text/template" id="marker-infowindow-template">
+      <p style="font-weight:normal;"> 
+        click to check  <a href= "<%= source %>" target="_blank">source</a>
+      </p>  
+      <p style="color:#000; font-weight:normal;  font-family: "Times New Roman", Times, serif; "><%= memo %></p>
+      <p style = "font-weight : normal;" > 
+        <span  onclick = 'EasySubOrg.MAP.render_01.set_status( "<%=id %>" , true, <%=  index%>);' onmouseover = "changecolor(this);" onmouseout="backcolor(this);"> mark it as outdated</span>
+      </p>
+      
+      
+    </script>
+    <!-- focusOn = function ( width_ratio, height_ratio, offset_ratio, focusID) -->
+    <script type="text/template" id="route-infowindow-template">
+      <% 
+        // ( width_ratio, height_ratio, offset_ratio, focusID)
+        //var width_ratio = $("#info-div").width()/ $("#map-div").width();
+        //passed in argument include width_ratio
+        var width_ratio = 0.4
+        var height_ratio = 1; // currently i did not change it, so I made on assumption
+        var offset_ratio = 0.5- (width_ratio/2);
+        var depart_date = depart_date.slice(0,10);
+        var cat_bgcolor = ""
+        if (cat_string == "Provide a ride") cat_bgcolor = "#1A4C80";
+        else if (cat_string == "Need a ride") cat_bgcolor = "#00B800";
+        else cat_bgcolor = "#993399"; 
+        var depart_date_tmp = new Date(depart_date);
+        var current_date = new Date();
+        var date_bgcolor = "#8a8a8a";
+        if (depart_date_tmp < current_date) { date_bgcolor = "#B80000";}
+      %>
+      <div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
+        <div class="TDE_ori_des_container">
+          <div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
+          <div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
+        </div>
+        <div class="TDE_cat TDE_bold" style ="background-color:<%=cat_bgcolor%>"><%= cat_string%></div>
+        <div class="TDE_bold TDE_date" style="background-color:<%=date_bgcolor%>"><%=depart_date%></div>
+        <div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
+        <div class ="TDE_padding_btw_markoutdated_source" >
+          <!--This is actually one padding-->
+        </div>
+        <div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
+      
+        <div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 
+        <div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
+      </div>    
+    </script>
+  </body>
+</html>

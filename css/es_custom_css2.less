@@ -1,0 +1,53 @@
+@import "general_01.less";
+
+.filter-container{
+  position: relative;
+  .top-options{
+    .top-option{
+      cursor: pointer;
+    }
+    height: 30px;
+    line-height: 30px;
+    .left-border{
+      border-left:1px solid #CCCCCC;
+    }
+  }
+  .expanded-panel{
+    z-index: 1;
+    display: none;
+    position: absolute;
+    top:30px;
+    width: 100%;
+
+    .panel{
+      // under duration panel
+      .filter-month{
+        cursor: pointer;
+        .transition(all 0.3s);
+        .no-text-select-effect();
+        .text-muted;
+        padding:12px 14px;
+        margin: 12px 0px;
+        border-left:1px solid #AAA;
+      }
+      .filter-month.filter-month-selected{
+        background-color: #008CBA;
+        color: #fff;
+        border-left:1px solid #fff;
+      }
+      .filter-month:first-child,
+      .filter-month.filter-month-selected:first-child{
+        border-style: none;
+      }
+      .filter-month.filter-month-hovered{
+        background-color: #eee;
+      }
+      .checkbox,.radio{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        margin-top: 12px; margin-bottom: 12px;
+      }
+    }
+
+  }
+}
