@@ -1,3 +1,4 @@
+html,
 body {
   position: relative;
   height: 100%;
@@ -236,15 +237,36 @@ footer .contact .fa-lg {
 .cancel-margin {
   margin: 0px;
 }
+.cancel-padding {
+  padding: 0px;
+}
 .cancel-padding-tb {
   padding: 0px 12px;
   height: 25px;
+}
+html,
+body {
+  /*quickfix a width problem*/
+  overflow-x: hidden;
+}
+#site-content {
+  position: relative;
+  height: calc(100% -  45px);
+  height: -moz-calc(100% -  45px);
+  height: -webkit-calc(100% -  45px);
+  height: -ms-calc(100% -  45px);
+  height: -o-calc(100% -  45px);
+}
+/*this one is going to overwrite previous results*/
+@media (max-width: 768px) {
+  #site-content {
+    height: 90%;
+  }
 }
 .filter-container {
   position: relative;
 }
 .filter-container .top-options {
-  height: 30px;
   line-height: 30px;
 }
 .filter-container .top-options .top-option {
@@ -295,4 +317,121 @@ footer .contact .fa-lg {
   padding-bottom: 12px;
   margin-top: 12px;
   margin-bottom: 12px;
+}
+@media (max-width: 768px) {
+  .filter-container .expanded-panel {
+    top: 120px;
+  }
+}
+.map-part-container.row {
+  position: relative;
+  height: calc(100% -  30px);
+  height: -moz-calc(100% -  30px);
+  height: -webkit-calc(100% -  30px);
+  height: -ms-calc(100% -  30px);
+  height: -o-calc(100% -  30px);
+}
+.map-part-container.row .col-sm-12 {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+.map-part-container.row .col-sm-12 #mapcover {
+  height: 100%;
+  width: 100%;
+}
+.map-part-container.row .col-sm-12 #mapcover .easysubl-context-panel {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 3px 0px;
+  cursor: default;
+  padding: 6px 0px;
+  width: 178px;
+  z-index: 1;
+}
+.map-part-container.row .col-sm-12 #mapcover .easysubl-context-panel > .context-option {
+  color: #333333;
+  cursor: pointer;
+  height: 25px;
+  padding-bottom: 4px;
+  padding-left: 16px;
+  padding-top: 4px;
+}
+.map-part-container.row .col-sm-12 #mapcover .easysubl-context-panel > .context-option:hover {
+  background-color: #f1f1f1;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div {
+  /*specify color*/
+  /*specify color*/
+  /*specify color*/
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker {
+  background-color: rgba(0, 255, 255, 0);
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker .content {
+  cursor: pointer;
+  color: #fff;
+  padding: 0px 5px;
+  font-size: 14px;
+  min-width: 130px;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker .remove-background {
+  padding: 0px;
+  margin: 0px;
+  margin-top: -3px;
+  height: 11px;
+  /*since the height of svg is 8  8+3 == 11*/
+  background-color: rgba(255, 255, 255, 0);
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker .remove-background svg {
+  font-size: 8px;
+  line-height: 8px;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.rent .content {
+  background-color: #FF5A5F;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.rent .remove-background svg polygon {
+  fill: #FF5A5F;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.rent:hover .content {
+  background-color: #252525;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.rent:hover .remove-background svg polygon {
+  fill: #252525;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.lease .content {
+  background-color: #008cba;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.lease .remove-background svg polygon {
+  fill: #008cba;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.lease:hover .content {
+  background-color: #252525;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.lease:hover .remove-background svg polygon {
+  fill: #252525;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.co-lessee .content {
+  background-color: #43ac6a;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.co-lessee .remove-background svg polygon {
+  fill: #43ac6a;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.co-lessee:hover .content {
+  background-color: #252525;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker.co-lessee:hover .remove-background svg polygon {
+  fill: #252525;
+}
+@media (max-width: 768px) {
+  .map-part-container.row {
+    width: 100%;
+    height: 100%;
+  }
+  .map-part-container.row .col-sm-12 {
+    /*TODO: need to fix width bug here at small viewport*/
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
 }

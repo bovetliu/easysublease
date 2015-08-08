@@ -7,12 +7,16 @@
 @brand-info:    #31B0D5;
 @brand-warning: #E99002;
 @brand-danger:  #F04124;
+
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
 // mixin
 // html,body{
 //   height:100%;
 //   width: 100%;
 // }
-body{
+html,body{
   position: relative;
   height: 100%;
   width: 100%;
@@ -26,6 +30,10 @@ body{
   height: -webkit-calc(~"100% - "@height);
   height: -ms-calc(~"100% - "@height);
   height: -o-calc(~"100% - "@height);
+}
+.fullyExpand(){
+  height: 100%;
+  width: 100%;
 }
 
 .marginTop(@space_value){
@@ -318,6 +326,9 @@ footer{
 /*offset some unwanted bootstrap effect*/
 .cancel-margin{
   margin: 0px;
+}
+.cancel-padding{
+  padding: 0px;
 }
 .cancel-padding-tb{
   padding: 0px 12px;

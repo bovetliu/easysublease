@@ -1,13 +1,29 @@
 @import "general_01.less";
 
+@filter-line-height: 30px;
+html,body{
+  /*quickfix a width problem*/
+  overflow-x: hidden;
+}
+
+#site-content{
+  position: relative;
+  .fullHeightMinus(45px);
+}
+/*this one is going to overwrite previous results*/
+@media (max-width: @screen-sm-min){
+  #site-content{
+    height: 90%;
+  }
+}
+
 .filter-container{
   position: relative;
   .top-options{
     .top-option{
       cursor: pointer;
     }
-    height: 30px;
-    line-height: 30px;
+    line-height: @filter-line-height;
     .left-border{
       border-left:1px solid #CCCCCC;
     }
@@ -16,7 +32,7 @@
     z-index: 1;
     display: none;
     position: absolute;
-    top:30px;
+    top:@filter-line-height;
     width: 100%;
 
     .panel{
@@ -50,4 +66,143 @@
     }
 
   }
+}//.filter-container
+
+@media (max-width: @screen-sm-min){
+  .filter-container{
+    .expanded-panel{
+      top:@filter-line-height * 4;
+    }
+  }
 }
+
+
+// @media (min-width: @screen-sm-min){
+.map-part-container.row{
+  position: relative;
+  // current parent height reference is (fullscreen -45px)
+  .fullHeightMinus(@filter-line-height);
+  .col-sm-12{
+    .fullyExpand();
+    .cancel-padding;
+    .cancel-margin;
+    #mapcover{
+
+      height: 100%;
+      width: 100%;
+      .easysubl-context-panel{
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 3px 0px;
+        cursor: default;
+        padding:6px 0px;
+        width: 178px;
+        z-index: 1;
+          & > .context-option{
+            color: rgb(51, 51, 51);
+            cursor: pointer;
+            height: 25px;
+            padding-bottom: 4px;
+            padding-left: 16px;
+            padding-top: 4px;
+            &:hover{
+              background-color: #f1f1f1;
+            }
+          }
+      }
+      #mapcover-map{  // map container
+        .gm-style{
+          div div{
+            .customized-marker{
+              background-color: rgba(0, 255, 255, 0);
+              .content{
+                cursor: pointer;
+                color: #fff;
+                padding:0px 5px;
+                font-size: 14px;
+                min-width: 130px;
+              }
+              .remove-background{
+                padding: 0px;
+                margin: 0px;
+                margin-top: -3px;
+                height: 11px; /*since the height of svg is 8  8+3 == 11*/
+                background-color: rgba(255, 255, 255, 0);
+                svg{
+                  font-size: 8px;
+                  line-height: 8px;
+                }
+              }
+            }
+
+            /*specify color*/
+            .customized-marker.rent{
+              .content{
+                background-color: #FF5A5F; 
+              }
+              .remove-background svg polygon {
+                fill:#FF5A5F; 
+              }
+              &:hover {
+                .content{
+                  background-color: #252525;
+                }
+                .remove-background svg polygon{
+                  fill: #252525;
+                }
+              }   
+            }
+            /*specify color*/
+            .customized-marker.lease{
+              .content{
+                background-color: @primary-color;
+              }
+              .remove-background svg polygon {
+                fill:@primary-color;
+              }
+              &:hover {
+                .content{
+                  background-color: #252525;
+                }
+                .remove-background svg polygon{
+                  fill: #252525;
+                }
+              }   
+            }
+            /*specify color*/
+            .customized-marker.co-lessee{
+              .content{
+                background-color: @brand-success;
+              }
+              .remove-background svg polygon {
+                fill:@brand-success;
+              }
+              &:hover {
+                .content{
+                  background-color: #252525;
+                }
+                .remove-background svg polygon{
+                  fill: #252525;
+                }
+              }   
+            }
+
+          }
+        }// .gm-style  // entered google map DOMs
+      }//- #mapcover-map
+    }  
+  }
+}
+
+@media(max-width: @screen-sm-min){
+  .map-part-container.row{
+    width:100%;
+    height: 100%;
+    .col-sm-12{  /*TODO: need to fix width bug here at small viewport*/
+      .fullyExpand();
+      .cancel-padding;
+      .cancel-margin;
+    }
+
+  }
+}
+
+

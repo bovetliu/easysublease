@@ -7,8 +7,10 @@ html(lang='en')
     title EasySublease.org
     // Yeti Bootstrap
     link(type='text/css', href='css/yeti_bootstrap.min.css', rel='stylesheet')
+    // Mapcover developped by Bowei 
+    link(rel="stylesheet" href="plugins/mapcover/css/mapcover.css" type='text/css')
+    
     // Custom styles for this template
-
     link(href='css/es_custom_css2.css', rel='stylesheet', type='text/css')
 
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400', rel='stylesheet', type='text/css')
@@ -126,10 +128,20 @@ html(lang='en')
                 .radio
                   label
                     input#optionsRadios1(type='radio', name='filter-category', value='co-lessee', checked='')
-                    | Seeking co-lesseew 
-
-
-        
+                    | Seeking co-lessee 
+      //- end of .row.filter-container
+      .row.map-part-container
+        .col-sm-12
+          .mapcover#mapcover
+            .mc-ascontextmenu.panel.easysubl-context-panel
+              .context-option#place-rent-marker Want to rent here
+              .context-option#place-lease-marker Want to lease here
+              .context-option#place-colessee-marker See co-lessee here
+              .context-option Street view here
+              
+            .mapcover-map#mapcover-map
+      //- end of .row.map-part-container
+      meta#default-detailed-rental-listing(name='default-detailed-rental-listing', content='{"unit_traits":{"lat":30.615976343318405,"lng":-96.31885528564453,"price_single":null,"price_total":null,"community":"community name","addr":"addr string","beds":2,"baths":1,"property_type":"apartment","pet_friendly":false,"amenities_status":{"kitchen":true,"internet":true,"tv":false,"essentials":true,"shampoo":true,"heating":true,"air_conditiong":true,"washer":true,"dryer":true,"free_parking_on_premises":false,"wireless_internet":true,"cable_TV":false,"breakfast":false,"pets_allowed":false,"family/kid_friendly":false,"suitable_for_events":false,"smoking_allowed":true,"wheelchair_accessible":false,"elevator_in_building":false,"indoor_fireplace":true,"buzzer/wireless_Interoom":false,"doorman":false,"pool":false,"hot_tub":false,"gym":false},"description":[["title1","h1"],["content1",null]],"house_rules":"Please be kind, clean, respectful, peaceful.","safety_features":{"smoke_detector":true,"carbon_monoxide_detector":true,"first_aid_kit":true,"safety_card":true,"fire_extinguisher":true},"availability":"from July 2015 to June 2016"},"user_behavior":{"cat":1,"target_whole_unit":false,"target_single_room":true, "target_shared_place":false},"listing_related":{"title":"Listing Title","about_this_listing":"Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask","isexpired":false,"images":[],"cover_image":"default.png","post_date":"2015-06-01T09:46:16.000Z","simplified_rental_data_id":null,"optional_traits_switch":{"unit_traits.description":false,"unit_traits.house_rules":false,"unit_traits.safety_features":false}}}')
 
 
 
@@ -139,15 +151,19 @@ html(lang='en')
     script(src='js/jquery-ui.js')
     // jQuery (necessary for Bootstrap's JavaScript plugins)
     script(src='js/bootstrap.js')
-    // <script src="js/page_interaction.js">   </script>   mainly control form
     script(src='js/underscore.js', type='text/javascript')
     script(src='js/backbone.js', type='text/javascript')
     // require underscore.js,  jquery.js
     script(src='js/backbone.epoxy.min.js')
 
+    // following is mapcover.js JavaScript  
+    script(src='plugins/mapcover/js/mapcover.js')
+    
+    // self-defiled classes
+    script(src='js/es_createNS.js', type='text/javascript')
     script(src='js/es_mainsite_ui.js', type='text/javascript')
-    //- // self-defiled classes
-    //- script(src='js/es_createNS.js', type='text/javascript')
+
+    script(src='js/es_mainsite_logic.js', type='text/javascript')  
     //- script(src='js/es_MMoverlay.js', type='text/javascript')
     //- script(src='js/es_mapinteraction.js', type='text/javascript')
 
@@ -155,6 +171,16 @@ html(lang='en')
     //- script(src='js/es_page_interaction.js', type='text/javascript')
     //- script(src='js/es_utilities.js', type='text/javascript')
     //- script(src='js/es_Infodiv_manager.js', type='text/javascript')
+
+    script#customMarkerTemplate(type="text/template")
+      div.mc-static2mapcanvas.customized-marker
+        div.content.text-center <%= displayedText %>
+        .text-center.remove-background 
+          svg(height='8', width='16')
+            polygon(points='0,0 8,8 16,0')
+              | NO SVG Support.
+
+
     script( type="text/template" id="menu-template").
       <%_.each(html_content_ar, function (element, index, list) {%>
         <div class="menu-option-div">

@@ -234,16 +234,6 @@ $(document).ready( function() {
     associate_array2: {"li-cat-lease":1,"li-cat-rent":2,"li-cat-activity":3},
     
     updateDetailedListing:function( m){
-      // simplified_modal is the this.model
-  // "lat":   null,"lng":   null,
-  // "beds"    :null,"baths"   :null,
-  // "price_single":null,"price_total" :null,
-  // "cat"     :null,  // by default, 0 should be rejected
-  // "post_date": new Date("2013-01-01"),
-  // "isexpired"  : false,"community"  : "",
-  // "source"     : "","memo"       : "",
-  // "addr"       : ""
-
       var ClassRef = this;
       var temp_instance = JSON.parse($('meta[name="default-detailed-rental-listing"]').attr("content"));
       var tu = temp_instance.unit_traits;

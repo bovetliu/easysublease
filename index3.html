@@ -7,6 +7,8 @@
     <title>EasySublease.org</title>
     <!-- Yeti Bootstrap-->
     <link type="text/css" href="css/yeti_bootstrap.min.css" rel="stylesheet">
+    <!-- Mapcover developped by Bowei -->
+    <link rel="stylesheet" href="plugins/mapcover/css/mapcover.css" type="text/css">
     <!-- Custom styles for this template-->
     <link href="css/es_custom_css2.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400" rel="stylesheet" type="text/css">
@@ -126,7 +128,7 @@
               <div class="col-sm-3">
                 <div class="radio">
                   <label>
-                    <input id="optionsRadios1" type="radio" name="filter-category" value="co-lessee" checked="">Seeking co-lesseew 
+                    <input id="optionsRadios1" type="radio" name="filter-category" value="co-lessee" checked="">Seeking co-lessee 
                   </label>
                 </div>
               </div>
@@ -134,17 +136,45 @@
           </div>
         </div>
       </div>
+      <div class="row map-part-container">
+        <div class="col-sm-12">
+          <div id="mapcover" class="mapcover">
+            <div class="mc-ascontextmenu panel easysubl-context-panel">
+              <div id="place-rent-marker" class="context-option">Want to rent here</div>
+              <div id="place-lease-marker" class="context-option">Want to lease here</div>
+              <div id="place-colessee-marker" class="context-option">See co-lessee here</div>
+              <div class="context-option">Street view here</div>
+            </div>
+            <div id="mapcover-map" class="mapcover-map"></div>
+          </div>
+        </div>
+      </div>
+      <meta id="default-detailed-rental-listing" name="default-detailed-rental-listing" content="{&quot;unit_traits&quot;:{&quot;lat&quot;:30.615976343318405,&quot;lng&quot;:-96.31885528564453,&quot;price_single&quot;:null,&quot;price_total&quot;:null,&quot;community&quot;:&quot;community name&quot;,&quot;addr&quot;:&quot;addr string&quot;,&quot;beds&quot;:2,&quot;baths&quot;:1,&quot;property_type&quot;:&quot;apartment&quot;,&quot;pet_friendly&quot;:false,&quot;amenities_status&quot;:{&quot;kitchen&quot;:true,&quot;internet&quot;:true,&quot;tv&quot;:false,&quot;essentials&quot;:true,&quot;shampoo&quot;:true,&quot;heating&quot;:true,&quot;air_conditiong&quot;:true,&quot;washer&quot;:true,&quot;dryer&quot;:true,&quot;free_parking_on_premises&quot;:false,&quot;wireless_internet&quot;:true,&quot;cable_TV&quot;:false,&quot;breakfast&quot;:false,&quot;pets_allowed&quot;:false,&quot;family/kid_friendly&quot;:false,&quot;suitable_for_events&quot;:false,&quot;smoking_allowed&quot;:true,&quot;wheelchair_accessible&quot;:false,&quot;elevator_in_building&quot;:false,&quot;indoor_fireplace&quot;:true,&quot;buzzer/wireless_Interoom&quot;:false,&quot;doorman&quot;:false,&quot;pool&quot;:false,&quot;hot_tub&quot;:false,&quot;gym&quot;:false},&quot;description&quot;:[[&quot;title1&quot;,&quot;h1&quot;],[&quot;content1&quot;,null]],&quot;house_rules&quot;:&quot;Please be kind, clean, respectful, peaceful.&quot;,&quot;safety_features&quot;:{&quot;smoke_detector&quot;:true,&quot;carbon_monoxide_detector&quot;:true,&quot;first_aid_kit&quot;:true,&quot;safety_card&quot;:true,&quot;fire_extinguisher&quot;:true},&quot;availability&quot;:&quot;from July 2015 to June 2016&quot;},&quot;user_behavior&quot;:{&quot;cat&quot;:1,&quot;target_whole_unit&quot;:false,&quot;target_single_room&quot;:true, &quot;target_shared_place&quot;:false},&quot;listing_related&quot;:{&quot;title&quot;:&quot;Listing Title&quot;,&quot;about_this_listing&quot;:&quot;Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask&quot;,&quot;isexpired&quot;:false,&quot;images&quot;:[],&quot;cover_image&quot;:&quot;default.png&quot;,&quot;post_date&quot;:&quot;2015-06-01T09:46:16.000Z&quot;,&quot;simplified_rental_data_id&quot;:null,&quot;optional_traits_switch&quot;:{&quot;unit_traits.description&quot;:false,&quot;unit_traits.house_rules&quot;:false,&quot;unit_traits.safety_features&quot;:false}}}">
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins)-->
     <script src="js/bootstrap.js"></script>
-    <!-- <script src="js/page_interaction.js">   </script>   mainly control form-->
     <script src="js/underscore.js" type="text/javascript"></script>
     <script src="js/backbone.js" type="text/javascript"></script>
     <!-- require underscore.js,  jquery.js-->
     <script src="js/backbone.epoxy.min.js"></script>
+    <!-- following is mapcover.js JavaScript  -->
+    <script src="plugins/mapcover/js/mapcover.js"></script>
+    <!-- self-defiled classes-->
+    <script src="js/es_createNS.js" type="text/javascript"></script>
     <script src="js/es_mainsite_ui.js" type="text/javascript"></script>
+    <script src="js/es_mainsite_logic.js" type="text/javascript"> </script>
+    <script id="customMarkerTemplate" type="text/template">
+      <div class="mc-static2mapcanvas customized-marker">
+        <div class="content text-center"><%= displayedText %></div>
+        <div class="text-center remove-background"> 
+          <svg height="8" width="16">
+            <polygon points="0,0 8,8 16,0">NO SVG Support.</polygon>
+          </svg>
+        </div>
+      </div>
+    </script>
     <script type="text/template" id="menu-template">
       <%_.each(html_content_ar, function (element, index, list) {%>
         <div class="menu-option-div">
