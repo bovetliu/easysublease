@@ -295,23 +295,22 @@ $(document).ready(function readyCB(){
 
           };
           CustomMarker.prototype.draw = function(){   // correspons to _reset of mapbox custom_marker
-            var overlayProjection = this.getProjection();
-            // console.log("draw" + this.latLng);
-            var anchor = overlayProjection.fromLatLngToDivPixel(this.latLng);
+            if (this.getMap()){    // draw function should be valid only when there is a map for this Class
+              var overlayProjection = this.getProjection();
+              // console.log("draw" + this.latLng);
+              var anchor = overlayProjection.fromLatLngToDivPixel(this.latLng);
 
-            if (this.dom_) {
-              this.dom_.style.top = (Math.round(anchor.y- this.dom_.offsetHeight)).toString()+'px';
-              this.dom_.style.left = Math.round( anchor.x - this.dom_.offsetWidth / 2).toString() + 'px';
-              // $(this.dom_).outerWidth(this.width_); // I need to have this method, 
-              // $(this.dom_).outerHeight(this.height_);
-              // if (this.datacontent["displayedText"]== "New of Marker1"){
-              //   console.log($(this.dom_).height());
-              //   console.log(this.height_);
-              // }
-
+              if (this.dom_) {
+                this.dom_.style.top = (Math.round(anchor.y- this.dom_.offsetHeight)).toString()+'px';
+                this.dom_.style.left = Math.round( anchor.x - this.dom_.offsetWidth / 2).toString() + 'px';
+                // $(this.dom_).outerWidth(this.width_); // I need to have this method, 
+                // $(this.dom_).outerHeight(this.height_);
+                // if (this.datacontent["displayedText"]== "New of Marker1"){
+                //   console.log($(this.dom_).height());
+                //   console.log(this.height_);
+                // }
+              }
             }
-
-            // generate pixel position
           };
           CustomMarker.prototype.onRemove = function() {  // setMap(null) will run this
             console.log("onRemove is called");
@@ -520,7 +519,7 @@ $(document).ready(function readyCB(){
                     console.log(keyname + "changed");
                     google.maps.event.addDomListener( ClassRef.get('custom_marker').getContainer(), keyname, function listenerInvokesMe( ){
                       var tempfunc = ClassRef.get(keyname);
-                      tempfunc( ClassRef.get('custom_marker').getContainer());
+                      tempfunc( ClassRef.get('custom_marker') );
                     });           
                   }
                   else if (ClassRef.get(keyname) == null){
@@ -622,6 +621,8 @@ $(document).ready(function readyCB(){
         }
         // console.log(temp_custom_marker);
         var temp_custom_marker_controller = new this.CustomMarkerController({ "custom_marker": temp_custom_marker});
+        // enable custom_marker have reference to its controller
+        temp_custom_marker._controller = temp_custom_marker_controller;
         _.each(_.keys(_.omit(options, 'anchor', 'datacontent', 'latLng', 'map')), function(keyname, index, ar){
           if (typeof options[keyname] == 'function' || options[keyname] == null) {
             temp_custom_marker_controller.set(keyname, options[keyname]);
@@ -653,7 +654,6 @@ $(document).ready(function readyCB(){
       },
 
       mapLeftClickHandler:function(event){
-        console.log("left click at: " + event.latlng);
         var ClassRef = this;
         var pixel = ClassRef.getPixelInMapcoverContainerFromLatLng(event);
         // console.log("left click at pixel: " + pixel);
@@ -662,14 +662,11 @@ $(document).ready(function readyCB(){
 
       },
       mapRightClickHandler:function(event){
-        console.log(event);
         var ClassRef = this;
         var pixel = ClassRef.getPixelInMapcoverContainerFromLatLng(event);
         ClassRef.contextMenuMeetMouse(pixel, "rightclick");
         ClassRef.model.get("mc_map_events")["rightclick"] = event;
       },
-
-
 
       initialize:function (){
         console.log("map_view_unit init()");
