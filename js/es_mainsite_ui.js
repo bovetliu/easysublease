@@ -72,25 +72,38 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
 
   var mapcover = EasySubOrg.MAP.mapcover;
   //I need to export this to window scope to pass this to es_mainsite_logic.js
-  window.mapcover = mapcover;
   var current_map = mapcover.model.get("map");
 
   mapcover.initCustomMarker( "CustomMarker1" , _.template( $('#customMarkerTemplate').html()));
+
+  var marker_click_fn = function(custom_marker){
+    var controller = custom_marker._controller;
+    console.log(controller.get("mongo_model"));
+    controller.set("datacontent",{"displayedText":"Preparing..."})
+    EasySubOrg.comm_unit.postDetailedListing( controller.get("mongo_model"), function(dataReturned, status){
+      // dataReturned  is instance.toObject()
+      var url = EasySubOrg.comm_unit.apiServerURL()+"/listing/" + dataReturned._id;
+      if (status == "success"){
+        console.log(dataReturned);
+        controller.set("datacontent",{"displayedText":'<a href=\"'+url+'\" target="_blank">Good to go! Click me again</a>'}) 
+        $(custom_marker.getDOM()).addClass(userCatLookUp[controller.get("mongo_model").user_behavior.cat] );
+        controller.set("click",null);
+      }
+    });
+  }// click handler
 
   var temp_marker_option = {
     anchor: null,
     datacontent:{"displayedText":"Click marker to finish listing"},
     latLng:new google.maps.LatLng(-33.397, 150.644),// mapcover.model.get("mc_map_events")['rightclick'].latLng,
     map: null,
-    click:function(custom_marker){
-      var controller = custom_marker._controller;
-      // console.log(controller.get("mongo_model"));
-            
-    }
+    click: marker_click_fn
   };
   var temp_marker_controller = mapcover.addCustomMarker("CustomMarker1"  ,temp_marker_option);
 
   var markerPlacerHelper = function( map_attached_css_class){
+    temp_marker_controller.set("datacontent",{"displayedText":"Click marker to finish listing"} );
+
     temp_marker_controller.set("latLng",mapcover.model.get("mc_map_events")['rightclick'].latLng );
     if (temp_marker_controller.get("map")==null){
       temp_marker_controller.set("map",mapcover.model.get("map"));
@@ -115,6 +128,8 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
     temp_model.unit_traits.lat = temp_marker_controller.get("latLng").lat();
     temp_model.unit_traits.lng = temp_marker_controller.get("latLng").lng();
     temp_model.user_behavior.cat = userCatLookUp.indexOf(map_attached_css_class);
+    temp_marker_controller.set("click",marker_click_fn);
+
     mapcover.hideContextMenu();
   }
   /*assign logic to context menu*/
@@ -128,7 +143,9 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
   });
   $("#place-colessee-marker").click(function placeMarker1(){
     markerPlacerHelper("co-lessee");
-
   });
 
+
+  window.mapcover = mapcover;
+  window.temp_marker_controller = temp_marker_controller;
 });

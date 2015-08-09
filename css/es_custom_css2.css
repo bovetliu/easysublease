@@ -374,6 +374,13 @@ body {
   font-size: 14px;
   min-width: 130px;
 }
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker .content a {
+  text-decoration: none;
+  color: inherit;
+}
+.map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker .content a:hover {
+  color: inherit;
+}
 .map-part-container.row .col-sm-12 #mapcover #mapcover-map .gm-style div div .customized-marker .remove-background {
   padding: 0px;
   margin: 0px;

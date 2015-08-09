@@ -16,21 +16,77 @@ $(document).ready(function readyAtUtilities2(){
     * EasySubOrg.comm_unit.apiServerURL()
     */
     apiServerURL:function(){
-      if ( !this.get("is_local_listing_server") )
-      return "http://esapi-u7yhjm.rhcloud.com";
-      else return "http://localhost:3001";
+      if ( location.host != "localhost")
+      return "http://listingtest-u7yhjm.rhcloud.com";
+      else return "http://localhost:3000";
+    },
+    /*
+    * EasySubOrg.comm_unit.generateListUrl(_id, is_edit)
+    */
+    generateListUrl: function( _id, is_edit){
+      if (!is_edit)
+        return this.get("listingServerURL") + "/listing/" + _id;
+      else
+        return this.get("listingServerURL") + "/edit/" + _id;
     },
     postDetailedListing:function(tobeSubmittedModel, callback){
       // tobeSubmittedModel is JSON stringified
+      tobeSubmittedModel = JSON.stringify(tobeSubmittedModel);
       targetURL = this.get("listingServerURL") + "/listing";
+      console.log(targetURL);
       $.ajax({
         url:  targetURL,
         data: {model:tobeSubmittedModel},
         crossDomain: true,
+
+        dataType:"json",
         type:"POST",
         success: callback  
       });
     },
+    /*
+    * EasySubOrg.comm_unit.requestData(route_name, query, successCallBack)
+    */
+    requestData:function(route_name, query, successCallBack){
+      /*
+        1./listing/conditional?[query]
+        2./listing_core/conditional?[query]
+        3./listing/:id  
+      */
+
+      var targetURL = this.get("listingServerURL");
+      switch(route_name){
+        case "/data_api/listing/conditional":
+          targetURL = targetURL + route_name + '?' + query;
+          break;
+        case "/data_api/listing_core/conditional":
+          targetURL = targetURL + route_name + '?' + query;
+          break;
+        case "/data_api/listing":
+          targetURL = targetURL + route_name+ '/' + query;
+          break;
+        default:
+          console.error("unrecognized route: " + route_name);
+          return;
+          break;
+      }
+      targetURL = encodeURI(targetURL);
+      console.log("OUT URL: " + targetURL);
+      $.get(targetURL, successCallBack);
+    },
+
+    initialize: function(){
+      var ClassRef = this;
+      console.log("init() of EasySubOrg.comm_unit");
+      /*initialize*/
+      if (location.host!="localhost"){
+        this.set("is_local_listing_server", false);
+      } else {
+      }
+
+      this.set("listingServerURL", ClassRef.apiServerURL() );
+
+    }
   }); // end of COMMUNICATION_UNIT class definition
 
   
