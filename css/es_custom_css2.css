@@ -280,7 +280,21 @@ body {
   display: none;
   position: absolute;
   top: 30px;
-  width: 100%;
+  width: calc(100% +  30px);
+  width: -moz-calc(100% +  30px);
+  width: -webkit-calc(100% +  30px);
+  width: -ms-calc(100% +  30px);
+  width: -o-calc(100% +  30px);
+}
+.filter-container .expanded-panel .panel .next-year {
+  color: #777;
+  padding: 12px 14px;
+  margin: 12px 0px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
 }
 .filter-container .expanded-panel .panel .filter-month {
   cursor: pointer;
@@ -318,7 +332,16 @@ body {
   margin-top: 12px;
   margin-bottom: 12px;
 }
+.filter-container .expanded-panel .panel form {
+  padding-bottom: 20px;
+}
+.filter-container .expanded-panel .panel form .form-group {
+  margin-right: 20px;
+}
 @media (max-width: 768px) {
+  .filter-container .top-options {
+    line-height: inherit;
+  }
   .filter-container .expanded-panel {
     top: 120px;
   }
@@ -431,7 +454,6 @@ body {
 }
 @media (max-width: 768px) {
   .map-part-container.row {
-    width: 100%;
     height: 100%;
   }
   .map-part-container.row .col-sm-12 {

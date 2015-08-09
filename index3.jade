@@ -62,20 +62,56 @@ html(lang='en')
     div(id="site-content" class="container-fluid main")
       .row.filter-container#filter-container
         .row.top-options
-          .col-sm-3.text-center.top-option(data-expansion-target="#expanded-panel-duration")
+          .col-sm-3.text-center.top-option.hidden-xs(data-expansion-target="#expanded-panel-duration")
             | Duration
-          .col-sm-3.text-center.left-border.top-option(data-expansion-target="#expanded-panel-roomtype")
+          .col-sm-3.top-option.visible-xs-block
+            | Duration
+            //- .row.visible-xs-block
+              | hidden duraton
+          .col-sm-3.text-center.left-border.top-option.hidden-xs(data-expansion-target="#expanded-panel-roomtype")
             | Room Type
-          .col-sm-3.text-center.left-border.top-option(data-expansion-target="#expanded-panel-category")
+          .col-sm-3.top-option.visible-xs-block
+            | Room Type
+            .row.visible-xs-block
+              .col-sm-12
+                label.checkbox-inline
+                  input(type='checkbox', name="user_behavior.target_whole_unit", value='true')
+                  | Entire Place
+                label.checkbox-inline
+                  input(type='checkbox', name="user_behavior.target_single_room",value='true')
+                  | One Room 
+                label.checkbox-inline
+                  input(type='checkbox', name="user_behavior.target_shared_place",value='true')
+                  | Shared Place 
+
+          .col-sm-3.text-center.left-border.top-option.hidden-xs(data-expansion-target="#expanded-panel-category")
             | Category
+          .col-sm-3.top-option.visible-xs-block
+            | Category
+            .row.visible-xs-block
+              .col-sm-12
+                label.radio-inline
+                  input(type='radio', name="user_behavior.cat", value=2)
+                  | To rent
+                label.checkbox-inline
+                  input(type='radio', name="user_behavior.cat",value=1)
+                  | To lease
+                label.checkbox-inline
+                  input(type='radio', name="user_behavior.cat",value=3)
+                  | Seek co-lessee
 
           //- Price panel have a single dropdown
-          .col-sm-3.text-center.left-border
+          .col-sm-3.text-center.left-border.top-option.hidden-xs(data-expansion-target="#expanded-panel-price")
             | Price
+          .col-sm-3.top-option.visible-xs-block
+            | Price
+            .row.visible-xs-block
+              .col-sm-12
+                | hidden price
         .row.expanded-panel#expanded-panel-duration
           .col-sm-9
             .row.panel
-              .col-sm-2 Duration
+              .col-sm-1 Duration
               .col-sm-10.filter-duraton-container
                 //- write some Jade Logic
                 -var month_arr = ["Jan.", "Feb.", "Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
@@ -86,6 +122,9 @@ html(lang='en')
                   - index = index+1
                 -index = 0
                 while (index < current_month)
+                  if index == 0 
+                    .next-year.pull-left.text-center="Year "+((new Date()).getFullYear()+1) 
+                  
                   .filter-month.pull-left.text-center(data-month="#{index}")=month_arr[index]
                   -index = index+1
 
@@ -116,19 +155,37 @@ html(lang='en')
               .col-sm-3
                 .radio
                   label
-                    input#optionsRadios1(type='radio', name='user_behavior.cat', value=2 )
+                    input(type='radio', name='user_behavior.cat', value=2 )
                     | Want to rent
 
               .col-sm-3
                 .radio
                   label
-                    input#optionsRadios1(type='radio', name='user_behavior.cat', value=1)
+                    input(type='radio', name='user_behavior.cat', value=1)
                     | Want to lease
               .col-sm-3
                 .radio
                   label
-                    input#optionsRadios1(type='radio', name='user_behavior.cat', value=3)
-                    | Seeking co-lessee 
+                    input(type='radio', name='user_behavior.cat', value=3)
+                    | Seek co-lessee 
+        .row.expanded-panel#expanded-panel-price
+          .col-sm-3.col-sm-offset-9
+            .row.panel
+              .col-sm-12
+                form
+                  .form-group
+                    label(for='exampleInputEmail1') Price greater than
+                    input.form-control(type='text', id="price-lb", placeholder='price-lb')
+                  .form-group
+                    label(for='exampleInputPassword1') Price lower than
+                    input.form-control(type='text', id="price-hb", placeholder='price-hb')
+                  .checkbox
+                    label
+                      input(type='checkbox' id="chkbox-filter-price-target")
+                      | price of entire place?
+                  .btn.btn-default(id="btn-update-price-filter") Update
+
+
       //- end of .row.filter-container
       .row.map-part-container
         .col-sm-12

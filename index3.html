@@ -53,21 +53,59 @@
     <div id="site-content" class="container-fluid main">
       <div id="filter-container" class="row filter-container">
         <div class="row top-options">
-          <div data-expansion-target="#expanded-panel-duration" class="col-sm-3 text-center top-option">Duration</div>
-          <div data-expansion-target="#expanded-panel-roomtype" class="col-sm-3 text-center left-border top-option">Room Type</div>
-          <div data-expansion-target="#expanded-panel-category" class="col-sm-3 text-center left-border top-option">Category</div>
-          <div class="col-sm-3 text-center left-border">Price</div>
+          <div data-expansion-target="#expanded-panel-duration" class="col-sm-3 text-center top-option hidden-xs">Duration</div>
+          <div class="col-sm-3 top-option visible-xs-block">Duration
+          </div>
+          <div data-expansion-target="#expanded-panel-roomtype" class="col-sm-3 text-center left-border top-option hidden-xs">Room Type</div>
+          <div class="col-sm-3 top-option visible-xs-block">Room Type
+            <div class="row visible-xs-block">
+              <div class="col-sm-12">
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="user_behavior.target_whole_unit" value="true">Entire Place
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="user_behavior.target_single_room" value="true">One Room 
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="user_behavior.target_shared_place" value="true">Shared Place 
+                </label>
+              </div>
+            </div>
+          </div>
+          <div data-expansion-target="#expanded-panel-category" class="col-sm-3 text-center left-border top-option hidden-xs">Category</div>
+          <div class="col-sm-3 top-option visible-xs-block">Category
+            <div class="row visible-xs-block">
+              <div class="col-sm-12">
+                <label class="radio-inline">
+                  <input type="radio" name="user_behavior.cat" value="2">To rent
+                </label>
+                <label class="checkbox-inline">
+                  <input type="radio" name="user_behavior.cat" value="1">To lease
+                </label>
+                <label class="checkbox-inline">
+                  <input type="radio" name="user_behavior.cat" value="3">Seek co-lessee
+                </label>
+              </div>
+            </div>
+          </div>
+          <div data-expansion-target="#expanded-panel-price" class="col-sm-3 text-center left-border top-option hidden-xs">Price</div>
+          <div class="col-sm-3 top-option visible-xs-block">Price
+            <div class="row visible-xs-block">
+              <div class="col-sm-12">hidden price</div>
+            </div>
+          </div>
         </div>
         <div id="expanded-panel-duration" class="row expanded-panel">
           <div class="col-sm-9">
             <div class="row panel">
-              <div class="col-sm-2">Duration</div>
+              <div class="col-sm-1">Duration</div>
               <div class="col-sm-10 filter-duraton-container">
                 <div data-month="7" class="filter-month pull-left text-center">Aug.</div>
                 <div data-month="8" class="filter-month pull-left text-center">Sept.</div>
                 <div data-month="9" class="filter-month pull-left text-center">Oct.</div>
                 <div data-month="10" class="filter-month pull-left text-center">Nov.</div>
                 <div data-month="11" class="filter-month pull-left text-center">Dec.</div>
+                <div class="next-year pull-left text-center">Year 2016</div>
                 <div data-month="0" class="filter-month pull-left text-center">Jan.</div>
                 <div data-month="1" class="filter-month pull-left text-center">Feb.</div>
                 <div data-month="2" class="filter-month pull-left text-center">Mar.</div>
@@ -114,23 +152,47 @@
               <div class="col-sm-3">
                 <div class="radio">
                   <label>
-                    <input id="optionsRadios1" type="radio" name="user_behavior.cat" value="2">Want to rent
+                    <input type="radio" name="user_behavior.cat" value="2">Want to rent
                   </label>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="radio">
                   <label>
-                    <input id="optionsRadios1" type="radio" name="user_behavior.cat" value="1">Want to lease
+                    <input type="radio" name="user_behavior.cat" value="1">Want to lease
                   </label>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="radio">
                   <label>
-                    <input id="optionsRadios1" type="radio" name="user_behavior.cat" value="3">Seeking co-lessee 
+                    <input type="radio" name="user_behavior.cat" value="3">Seek co-lessee 
                   </label>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="expanded-panel-price" class="row expanded-panel">
+          <div class="col-sm-3 col-sm-offset-9">
+            <div class="row panel">
+              <div class="col-sm-12">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Price greater than</label>
+                    <input type="text" id="price-lb" placeholder="price-lb" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Price lower than</label>
+                    <input type="text" id="price-hb" placeholder="price-hb" class="form-control">
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="chkbox-filter-price-target">price of entire place?
+                    </label>
+                  </div>
+                  <div id="btn-update-price-filter" class="btn btn-default">Update</div>
+                </form>
               </div>
             </div>
           </div>

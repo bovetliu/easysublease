@@ -6,7 +6,9 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
   })    
   $('.top-option').mouseenter(function(){
     $('.expanded-panel').hide();
-    $($(this).data('expansion-target')).show();
+    if ($(window).width() > 768){
+      $($(this).data('expansion-target')).show();
+    }
   });
   $('.expanded-panel').mouseleave(function(){
     $(this).hide();

@@ -17,8 +17,25 @@ $(document).ready(function mainsite_ready_logic(){
   EasySubOrg.Filter.listing = new (Backbone.Epoxy.View.extend({
     // this.model is available
     el:"#filter-container",
+    setBoundaryFilter:function( googleBounds){
+      var ClassRef = this;
+      var ne = googleBounds.getNorthEast();
+      var sw = googleBounds.getSouthWest();
+      var lats = _.sortBy([ne.lat(), sw.lat()], function(num){return num; });
+      var lngs = _.sortBy([ne.lng(), sw.lng()], function(num){return num; });
+      ClassRef.model.set("unit_traits.lat-lb", lats[0]);
+      ClassRef.model.set("unit_traits.lat-hb", lats[1]);
+      ClassRef.model.set("unit_traits.lng-lb", lngs[0]);
+      ClassRef.model.set("unit_traits.lng-hb", lngs[1]);
+    },
+    updateBoundaryFilter:function(){
+      var ClassRef = this;
+      var map = mapcover.model.get("map");
+      ClassRef.setBoundaryFilter(map.getBounds());
+    },
     generateQueryFromModel:function() {
       var ClassRef = this;
+
       var valid_obj = _.omit(ClassRef.model.toJSON(), function(value, key, object){
         if (value) return false;  // reture true means this value and its key should be omitted
         else return true;
@@ -35,9 +52,33 @@ $(document).ready(function mainsite_ready_logic(){
       var watchlist= ["change:user_behavior.cat",
         "change:user_behavior.target_whole_unit",
         "change:user_behavior.target_single_room",
-        "change:user_behavior.target_shared_place"]
+        "change:user_behavior.target_shared_place",
+        "change:unit_traits.price_single-lb",
+        "change:unit_traits.price_single-hb",
+        "change:unit_traits.price_total-lb",
+        "change:unit_traits.price_total-hb"
+      ];
+      /*update price*/
+      ClassRef.$el.find('#btn-update-price-filter').click(function(){
+        if ( ($.isNumeric($('#price-lb').val()) || $('#price-lb').val()=="") && ($.isNumeric($('#price-hb').val()) || $('#price-hb').val()=="") ){
+          if($('#chkbox-filter-price-target').prop("checked") ){
+            // entire place
+            ClassRef.model.set("unit_traits.price_single-lb", null);
+            ClassRef.model.set("unit_traits.price_single-hb", null);
+            ClassRef.model.set("unit_traits.price_total-lb", $('#price-lb').val());
+            ClassRef.model.set("unit_traits.price_total-hb", $('#price-hb').val());
+          } else{
+            // single room situation
+            ClassRef.model.set("unit_traits.price_single-lb", $('#price-lb').val());
+            ClassRef.model.set("unit_traits.price_single-hb", $('#price-hb').val());
+            ClassRef.model.set("unit_traits.price_total-lb", null);
+            ClassRef.model.set("unit_traits.price_total-hb", null);
+          } 
+        } else {alert("wtf you put in the input");}
+      });
 
-      $("input[type='checkbox'] , input[type='radio']").click(function(){
+      /*data updating for room type and category*/
+      ClassRef.$el.find("input[type='checkbox'] , input[type='radio']").click(function(){
         var to_be_set_value = null;
         var attr_name = $(this).attr("name");
         if ($(this).attr("type") == 'radio'){
@@ -49,6 +90,7 @@ $(document).ready(function mainsite_ready_logic(){
       });
 
       this.model.on(watchlist.join(" "), function behaviorChangeHandler (){
+        ClassRef.updateBoundaryFilter();
         var query = ClassRef.generateQueryFromModel();
         EasySubOrg.comm_unit.requestData("/data_api/listing/conditional", query, function success(data){
           // expecting an array
@@ -67,8 +109,18 @@ $(document).ready(function mainsite_ready_logic(){
       "user_behavior.target_whole_unit":false,
       "user_behavior.target_single_room":false,
       "user_behavior.target_shared_place":false,
+      "unit_traits.lat-lb":null,
+      "unit_traits.lat-hb":null,
+      "unit_traits.lng-lb":null,
+      "unit_traits.lng-hb":null,
+      "unit_traits.price_single-lb":null,
+      "unit_traits.price_single-hb":null,
+      "unit_traits.price_total-lb":null,
+      "unit_traits.price_total-hb":null
     })}
   );
+
+
 
 
 
@@ -76,8 +128,10 @@ $(document).ready(function mainsite_ready_logic(){
   EasySubOrg.mapmng = new ( Backbone.Model.extend({
     defaults:{
       listing_data:[],
-      marker_controllers:[]
+      marker_controllers:[],
+      boolean_update_boundary:true
     },
+
     clearRenderingData:function(){
       console.log("cleared data");
       var ClassRef = this;

@@ -23,6 +23,21 @@ html,body{
 }
 
 
+.fullWidthPlus(@height){
+  width: calc(~"100% + "@height);
+  width: -moz-calc(~"100% + "@height);
+  width: -webkit-calc(~"100% + "@height);
+  width: -ms-calc(~"100% + "@height);
+  width: -o-calc(~"100% + "@height);
+}
+
+.fullWidthMinus(@height){
+  width: calc(~"100% - "@height);
+  width: -moz-calc(~"100% - "@height);
+  width: -webkit-calc(~"100% - "@height);
+  width: -ms-calc(~"100% - "@height);
+  width: -o-calc(~"100% - "@height);
+}
 
 .fullHeightMinus(@height){
   height: calc(~"100% - "@height);
