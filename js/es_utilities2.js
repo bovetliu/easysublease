@@ -157,6 +157,37 @@ $(document).ready(function readyAtUtilities2(){
     }
   });
   
+  /*some utility functions put into EasySubOrg.UTILITIES.misc*/
+  EasySubOrg.UTILITIES.misc = {
+
+    /*EasySubOrg.UTILITIES.misc.getPeriods(month_array);*/
+    getPeriods: function ( month_array){
+      var tbr = [
+        {
+          "listing_related.availability.begin-hb":null,
+          "listing_related.availability.end-lb":null
+        }
+      ];
+      if (month_array.length===0){
+        return tbr;
+      }
+
+      var just_month_array = [];
+      _.each(month_array, function(element, index, arr){
+        just_month_array.push( parseInt(element.split("-")[1] ));
+      })
+      var last_month = (just_month_array[0] + (month_array.length-1) >12)?just_month_array[0] + (month_array.length-1)-12 : just_month_array[0] + (month_array.length-1)
+      if (last_month == just_month_array[just_month_array.length-1]){
+        tbr[0]["listing_related.availability.begin-hb"] = (new Date(month_array[0])).getTime();
+        tbr[0]["listing_related.availability.end-lb"] = (new Date(month_array[month_array.length-1])).getTime();
+        return tbr;
+      }
+      else{
+        return [];  // means something wrong
+      }
+    }
+  }
+
   EasySubOrg.comm_unit = new COMMUNICATION_UNIT(); 
   EasySubOrg.UTILITIES.router = new ES_Router();
   Backbone.history.start(); 

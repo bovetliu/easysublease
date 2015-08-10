@@ -1,36 +1,72 @@
 "use strict"
 $(document).ready(function es_mainsite_ui_doc_ready(){
   var userCatLookUp = [null, "lease", "rent", "co-lessee"];
+  var duration_panel_visibility = false;
+
+  /*build event for duration panel hide*/
+  var event_dph = document.createEvent("Event");
+  event_dph.initEvent('dph',true,true);
+
+
   $('#site-content').mouseleave(function(){
+    dispatchSignalThathDurationPanelHidden();
     $('.expanded-panel').hide();
   })    
   $('.top-option').mouseenter(function(){
     $('.expanded-panel').hide();
     if ($(window).width() > 768){
       $($(this).data('expansion-target')).show();
+      if ($(this).data('expansion-target') == "#expanded-panel-duration"){
+        duration_panel_visibility = true;
+      }
     }
   });
   $('.expanded-panel').mouseleave(function(){
+    if(this.id == "expanded-panel-duration"){ dispatchSignalThathDurationPanelHidden();}
     $(this).hide();
   });
 
+  function dispatchSignalThathDurationPanelHidden () {
+    if (duration_panel_visibility === true){
+      //at this moment, duration panel is on, later on it will be hidden,
+      // so it is right time to dispatch event
+      document.dispatchEvent(event_dph);
+      duration_panel_visibility = false;
+    }
+  }
   // realize drag and select for date selection module
   (function durationDragging ( isDragging){
     /*first control dragging indicator*/
+    /*prepare modal*/
+    var compiled_day_input_content = _.template($("#filter-day-content-template").html());
+    $("#btn-filter-day-cancel").click(function(){
+      var target_month_id = "#m"+ $("#current-month-day").data("target-month");
+      $(target_month_id).removeClass("filter-month-selected");
+      $("#es-mainsite-multipurpose").modal("hide");
+    });
+    $("#btn-filter-day-save").click(function(){
+      var target_month_id = "#m"+ $("#current-month-day").data("target-month");
+
+      $.data( $(target_month_id)[0], "month", $(target_month_id).data("month")+'-'+$('#current-month-day').val() );
+      $(target_month_id).html($(target_month_id).data("month-text")+" " + $('#current-month-day').val());
+      console.log($(target_month_id).data("month"));
+    });
+
+
     var mouse_pressed =false;
+    var drag_start_time = 0;
     $(".filter-duraton-container").mousedown(function(){
       mouse_pressed = true;
+      drag_start_time = Date.now();
     }).mousemove(function(){
-      if (mouse_pressed === true){
+      if (mouse_pressed === true && ( Date.now() - drag_start_time > 60) ){
         isDragging = true;
       } else{
         isDragging = false;
       }
-
     }).mouseup(function(){
       mouse_pressed = false;
     });
-
     $(".filter-month").mousemove(function(){
       var $this = $(this); // move this into a safer reference
       if(isDragging && !$this.hasClass('filter-month-selected')){
@@ -43,7 +79,12 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
         $this.addClass("filter-month-selected");
         if ($this.hasClass("filter-month-hovered")) $this.removeClass("filter-month-hovered");
       } else{
-        $this.removeClass("filter-month-selected");
+        // this is one selected month
+        $("#es-mainsite-multipurpose .modal-body").html(compiled_day_input_content({day_type:"start day", target_month:$this.data("month") }));
+        $("#es-mainsite-multipurpose").modal("show");
+
+        console.log("show") 
+        // $this.removeClass("filter-month-selected");
       }
     }).mouseenter(function filterMonthMouseenterHandler (){
       if (!$(this).hasClass('filter-month-selected')  && !isDragging){
@@ -54,7 +95,6 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
         $(this).removeClass("filter-month-hovered");
       }
     });
-
   })(false);
 
 

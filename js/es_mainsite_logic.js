@@ -56,7 +56,9 @@ $(document).ready(function mainsite_ready_logic(){
         "change:unit_traits.price_single-lb",
         "change:unit_traits.price_single-hb",
         "change:unit_traits.price_total-lb",
-        "change:unit_traits.price_total-hb"
+        "change:unit_traits.price_total-hb",
+        "change:listing_related.availability.begin-hb",
+        "change:listing_related.availability.end-lb"
       ];
       /*update price*/
       ClassRef.$el.find('#btn-update-price-filter').click(function(){
@@ -89,6 +91,21 @@ $(document).ready(function mainsite_ready_logic(){
         ClassRef.model.set(attr_name, to_be_set_value);
       });
 
+      /*most difficult one is updating availability date, I have to wirte custom event and dispatch it at proper time*/
+      document.addEventListener("dph", function(e){
+        console.log("dph triggered")
+        var selected_month_ar = []
+        var target_arr = $(".filter-month-selected");
+        _.each(target_arr, function(element, index, ar){   // this is blocking callback
+          selected_month_ar.push($(element).data("month"));
+        });
+        var gotPeriods = EasySubOrg.UTILITIES.misc.getPeriods(selected_month_ar);
+        if (gotPeriods.length ===1){
+          console.log("setting");
+          ClassRef.model.set(gotPeriods[0]);
+        }
+      });
+
       this.model.on(watchlist.join(" "), function behaviorChangeHandler (){
         ClassRef.updateBoundaryFilter();
         var query = ClassRef.generateQueryFromModel();
@@ -116,7 +133,9 @@ $(document).ready(function mainsite_ready_logic(){
       "unit_traits.price_single-lb":null,
       "unit_traits.price_single-hb":null,
       "unit_traits.price_total-lb":null,
-      "unit_traits.price_total-hb":null
+      "unit_traits.price_total-hb":null,
+      "listing_related.availability.begin-hb":null,  // should contain 
+      "listing_related.availability.end-lb":null
     })}
   );
 
