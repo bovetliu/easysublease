@@ -23,10 +23,10 @@ $(document).ready(function mainsite_ready_logic(){
       var sw = googleBounds.getSouthWest();
       var lats = _.sortBy([ne.lat(), sw.lat()], function(num){return num; });
       var lngs = _.sortBy([ne.lng(), sw.lng()], function(num){return num; });
-      ClassRef.model.set("unit_traits.lat-lb", lats[0]);
-      ClassRef.model.set("unit_traits.lat-hb", lats[1]);
-      ClassRef.model.set("unit_traits.lng-lb", lngs[0]);
-      ClassRef.model.set("unit_traits.lng-hb", lngs[1]);
+      ClassRef.model.set("unit_traits.lat-lb", lats[0].toFixed(5));
+      ClassRef.model.set("unit_traits.lat-hb", lats[1].toFixed(5));
+      ClassRef.model.set("unit_traits.lng-lb", lngs[0].toFixed(5));
+      ClassRef.model.set("unit_traits.lng-hb", lngs[1].toFixed(5));
     },
     updateBoundaryFilter:function(){
       var ClassRef = this;
@@ -93,7 +93,7 @@ $(document).ready(function mainsite_ready_logic(){
 
       /*most difficult one is updating availability date, I have to wirte custom event and dispatch it at proper time*/
       document.addEventListener("dph", function(e){
-        console.log("dph triggered")
+        // console.log("dph triggered")
         var selected_month_ar = []
         var target_arr = $(".filter-month-selected");
         _.each(target_arr, function(element, index, ar){   // this is blocking callback
@@ -101,17 +101,19 @@ $(document).ready(function mainsite_ready_logic(){
         });
         var gotPeriods = EasySubOrg.UTILITIES.misc.getPeriods(selected_month_ar);
         if (gotPeriods.length ===1){
-          console.log("setting");
           ClassRef.model.set(gotPeriods[0]);
         }
       });
+
+      // window.handle_date_bounds_change is defined at es_mainsite_ui.js, have no idea
+      this.model.on("change:listing_related.availability.begin-hb change:listing_related.availability.end-lb",window.handle_date_bounds_change, ClassRef.model)
 
       this.model.on(watchlist.join(" "), function behaviorChangeHandler (){
         ClassRef.updateBoundaryFilter();
         var query = ClassRef.generateQueryFromModel();
         EasySubOrg.comm_unit.requestData("/data_api/listing/conditional", query, function success(data){
           // expecting an array
-          console.log(data);
+          // console.log(data);
           EasySubOrg.mapmng.set("listing_data", data);
         }, "json");
       })
@@ -120,7 +122,7 @@ $(document).ready(function mainsite_ready_logic(){
       // })
     }
 
-  }))(
+  }))(  //EasySubOrg.Filter.listing.model
     {model:new Backbone.Model({
       "user_behavior.cat":null,
       "user_behavior.target_whole_unit":false,
@@ -172,7 +174,23 @@ $(document).ready(function mainsite_ready_logic(){
       _.each( ClassRef.get("listing_data"), function(element, index, arr){
         var tempUrl = EasySubOrg.comm_unit.generateListUrl(element._id, false);
         var tempLatLng = new google.maps.LatLng( element.unit_traits.lat, element.unit_traits.lng);
-        var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone want to lease here</a>'};
+
+        switch(element.user_behavior.cat){
+          case 1:
+            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone want to lease here</a>'};
+            break;
+          case 2:
+            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone want to rent here</a>'};
+            break;
+          case 3:
+            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone seek co-lessee here</a>'};
+            break;
+          default:
+            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone [unrecognized behavior] here</a>'};
+            break;
+        }
+        
+
         temp_marker_option.latLng = tempLatLng;
         temp_marker_option.datacontent = tempcontent;
         var temp_controller  = mapcover.addCustomMarker("CustomMarker1"  ,temp_marker_option);
@@ -180,7 +198,7 @@ $(document).ready(function mainsite_ready_logic(){
         marker_controllers_ref.push( temp_controller );
       });
 
-      console.log("map data changed");
+      // console.log("map data changed");
 
     },
 

@@ -162,6 +162,7 @@ $(document).ready(function readyAtUtilities2(){
 
     /*EasySubOrg.UTILITIES.misc.getPeriods(month_array);*/
     getPeriods: function ( month_array){
+      console.log(month_array);
       var tbr = [
         {
           "listing_related.availability.begin-hb":null,
@@ -171,18 +172,28 @@ $(document).ready(function readyAtUtilities2(){
       if (month_array.length===0){
         return tbr;
       }
+      var begin_date = new Date(month_array[0]);
+      var tentative_end_date = new Date(month_array[0]);
+      var end_date = new Date(month_array[month_array.length-1]);
 
-      var just_month_array = [];
-      _.each(month_array, function(element, index, arr){
-        just_month_array.push( parseInt(element.split("-")[1] ));
-      })
-      var last_month = (just_month_array[0] + (month_array.length-1) >12)?just_month_array[0] + (month_array.length-1)-12 : just_month_array[0] + (month_array.length-1)
-      if (last_month == just_month_array[just_month_array.length-1]){
-        tbr[0]["listing_related.availability.begin-hb"] = (new Date(month_array[0])).getTime();
-        tbr[0]["listing_related.availability.end-lb"] = (new Date(month_array[month_array.length-1])).getTime();
+      tentative_end_date.setMonth( begin_date.getMonth()+month_array.length-1);
+
+      console.log("tentative_end_date "+ tentative_end_date + " end_date: " + end_date);
+      if ( tentative_end_date.getFullYear() == end_date.getFullYear() && tentative_end_date.getMonth() == end_date.getMonth()){
+        var begin_hb_date = new Date(month_array[0]);
+        begin_hb_date.setDate(1);
+        begin_hb_date.setHours(12);
+        tbr[0]["listing_related.availability.begin-hb"] = begin_hb_date.getTime();
+        
+        var end_lb_date = new Date(month_array[month_array.length-1]);
+        end_lb_date.setMonth(end_lb_date.getMonth()+1);
+        end_lb_date.setDate(end_lb_date.getDate()-1);
+        end_lb_date.setHours(12);
+        tbr[0]["listing_related.availability.end-lb"] = end_lb_date.getTime();
         return tbr;
       }
       else{
+        console.error("所选月份并非一个整的周期");
         return [];  // means something wrong
       }
     }

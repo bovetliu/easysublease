@@ -112,7 +112,7 @@ html(lang='en')
           .col-sm-9
             .row.panel
               .col-sm-1 Duration
-              .col-sm-10.filter-duraton-container
+              .col-sm-11.filter-duraton-container
                 //- write some Jade Logic
                 -var month_arr = ["Jan.", "Feb.", "Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
                 -var temp_date = new Date();
@@ -120,15 +120,34 @@ html(lang='en')
                 -var current_year = temp_date.getFullYear();
                 -var index = current_month; 
                 while (index <= 11)
-                  .filter-month.pull-left.text-center(id="m#{current_year}-#{index+1}", data-month-text="#{month_arr[index]}", data-month="#{current_year}-#{index+1}")=month_arr[index]
+                  .filter-month.pull-left.text-center(id="m#{current_year}-#{index+1}", data-month-text="#{month_arr[index]}", data-month="#{current_year}-#{index+1}-1")=month_arr[index]
                   - index = index+1
                 -index = 0
                 while (index < current_month)
                   if index == 0 
                     .next-year.pull-left.text-center="Year "+((new Date()).getFullYear()+1) 
-                  
-                  .filter-month.pull-left.text-center(id="m#{current_year+1}-#{index+1}",data-month-text="#{month_arr[index]}", data-month="#{current_year+1}-#{index+1}")=month_arr[index]
+                  .filter-month.pull-left.text-center(id="m#{current_year+1}-#{index+1}",data-month-text="#{month_arr[index]}", data-month="#{current_year+1}-#{index+1}-1")=month_arr[index]
                   -index = index+1
+              br
+              .col-sm-11.col-sm-offset-1.filter-duraton-container
+                -index = current_month;
+                while (index <= 11)
+                  .filter-month.pull-left.text-center(id="m#{current_year+1}-#{index+1}", data-month-text="#{month_arr[index]}", data-month="#{current_year+1}-#{index+1}-1")=month_arr[index]
+                  - index = index+1
+                -index = 0                
+                while (index < current_month)
+                  if index == 0 
+                    .next-year.pull-left.text-center="Year "+((new Date()).getFullYear()+2) 
+                  .filter-month.pull-left.text-center(id="m#{current_year+2}-#{index+1}",data-month-text="#{month_arr[index]}", data-month="#{current_year+2}-#{index+1}-1")=month_arr[index]
+                  -index = index+1
+              br
+              .col-sm-3.col-sm-offset-9
+                button.btn.btn-default(type='button', id="btn-duration-reset") Reset
+                button.btn.btn-primary(type='button', id="btn-duration-set") Set
+
+
+
+
 
         .row.expanded-panel#expanded-panel-roomtype
           .col-sm-9
@@ -202,7 +221,7 @@ html(lang='en')
       //- end of .row.map-part-container
 
       
-      meta#default-detailed-rental-listing(name='default-detailed-rental-listing', content='{"unit_traits":{"lat":30.615976343318405,"lng":-96.31885528564453,"price_single":null,"price_total":null,"community":"community name","addr":"addr string","beds":2,"baths":1,"property_type":"apartment","pet_friendly":false,"amenities_status":{"kitchen":true,"internet":true,"tv":false,"essentials":true,"shampoo":true,"heating":true,"air_conditiong":true,"washer":true,"dryer":true,"free_parking_on_premises":false,"wireless_internet":true,"cable_TV":false,"breakfast":false,"pets_allowed":false,"family/kid_friendly":false,"suitable_for_events":false,"smoking_allowed":true,"wheelchair_accessible":false,"elevator_in_building":false,"indoor_fireplace":true,"buzzer/wireless_Interoom":false,"doorman":false,"pool":false,"hot_tub":false,"gym":false},"description":[["title1","h1"],["content1",null]],"house_rules":"Please be kind, clean, respectful, peaceful.","safety_features":{"smoke_detector":true,"carbon_monoxide_detector":true,"first_aid_kit":true,"safety_card":true,"fire_extinguisher":true}},"user_behavior":{"cat":1,"target_whole_unit":false,"target_single_room":true, "target_shared_place":false},"listing_related":{"title":"Listing Title","about_this_listing":"Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask","isexpired":false,"images":[],"cover_image":"default.png","post_date":"2015-06-01T09:46:16.000Z","simplified_rental_data_id":null, "availability":{"begin":1441929600000 , "end":1455494400000},"optional_traits_switch":{"unit_traits.description":false,"unit_traits.house_rules":false,"unit_traits.safety_features":false}}}')
+      meta#default-detailed-rental-listing(name='default-detailed-rental-listing', content='{"unit_traits":{"lat":30.615976343318405,"lng":-96.31885528564453,"price_single":500,"price_total":1000,"community":"community name","addr":"addr string","beds":2,"baths":1,"property_type":"apartment","pet_friendly":false,"amenities_status":{"kitchen":true,"internet":true,"tv":false,"essentials":true,"shampoo":true,"heating":true,"air_conditiong":true,"washer":true,"dryer":true,"free_parking_on_premises":false,"wireless_internet":true,"cable_TV":false,"breakfast":false,"pets_allowed":false,"family/kid_friendly":false,"suitable_for_events":false,"smoking_allowed":true,"wheelchair_accessible":false,"elevator_in_building":false,"indoor_fireplace":true,"buzzer/wireless_Interoom":false,"doorman":false,"pool":false,"hot_tub":false,"gym":false},"description":[["title1","h1"],["content1",null]],"house_rules":"Please be kind, clean, respectful, peaceful.","safety_features":{"smoke_detector":true,"carbon_monoxide_detector":true,"first_aid_kit":true,"safety_card":true,"fire_extinguisher":true}},"user_behavior":{"cat":1,"target_whole_unit":false,"target_single_room":true, "target_shared_place":false},"listing_related":{"title":"Listing Title","about_this_listing":"Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask","isexpired":false,"images":[],"cover_image":"default.png","post_date":"2015-06-01T09:46:16.000Z","simplified_rental_data_id":null, "availability":{"begin":1441929600000 , "end":1455494400000},"optional_traits_switch":{"unit_traits.description":false,"unit_traits.house_rules":false,"unit_traits.safety_features":false}}}')
       
 
     .modal.fade#es-mainsite-multipurpose(tabindex='-1', role='dialog')
@@ -211,7 +230,7 @@ html(lang='en')
           .modal-header
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') ×
-            h4.modal-title Modal title
+            h4.modal-title Updating duration bounds
           .modal-body
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Close
@@ -223,7 +242,7 @@ html(lang='en')
     script(src='js/jquery.min.js')
     script(src='js/jquery-ui.js')
     // Latest compiled and minified JavaScript
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    script(src='js/bootstrap.min.js')
 
     script(src='js/underscore.js', type='text/javascript')
     script(src='js/backbone.js', type='text/javascript')
@@ -249,7 +268,17 @@ html(lang='en')
     script(id="filter-day-content-template", type="text/template").
       <form class="form-inline">
         <div class="form-group">
-          <label for="current-month-day"><%= day_type %></label>
+          <label class="radio-inline">
+            <input type="radio" name="duration-bound" id="radio-duration-begin" value="begin" checked="checked"> Updating Begin
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="duration-bound" id="radio-duration-end" value="end"> Updating End
+          </label>
+        </div>
+        <br/>
+        <br/>
+        <div class="form-group">
+          <label id="filter-day-input-lable" for="current-month-day"><%= day_type %></label>
           <input type="text" class="form-control" id="current-month-day" data-target-month="<%= target_month %>" placeholder="enter <%= day_type %>">
         </div>
       </form>

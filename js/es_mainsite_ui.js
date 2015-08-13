@@ -9,47 +9,121 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
 
 
   $('#site-content').mouseleave(function(){
-    dispatchSignalThathDurationPanelHidden();
     $('.expanded-panel').hide();
   })    
   $('.top-option').mouseenter(function(){
     $('.expanded-panel').hide();
     if ($(window).width() > 768){
       $($(this).data('expansion-target')).show();
-      if ($(this).data('expansion-target') == "#expanded-panel-duration"){
-        duration_panel_visibility = true;
-      }
     }
   });
   $('.expanded-panel').mouseleave(function(){
-    if(this.id == "expanded-panel-duration"){ dispatchSignalThathDurationPanelHidden();}
     $(this).hide();
   });
 
-  function dispatchSignalThathDurationPanelHidden () {
-    if (duration_panel_visibility === true){
-      //at this moment, duration panel is on, later on it will be hidden,
-      // so it is right time to dispatch event
-      document.dispatchEvent(event_dph);
-      duration_panel_visibility = false;
+  // UI method
+  window.handle_date_bounds_change = function(){
+    // "this" context changed into EasySubOrg.Filter.listing.model
+    var begin = new Date(this.get("listing_related.availability.begin-hb"));
+    var end = new Date(this.get("listing_related.availability.end-lb"));
+    if (begin==null && end==null){   // data has been reset
+      _.each($('.filter-month'), function(el, index, ar){
+        $(el).removeClass("filter-month-selected");
+        $(el).html($(el).data("month-text"));
+      })
+
+      return;
     }
-  }
+
+    if (begin===null && end != null){
+      // begin = Date.now();
+    }
+    if(end ===null && begin != null){
+      // var temp_date = new Date();
+      // end = temp_date.setMonth(temp_date.getMonth()+23).getTime();
+    }
+    console.log("begin: " + begin);
+    console.log("end: " + end);
+    var begin_id = ["#m", begin.getFullYear().toString(),"-",begin.getMonth()+1].join("");
+    var end_id = ["#m", end.getFullYear().toString(),"-",end.getMonth()+1].join("");
+    console.log("begin_id end_id: "+begin_id+" " + end_id)
+
+    _.each($('.filter-month'), function(el, index, ar){
+      var $el = $(el);
+      $el.html($(el).data("month-text"));
+      var temp_date = new Date($el.data("month"));
+      if (temp_date.getTime()< begin.getTime() || temp_date.getTime()>end.getTime()){
+        $el.removeClass("filter-month-selected");
+      }
+    });
+    $(begin_id).addClass("filter-month-selected");
+    $(end_id).addClass("filter-month-selected");
+
+    if (begin_id != end_id){ // not in same month
+      $(begin_id).html( $(begin_id).data("month-text")+" "+ begin.getDate());
+      $(end_id).html( $(end_id).data("month-text")+" "+ end.getDate());
+    } else {
+      $(begin_id).html( $(begin_id).data("month-text")+" "+ begin.getDate() + " - " + $(end_id).data("month-text")+" "+ end.getDate());
+    }
+  };
+
+
+
   // realize drag and select for date selection module
   (function durationDragging ( isDragging){
     /*first control dragging indicator*/
     /*prepare modal*/
     var compiled_day_input_content = _.template($("#filter-day-content-template").html());
+
+    $("#btn-duration-set").click(function(){
+      document.dispatchEvent(event_dph);
+    });
+
+    $("#btn-duration-reset").click(function(){
+      EasySubOrg.Filter.listing.model.set(
+        {
+          "listing_related.availability.begin-hb":null,
+          "listing_related.availability.end-lb":null
+        }
+      );
+    });
     $("#btn-filter-day-cancel").click(function(){
       var target_month_id = "#m"+ $("#current-month-day").data("target-month");
+      console.log(target_month_id);
+
       $(target_month_id).removeClass("filter-month-selected");
       $("#es-mainsite-multipurpose").modal("hide");
     });
-    $("#btn-filter-day-save").click(function(){
-      var target_month_id = "#m"+ $("#current-month-day").data("target-month");
 
-      $.data( $(target_month_id)[0], "month", $(target_month_id).data("month")+'-'+$('#current-month-day').val() );
-      $(target_month_id).html($(target_month_id).data("month-text")+" " + $('#current-month-day').val());
-      console.log($(target_month_id).data("month"));
+    $("#btn-filter-day-save").click(function(){
+      var generated_date = new Date($("#current-month-day").data("target-month"));
+      generated_date.setHours(12);
+      if($("#current-month-day").val())
+        generated_date.setDate($("#current-month-day").val());
+      else {
+        console.error("Invalid Input");
+        return;
+      }
+      if (generated_date == "Invalid Date"){
+        console.error("Invalid Date");
+        return;
+      } else if ($("#radio-duration-begin").prop("checked") && generated_date.getTime()> EasySubOrg.Filter.listing.model.get("listing_related.availability.end-lb") ){
+        console.error("Invalid Date Range");
+        return;
+      } else if ($("#radio-duration-end").prop("checked") && generated_date.getTime() < EasySubOrg.Filter.listing.model.get("listing_related.availability.begin-hb")  ){
+        console.error("Invalid Date Range");
+        return;
+      }
+      console.log(generated_date);
+      if ($("#radio-duration-begin").prop("checked")){
+        EasySubOrg.Filter.listing.model.set("listing_related.availability.begin-hb", generated_date.getTime());
+      }else if ($("#radio-duration-end").prop("checked")) {
+        EasySubOrg.Filter.listing.model.set("listing_related.availability.end-lb", generated_date.getTime());
+      } else {
+        console.error("At least select one radio");
+        return;
+      }
+      $("#es-mainsite-multipurpose").modal("hide");
     });
 
 
@@ -80,10 +154,10 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
         if ($this.hasClass("filter-month-hovered")) $this.removeClass("filter-month-hovered");
       } else{
         // this is one selected month
-        $("#es-mainsite-multipurpose .modal-body").html(compiled_day_input_content({day_type:"start day", target_month:$this.data("month") }));
+        $("#es-mainsite-multipurpose .modal-body").html(compiled_day_input_content({day_type:"select day", target_month:$this.data("month")}));
         $("#es-mainsite-multipurpose").modal("show");
 
-        console.log("show") 
+        // console.log("show") 
         // $this.removeClass("filter-month-selected");
       }
     }).mouseenter(function filterMonthMouseenterHandler (){
