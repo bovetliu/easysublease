@@ -150,7 +150,9 @@ $(document).ready(function mainsite_ready_logic(){
     defaults:{
       listing_data:[],
       marker_controllers:[],
-      boolean_update_boundary:true
+      boolean_update_boundary:true,
+      data_layer_bus_routes:'js/bus_routes.json',
+      map: mapcover.model.get("map")
     },
 
     clearRenderingData:function(){
@@ -204,6 +206,15 @@ $(document).ready(function mainsite_ready_logic(){
 
     initialize:function(){
       var ClassRef = this;
+      // load bus routes
+      ClassRef.get("map").data.loadGeoJson(ClassRef.get("data_layer_bus_routes"));
+      ClassRef.get("map").data.setStyle(function(feature) {
+        return ({                                   ///@type {google.maps.Data.StyleOptions} 
+        strokeColor: feature.getProperty('strokeColor'),
+        strokeWeight: 6,
+        strokeOpacity:0.5
+        });
+      }); 
       this.on("change:listing_data", function(){
         ClassRef.clearRenderingData();
         ClassRef.renderData();
