@@ -5,380 +5,351 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>EasySublease.org</title>
-    <!-- Bootstrap -->
-    <link  type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/es_custom_css1.css" rel="stylesheet"  type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <!-- Yeti Bootstrap, this is one customized bootstrap, origin version 3.3.5-->
+    <link type="text/css" href="css/yeti_bootstrap.min.css" rel="stylesheet">
+    <!-- Mapcover developped by Bowei -->
+    <link rel="stylesheet" href="plugins/mapcover/css/mapcover.css" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="css/es_custom_css2.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400" rel="stylesheet" type="text/css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://-->
+    <!--if lt IE 9
+    script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+    script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
+    -->
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery-ui.structure.css">
     <link rel="stylesheet" href="css/jquery-ui.theme.css">
-    
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEgp09_feK-aKfo_2h3tOcWfzbrByZwDw&libraries=geometry">
-    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEgp09_feK-aKfo_2h3tOcWfzbrByZwDw&amp;libraries=geometry"></script>
   </head>
   <body>
-    <div id = "main_div">
-      <div id = "title-big-div">
-        <div id = "title-label-div" >
-          EasySublease
-        </div>
-        <div id = "title-housing" class = "title-options1">
-          Housing
-        </div>
-        <div id = "juju" class = "title-options1">
-          Meetup <!-- <img src="images/work_in_progress.png" width="44" height="20" alt="some_text">-->
-        </div>
-        <div id = "travel-control-div" class = "title-options1">
-          Ride
-        </div>
-        <div id = "about-div" class = "title-options1" >
-          About
-        </div>
-      </div>
-      <!-- end of #title-big-div-->
-      <div class = "search-div">
-        <div id = "rental-search-slot">
-          <ul>
-            <li>price per bed
-              <ul  id = "ul_price_pbed_srch">
-                <li id = "301-350">301-350/bedroom</li>
-                <li id = "351-400">351-400/bedroom</li>
-                <li id = "401-450">401-450/bedroom</li>
-                <li id = "451-500">451-500/bedroom</li>
-                <li id = "501-550">501-550/bedroom</li>
-                <li id = "551-600">551-600/bedroom</li>
-                <li id = "551-600">
-                  <input type="text" id="price-min-ipt" name="price-min-ipt" placeholder = "price-min">
-                  <input type="text" id="price-max-ipt" name="price-max-ipt" placeholder = "price-max">
-                </li>
-                <li>reset 取消价格限制</li>
-              </ul>
-            </li>
-            <li> Bedrooms/Baths
-              <ul id = "ul_bb_srch">
-                <li>1/1</li>
-                <li>2/1</li>
-                <li>2/1.5</li>
-                <li>2/2</li>
-                <li>3/1</li>
-                <li>3/2</li>
-                <li>3/3</li>
-                <li>
-                  <input type="text" name="beds-min-ipt" id="beds-min-ipt"  placeholder = "beds-min">
-                  <input type="text" name="beds-max-ipt" id="beds-max-ipt" placeholder = "beds-max">
-                  <input type="text" name="baths-min-ipt" id="baths-min-ipt" placeholder = "baths-min">
-                  <input type="text" name="baths-max-ipt" id="baths-max-ipt" placeholder = "baths-max">
-                </li>
-                <li>reset取消户型限制</li>
-              </ul>
-            </li>
-            <li>Category
-              <ul id = "ul_types_srch">
-                <li data-rs-cat="1"  id="seeking-to-lease">seeking to lease</li>
-                <li data-rs-cat="2" id = "seeking-to-rent">seeking to rent</li>
-                <li data-rs-cat="3" id ="for-2-activity">seeking co-lessee</li>
-                <li>reset 取消类型限制</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-        <!--rental-search-slot ends-->
-        
-        <div id = "travel-search-slot" >
-          <div class ="search-div-padding">
+    <div id="my-nav" class="my-container">
+      <nav class="navbar navbar-default cancel-margin">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="#" class="navbar-brand">Mainsite | EasySublease</a>
+            <form role="search" class="navbar-form navbar-left">
+              <div class="form-group">
+                <input type="text" placeholder="Search" class="form-control">
+              </div>
+            </form>
           </div>
-          <div id ="travel-search-div">
-            <div class="travel-search-inputgrp-contrl">
-              <select id="slct-cat-tr-srch"  name = "slct-cat-tr-srch" class="form-control"  >
-                <option value = "2">Those requiring ride</option>
-                <option value = "1" >Those providing ride</option>
-                <option value = "3">Self-driving travel</option>
-              </select>
-            </div>
-            <div class="travel-search-inputgrp-contrl  ">
-              <input type="text" class="form-control" placeholder="Origin"   id = "ipt-origin-tr-srch" name = "ipt-origin-tr-srch">
-            </div>
-            <div class = "travel-search-inputgrp-contrl">
-              <input type="text" class="form-control" placeholder="Destiny"  id = "ipt-destiny-tr-srch" name = "ipt-destiny-tr-srch">
-            </div>
-
-            <div class = "travel-search-inputgrp-contrl">
-              <input type="text" class="form-control" placeholder="mm/dd/yy"  id = "ipt-startdate-tr-srch" name = "ipt-startdate-tr-srch">
-            </div>
-            <div class = "travel-search-inputgrp-contrl">
-              <input type="text" class="form-control" placeholder="mm/dd/yy"  id = "ipt-enddate-tr-srch" name = "ipt-enddate-tr-srch">
-            </div>
-
-            <div class = "travel-search-inputgrp-contrl">
-              <button id="btn-submit-tr-srch"  class="travel-search-btn" type="submit" >Search</button>
-            </div>
-            <div class="travel-search-advanced_routing">
-              <label>
-                <input id = "checkbox-adv-routing" name ="checkbox-adv-routing" type="checkbox" value="yes" unchecked>
-                Route Combining Algs </label>
-            </div>
-            <div class = "travel-search-hidden-inputgrp-contrl" >
-              <input type="text" id = "ipt-ori-lat" name = "ipt-ori-lat" value = "">
-              <input type="text" id = "ipt-ori-lng" name = "ipt-ori-lng" value = "">
-              <input type="text" id = "ipt-des-lat" name = "ipt-des-lat" value = "">
-              <input type="text" id = "ipt-des-lng" name = "ipt-des-lng" value = "">
+          <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Link </a></li>
+              <li><a href="#">Link</a></li>
+              <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">recently browsed <span class="caret"></span></a>
+                <ul role="menu" class="dropdown-menu">
+                  <li><a href="#">This droptoggle will be remake</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="nav navbar-nav navbar-right margin-top-5px"><a href="#" class="btn btn-primary">List Your Space</a></div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div id="site-content" class="container-fluid main">
+      <div id="filter-container" class="row filter-container">
+        <div class="row top-options">
+          <div data-expansion-target="#expanded-panel-duration" class="col-sm-3 text-center top-option hidden-xs">Duration</div>
+          <div class="col-sm-3 top-option visible-xs-block">Duration
+          </div>
+          <div data-expansion-target="#expanded-panel-roomtype" class="col-sm-3 text-center left-border top-option hidden-xs">Room Type</div>
+          <div class="col-sm-3 top-option visible-xs-block">Room Type
+            <div class="row visible-xs-block">
+              <div class="col-sm-12">
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="user_behavior.target_whole_unit" value="true">Entire Place
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="user_behavior.target_single_room" value="true">One Room 
+                </label>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="user_behavior.target_shared_place" value="true">Shared Place 
+                </label>
+              </div>
             </div>
           </div>
-          <!--travel-search-div-->
+          <div data-expansion-target="#expanded-panel-category" class="col-sm-3 text-center left-border top-option hidden-xs">Category</div>
+          <div class="col-sm-3 top-option visible-xs-block">Category
+            <div class="row visible-xs-block">
+              <div class="col-sm-12">
+                <label class="radio-inline">
+                  <input type="radio" name="user_behavior.cat" value="2">To rent
+                </label>
+                <label class="checkbox-inline">
+                  <input type="radio" name="user_behavior.cat" value="1">To lease
+                </label>
+                <label class="checkbox-inline">
+                  <input type="radio" name="user_behavior.cat" value="3">Seek co-lessee
+                </label>
+              </div>
+            </div>
+          </div>
+          <div data-expansion-target="#expanded-panel-price" class="col-sm-3 text-center left-border top-option hidden-xs">Price</div>
+          <div class="col-sm-3 top-option visible-xs-block">Price
+            <div class="row visible-xs-block">
+              <div class="col-sm-12">hidden price</div>
+            </div>
+          </div>
         </div>
-        <!--travel-search-slot-->
-        <div id = "sql-bash">
+        <div id="expanded-panel-duration" class="row expanded-panel">
+          <div class="col-sm-9">
+            <div class="row panel">
+              <div class="col-sm-1">Duration</div>
+              <div class="col-sm-11 filter-duraton-container">
+                <div id="m2015-8" data-month-text="Aug." data-month="2015-8-1" class="filter-month pull-left text-center">Aug.</div>
+                <div id="m2015-9" data-month-text="Sept." data-month="2015-9-1" class="filter-month pull-left text-center">Sept.</div>
+                <div id="m2015-10" data-month-text="Oct." data-month="2015-10-1" class="filter-month pull-left text-center">Oct.</div>
+                <div id="m2015-11" data-month-text="Nov." data-month="2015-11-1" class="filter-month pull-left text-center">Nov.</div>
+                <div id="m2015-12" data-month-text="Dec." data-month="2015-12-1" class="filter-month pull-left text-center">Dec.</div>
+                <div class="next-year pull-left text-center">Year 2016</div>
+                <div id="m2016-1" data-month-text="Jan." data-month="2016-1-1" class="filter-month pull-left text-center">Jan.</div>
+                <div id="m2016-2" data-month-text="Feb." data-month="2016-2-1" class="filter-month pull-left text-center">Feb.</div>
+                <div id="m2016-3" data-month-text="Mar." data-month="2016-3-1" class="filter-month pull-left text-center">Mar.</div>
+                <div id="m2016-4" data-month-text="Apr." data-month="2016-4-1" class="filter-month pull-left text-center">Apr.</div>
+                <div id="m2016-5" data-month-text="May." data-month="2016-5-1" class="filter-month pull-left text-center">May.</div>
+                <div id="m2016-6" data-month-text="Jun." data-month="2016-6-1" class="filter-month pull-left text-center">Jun.</div>
+                <div id="m2016-7" data-month-text="Jul." data-month="2016-7-1" class="filter-month pull-left text-center">Jul.</div>
+              </div><br>
+              <div class="col-sm-11 col-sm-offset-1 filter-duraton-container">
+                <div id="m2016-8" data-month-text="Aug." data-month="2016-8-1" class="filter-month pull-left text-center">Aug.</div>
+                <div id="m2016-9" data-month-text="Sept." data-month="2016-9-1" class="filter-month pull-left text-center">Sept.</div>
+                <div id="m2016-10" data-month-text="Oct." data-month="2016-10-1" class="filter-month pull-left text-center">Oct.</div>
+                <div id="m2016-11" data-month-text="Nov." data-month="2016-11-1" class="filter-month pull-left text-center">Nov.</div>
+                <div id="m2016-12" data-month-text="Dec." data-month="2016-12-1" class="filter-month pull-left text-center">Dec.</div>
+                <div class="next-year pull-left text-center">Year 2017</div>
+                <div id="m2017-1" data-month-text="Jan." data-month="2017-1-1" class="filter-month pull-left text-center">Jan.</div>
+                <div id="m2017-2" data-month-text="Feb." data-month="2017-2-1" class="filter-month pull-left text-center">Feb.</div>
+                <div id="m2017-3" data-month-text="Mar." data-month="2017-3-1" class="filter-month pull-left text-center">Mar.</div>
+                <div id="m2017-4" data-month-text="Apr." data-month="2017-4-1" class="filter-month pull-left text-center">Apr.</div>
+                <div id="m2017-5" data-month-text="May." data-month="2017-5-1" class="filter-month pull-left text-center">May.</div>
+                <div id="m2017-6" data-month-text="Jun." data-month="2017-6-1" class="filter-month pull-left text-center">Jun.</div>
+                <div id="m2017-7" data-month-text="Jul." data-month="2017-7-1" class="filter-month pull-left text-center">Jul.</div>
+              </div><br>
+              <div class="col-sm-3 col-sm-offset-9">
+                <button type="button" id="btn-duration-reset" class="btn btn-default">Reset</button>
+                <button type="button" id="btn-duration-set" class="btn btn-primary">Set</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="expanded-panel-roomtype" class="row expanded-panel">
+          <div class="col-sm-9">
+            <div class="row panel">
+              <div class="col-sm-2">Room Type?</div>
+              <div class="col-sm-3">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="user_behavior.target_whole_unit" value>Entire Place
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="user_behavior.target_single_room" value>One Room 
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="user_behavior.target_shared_place" value>Shared Place 
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="expanded-panel-category" class="row expanded-panel">
+          <div class="col-sm-9">
+            <div class="row panel">
+              <div class="col-sm-2">Category?</div>
+              <div class="col-sm-3">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="user_behavior.cat" value="2">Want to rent
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="user_behavior.cat" value="1">Want to lease
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="user_behavior.cat" value="3">Seek co-lessee 
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="expanded-panel-price" class="row expanded-panel">
+          <div class="col-sm-3 col-sm-offset-9">
+            <div class="row panel">
+              <div class="col-sm-12">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Price greater than</label>
+                    <input type="text" id="price-lb" placeholder="price-lb" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Price lower than</label>
+                    <input type="text" id="price-hb" placeholder="price-hb" class="form-control">
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="chkbox-filter-price-target">price of entire place?
+                    </label>
+                  </div>
+                  <div id="btn-update-price-filter" class="btn btn-default">Update</div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- end of <div class = "search-div">-->
-      <div class ="gadgets-container">
-        <div id = "travel-control-panel">
-          plan route using Google service
+      <div class="row map-part-container">
+        <div class="col-sm-12">
+          <div id="mapcover" class="mapcover">
+            <div class="mc-ascontextmenu panel easysubl-context-panel">
+              <div id="place-rent-marker" class="context-option">Want to rent here</div>
+              <div id="place-lease-marker" class="context-option">Want to lease here</div>
+              <div id="place-colessee-marker" class="context-option">See co-lessee here</div>
+              <div class="context-option">Street view here</div>
+            </div>
+            <div id="mapcover-map" class="mapcover-map"></div>
+          </div>
         </div>
-        <div  id = "about-panel">
-          About will be shown here
-        </div>
-        <div id = "menu-panel" ></div> <!--the container of right click menu-->
-      </div> 
-
-      <div id = "map-div" > <!--this is where map is put in-->
       </div>
-
-      <!-- this is where pano will be put in, much css style will be lif info-div-->
-      <div id="pano-div"> 
-      </div> 
       
-      <div id = "info-div" class="input-group-dimension-control info-div-results-style">
-        <div  id = "rental-form-slot">
-          <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
-
-          <form id="rental-form"  >
-            <div class="input-group ">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Community</span>
-              <input type="text" data-bind="value:community, events:['keyup']" class="form-control easysub-form-control" placeholder="Like: Cedar ridge, filling suggested "  >
-            </div>
-            <div class="input-group">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Address</span>
-              <input type="text" data-bind="value:addr, events:['keyup']" class="form-control easysub-form-control" placeholder="Street, City, Apt, not necessary"  >
-            </div>
-            <div class="input-group ">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Source URL</span>
-              <input type="text" data-bind="value:source, events:['keyup']" class="form-control easysub-form-control" placeholder="http:// (necessary)"  >
-            </div>
-            <div class="input-group ">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">total rent per month</span>
-              <input type="text" data-bind="value:price_total, events:['keyup']" class="form-control easysub-form-control" placeholder="$ " >
-            </div>
-            <div class="btn-group  btn-cusom-contrl">
-              <button id ="btn-captioin-bb" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> floor plan <span class="caret"></span> </button>
-              <ul class="dropdown-menu" role="menu" id = "ul-floorplan">
-                <li  id = "li-b10b10">1b/1b</li>
-                <li  id = "li-b20b10">2b/1b</li>
-                <li  id = "li-b20b15">2b/1.5b</li>
-                <li  id = "li-b20b20">2b/2b</li>
-                <li  id = "li-b30b20">3b/2b</li>
-                <li  id = "li-b30b30">3b/3b</li>
-                <li class="divider"></li>
-                <div id = "n-bdrm" >
-                  Bdrm number:<br>
-                  <input type="text" id="custom-n-bdrm">
-                </div>
-                <div id = "n-btrm">
-                  Bathrm number:<br>
-                  <input type="text" id="custom-n-btrm">
-                </div>
-              </ul>
-            </div>
-            <!--floor plan dropdown btn-->
-            
-            <div class="btn-group btn-cusom-contrl ">
-              <button id = "btn-caption-cat" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> category <span class="caret"></span> </button>
-              <ul class="dropdown-menu" role="menu" id = "ul-catagory">
-                <li id = "li-cat-lease">Want to lease</li>
-                <li id = "li-cat-rent">Want to rent</li>
-                <li id = "li-cat-activity">Seek co-lessee(一起租)</li>
-              </ul>
-            </div>
-            <!--end floor plan dropdown btn-->
-
-            <textarea data-bind="value:memo, events:['keyup']" class="form-control  easysub-form-control" rows="4" placeholder = "Enter additional memo here" id="textarea-memo" name ="memo"></textarea>
-            <div>
-              <input  class="btn btn-success " value="Quick Listing"  id="rental-form-submit">
-              </input>
-            </div>
-            <div>
-              <input  class="btn btn-primary " value="Detailed Listing"  id="detailed-listing-submit">
-              </input>
-            </div>
-          </form>
-          <p data-bind ="text:addr">
-          </p>
-        </div><!--/rental-form-slot-->
-        
-        
-        <div id= "ride-form-slot" >
-          <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
-          <form  id="ride-form" >
-            <div class="input-group ">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Origin</span>
-              <input type="text" class="form-control easysub-form-control" placeholder="Right click on map to set"  id = "ipt-origin-tr" name = "ipt-origin-tr">
-            </div>
-            <div class="input-group">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Destiny</span>
-              <input type="text" class="form-control easysub-form-control" placeholder="Right click on map to set"  id ="ipt-destiny-tr" name = "ipt-destiny-tr">
-            </div>
-            <div class="input-group">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Source URL</span>
-              <input type="text" class="form-control easysub-form-control" placeholder="http:// ( not necessary)"  id = "ipt-url-tr" name = "ipt-url-tr">
-            </div>
-            <div class="input-group">
-              <span class="input-group-addon easysub-form-control" id="basic-addon1">Departure Date</span>
-              <input type="text" class="form-control easysub-form-control" placeholder="MM/DD/YYYY"  id = "ipt-date-tr" name = "ipt-date-tr">
-            </div>
-            <div class="btn-group btn-cusom-contrl ">
-              <button id = "btn-caption-cat-tr" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> category <span class="caret"></span> </button>
-              <ul class="dropdown-menu" role="menu" id = "ul-catagory-tr">
-                <li onClick="EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)" id = "li-cat-p-ride">Provide a ride</li>
-                <li onClick="EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)" id = "li-cat-n-ride">Need a ride</li>
-                <li onClick="EasySubOrg.RIDE.form_view_01.updatecat_tr(this.id)" id = "li-cat-sdt">Self-driving travel</li>
-              </ul>
-            </div>
-            <!--floor plan dropdown btn--> 
-            
-            <!--hidden inputs-->
-            <input style=" display:none" id = "num-catagory-tr"    name = "num-catagory-tr">
-            </input>
-            <input style=" display:none" id = "num-origin-lat-tr"  name = "num-origin-lat-tr">
-            </input>
-            <input style=" display:none" id = "num-origin-lng-tr"  name = "num-origin-lng-tr">
-            </input>
-            <input style=" display:none" id = "num-destiny-lat-tr" name = "num-destiny-lat-tr">
-            </input>
-            <input style=" display:none" id = "num-destiny-lng-tr" name = "num-destiny-lng-tr">
-            </input>
-            <!--<input style=" display:none" id = "string-jsonfied-tr" name = "string-jsonfied-tr"></input>-->
-            <input style=" display:none" id = "encoded-polyline" name = "encoded-polyline">
-            </input>
-            
-            <!--encoded polyline is going to be decoded into Array:LatLng--> 
-            <!--/hidden inputs-->
-            <textarea class="form-control " rows="4" placeholder = 
-            "Enter additional information here, such as contact, what time you want to go, or some preference" id="memo-tr" name ="memo-tr"></textarea>
-            <div>
-              <input class="btn btn-success " value="Create" id="travel-form-submit" onClick="travel_post()">
-              </input>
-            </div>
-
-
-          </form>
-        </div>
-        <div id = "rental-sesults-slot" >
-          <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
-          <div  id="rental_search_results_container" > 
-          <!-- EasySubOrg.INFO.info_view_01 poplulate will templated results, 
-          template:route-infowindow-template-->
-          rental results placeholder (dev)
+      <meta id="default-detailed-rental-listing" name="default-detailed-rental-listing" content="{&quot;unit_traits&quot;:{&quot;lat&quot;:30.615976343318405,&quot;lng&quot;:-96.31885528564453,&quot;price_single&quot;:500,&quot;price_total&quot;:1000,&quot;community&quot;:&quot;community name&quot;,&quot;addr&quot;:&quot;addr string&quot;,&quot;beds&quot;:2,&quot;baths&quot;:1,&quot;property_type&quot;:&quot;apartment&quot;,&quot;pet_friendly&quot;:false,&quot;amenities_status&quot;:{&quot;kitchen&quot;:true,&quot;internet&quot;:true,&quot;tv&quot;:false,&quot;essentials&quot;:true,&quot;shampoo&quot;:true,&quot;heating&quot;:true,&quot;air_conditiong&quot;:true,&quot;washer&quot;:true,&quot;dryer&quot;:true,&quot;free_parking_on_premises&quot;:false,&quot;wireless_internet&quot;:true,&quot;cable_TV&quot;:false,&quot;breakfast&quot;:false,&quot;pets_allowed&quot;:false,&quot;family/kid_friendly&quot;:false,&quot;suitable_for_events&quot;:false,&quot;smoking_allowed&quot;:true,&quot;wheelchair_accessible&quot;:false,&quot;elevator_in_building&quot;:false,&quot;indoor_fireplace&quot;:true,&quot;buzzer/wireless_Interoom&quot;:false,&quot;doorman&quot;:false,&quot;pool&quot;:false,&quot;hot_tub&quot;:false,&quot;gym&quot;:false},&quot;description&quot;:[[&quot;title1&quot;,&quot;h1&quot;],[&quot;content1&quot;,null]],&quot;house_rules&quot;:&quot;Please be kind, clean, respectful, peaceful.&quot;,&quot;safety_features&quot;:{&quot;smoke_detector&quot;:true,&quot;carbon_monoxide_detector&quot;:true,&quot;first_aid_kit&quot;:true,&quot;safety_card&quot;:true,&quot;fire_extinguisher&quot;:true}},&quot;user_behavior&quot;:{&quot;cat&quot;:1,&quot;target_whole_unit&quot;:false,&quot;target_single_room&quot;:true, &quot;target_shared_place&quot;:false},&quot;listing_related&quot;:{&quot;title&quot;:&quot;Listing Title&quot;,&quot;about_this_listing&quot;:&quot;Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask&quot;,&quot;isexpired&quot;:false,&quot;images&quot;:[],&quot;cover_image&quot;:&quot;default.png&quot;,&quot;post_date&quot;:&quot;2015-06-01T09:46:16.000Z&quot;,&quot;simplified_rental_data_id&quot;:null, &quot;availability&quot;:{&quot;begin&quot;:1441929600000 , &quot;end&quot;:1455494400000},&quot;optional_traits_switch&quot;:{&quot;unit_traits.description&quot;:false,&quot;unit_traits.house_rules&quot;:false,&quot;unit_traits.safety_features&quot;:false}}}">
+    </div>
+    <div id="es-mainsite-multipurpose" tabindex="-1" role="dialog" class="modal fade">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Updating duration bounds</h4>
           </div>
-          <!--end of travel_search_results_container-->
-
-        </div>
-
-        <!--ride-form-slot-->
-        <div id="ride-results-slot">
-          <img class = "form-rtn-btn" src="images/rtn.png" alt="return" height="32" width="32">
-          <div  id="travel_search_results_container" > <!-- EasySubOrg.INFO.info_view_01 poplulate will templated results, template:route-infowindow-template-->
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+            <button type="button" id="btn-filter-day-cancel" class="btn btn-danger">Cancel selected month</button>
+            <button type="button" id="btn-filter-day-save" class="btn btn-primary">Save changes</button>
           </div>
-          <!--end of travel_search_results_container-->
-          
-        </div> <!--end of ride-results-slot#-->
+        </div>
       </div>
-      <!--#info div-->
-    </div> <!-- end of #main-div-->
-
-    
-    <script src="js/jquery.min.js"></script> 
-    <script src="js/jquery-ui.js"></script> 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-    <script src="js/bootstrap.js"></script> 
-    <!--<script src="js/page_interaction.js">   </script>   mainly control form--> 
-    <script src="js/underscore.js"  type="text/javascript" ></script> 
-    <script src="js/backbone.js"  type ="text/javascript" ></script> <!--require underscore.js,  jquery.js--> 
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!-- Latest compiled and minified JavaScript-->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/underscore.js" type="text/javascript"></script>
+    <script src="js/backbone.js" type="text/javascript"></script>
+    <!-- require underscore.js,  jquery.js-->
     <script src="js/backbone.epoxy.min.js"></script>
-    <!--self-defiled classes--> 
-    <script src="js/es_createNS.js" type="text/javascript"></script> 
-    <script src="js/es_MMoverlay.js" type="text/javascript"></script> 
-    <script src="js/es_mapinteraction.js" type="text/javascript" ></script> <!--require MMoverlay.js,  --> 
-    <script src="js/es_page_interaction.js" type="text/javascript"></script> 
-    <script src="js/es_utilities.js" type="text/javascript" ></script> 
-    <script src="js/es_Infodiv_manager.js" type="text/javascript"></script> 
-    
-    <div style=""></div>
-
-    <!--template-->
-    <!--following menu-template will receive html_content_ar as argument-->
-    <script type="text/template" id="menu-template">
-
-    <%_.each(html_content_ar, function (element, index, list) {%>
-      <div class="menu-option-div">
-        <%=element%>
-      </div>
-    <%});%>
-    
+    <!-- following is mapcover.js JavaScript  -->
+    <script src="plugins/mapcover/js/mapcover.js"></script>
+    <!-- self-defiled classes-->
+    <script src="js/es_createNS.js" type="text/javascript"></script>
+    <script src="js/es_mainsite_ui.js" type="text/javascript"></script>
+    <script src="js/es_mainsite_logic.js" type="text/javascript"> </script>
+    <script src="js/es_utilities2.js" type="text/javascript"></script>
+    <!-- Following content should be put into selector: [#es-mainsite-multipurpose .modal-body]-->
+    <script id="filter-day-content-template" type="text/template">
+      <form class="form-inline">
+        <div class="form-group">
+          <label class="radio-inline">
+            <input type="radio" name="duration-bound" id="radio-duration-begin" value="begin" checked="checked"> Updating Begin
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="duration-bound" id="radio-duration-end" value="end"> Updating End
+          </label>
+        </div>
+        <br/>
+        <br/>
+        <div class="form-group">
+          <label id="filter-day-input-lable" for="current-month-day"><%= day_type %></label>
+          <input type="text" class="form-control" id="current-month-day" data-target-month="<%= target_month %>" placeholder="enter <%= day_type %>">
+        </div>
+      </form>
+      
+      
     </script>
-      <!--location, cat, url_str, memo, id--> 
-    <script type="text/template" id="marker-infowindow-template">  
+    <script id="customMarkerTemplate" type="text/template">
+      <div class="mc-static2mapcanvas customized-marker">
+        <div class="content text-center"><%= displayedText %></div>
+        <div class="text-center remove-background"> 
+          <svg height="8" width="16">
+            <polygon points="0,0 8,8 16,0">NO SVG Support.</polygon>
+          </svg>
+        </div>
+      </div>
+    </script>
+    <script type="text/template" id="menu-template">
+      <%_.each(html_content_ar, function (element, index, list) {%>
+        <div class="menu-option-div">
+          <%=element%>
+        </div>
+      <%});%>
+      
+    </script>
+    <!--location, cat, url_str, memo, id-->
+    <script type="text/template" id="marker-infowindow-template">
       <p style="font-weight:normal;"> 
         click to check  <a href= "<%= source %>" target="_blank">source</a>
       </p>  
       <p style="color:#000; font-weight:normal;  font-family: "Times New Roman", Times, serif; "><%= memo %></p>
       <p style = "font-weight : normal;" > 
-        <span  onclick = 'EasySubOrg.MAP.render_01.set_status( "<%=id %>" , true, <%=  index%>);' onmouseover = "changecolor(this);" onmouseout="backcolor(this);">
-        mark it as outdated</span>
+        <span  onclick = 'EasySubOrg.MAP.render_01.set_status( "<%=id %>" , true, <%=  index%>);' onmouseover = "changecolor(this);" onmouseout="backcolor(this);"> mark it as outdated</span>
       </p>
-    </script> 
-     <!--focusOn = function ( width_ratio, height_ratio, offset_ratio, focusID) -->
-    <script type="text/template" id="route-infowindow-template"> 
-    <% // ( width_ratio, height_ratio, offset_ratio, focusID)
-      //var width_ratio = $("#info-div").width()/ $("#map-div").width();
-      //passed in argument include width_ratio
-      var width_ratio = 0.4
-      var height_ratio = 1; // currently i did not change it, so I made on assumption
-      var offset_ratio = 0.5- (width_ratio/2);
-      var depart_date = depart_date.slice(0,10);
-      var cat_bgcolor = ""
-      if (cat_string == "Provide a ride") cat_bgcolor = "#1A4C80";
-      else if (cat_string == "Need a ride") cat_bgcolor = "#00B800";
-      else cat_bgcolor = "#993399"; 
-
-      var depart_date_tmp = new Date(depart_date);
-      var current_date = new Date();
-      var date_bgcolor = "#8a8a8a";
-      if (depart_date_tmp < current_date) { date_bgcolor = "#B80000";}
-    %>
-    <div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
-      <div class="TDE_ori_des_container">
-        <div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
-        <div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
-      </div>
-      <div class="TDE_cat TDE_bold" style ="background-color:<%=cat_bgcolor%>"><%= cat_string%></div>
-      <div class="TDE_bold TDE_date" style="background-color:<%=date_bgcolor%>"><%=depart_date%></div>
-      <div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
-      <div class ="TDE_padding_btw_markoutdated_source" >
-      <!--This is actually one padding-->
-      </div>
-      <div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
-
-      <div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 
-      <div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
-    </div>    
-    </script> 
-    <meta id="default-detailed-rental-listing" name="default-detailed-rental-listing" content='{"unit_traits":{"lat":30.615976343318405,"lng":-96.31885528564453,"price_single":null,"price_total":null,"community":"community name","addr":"addr string","beds":2,"baths":1,"property_type":"apartment","pet_friendly":false,"amenities_status":{"kitchen":true,"internet":true,"tv":false,"essentials":true,"shampoo":true,"heating":true,"air_conditiong":true,"washer":true,"dryer":true,"free_parking_on_premises":false,"wireless_internet":true,"cable_TV":false,"breakfast":false,"pets_allowed":false,"family/kid_friendly":false,"suitable_for_events":false,"smoking_allowed":true,"wheelchair_accessible":false,"elevator_in_building":false,"indoor_fireplace":true,"buzzer/wireless_Interoom":false,"doorman":false,"pool":false,"hot_tub":false,"gym":false},"description":[["title1","h1"],["content1",null]],"house_rules":"Please be kind, clean, respectful, peaceful.","safety_features":{"smoke_detector":true,"carbon_monoxide_detector":true,"first_aid_kit":true,"safety_card":true,"fire_extinguisher":true},"availability":"from July 2015 to June 2016"},"user_behavior":{"cat":1,"target_whole_unit":false,"target_single_room":true, "target_shared_place":false},"listing_related":{"title":"Listing Title","about_this_listing":"Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask","isexpired":false,"images":[],"cover_image":"default.png","post_date":"2015-06-01T09:46:16.000Z","simplified_rental_data_id":null,"optional_traits_switch":{"unit_traits.description":false,"unit_traits.house_rules":false,"unit_traits.safety_features":false}}}'>
+      
+      
+    </script>
+    <!-- focusOn = function ( width_ratio, height_ratio, offset_ratio, focusID) -->
+    <script type="text/template" id="route-infowindow-template">
+      <% 
+        // ( width_ratio, height_ratio, offset_ratio, focusID)
+        //var width_ratio = $("#info-div").width()/ $("#map-div").width();
+        //passed in argument include width_ratio
+        var width_ratio = 0.4
+        var height_ratio = 1; // currently i did not change it, so I made on assumption
+        var offset_ratio = 0.5- (width_ratio/2);
+        var depart_date = depart_date.slice(0,10);
+        var cat_bgcolor = ""
+        if (cat_string == "Provide a ride") cat_bgcolor = "#1A4C80";
+        else if (cat_string == "Need a ride") cat_bgcolor = "#00B800";
+        else cat_bgcolor = "#993399"; 
+        var depart_date_tmp = new Date(depart_date);
+        var current_date = new Date();
+        var date_bgcolor = "#8a8a8a";
+        if (depart_date_tmp < current_date) { date_bgcolor = "#B80000";}
+      %>
+      <div class="travel_data_entry_div" onclick="mapcc1.focusOn(  <%=width_ratio%>, <%=height_ratio%>, <%=offset_ratio%> , '<%=id%>')"> 
+        <div class="TDE_ori_des_container">
+          <div class="TDE_bold TDE_origin_pad">Origin:</div><div class="TDE_origin"><%= origin %></div>
+          <div class="TDE_bold TDE_destiny_pad">Destiny:</div><div class="TDE_destiny"><%= destiny %></div>
+        </div>
+        <div class="TDE_cat TDE_bold" style ="background-color:<%=cat_bgcolor%>"><%= cat_string%></div>
+        <div class="TDE_bold TDE_date" style="background-color:<%=date_bgcolor%>"><%=depart_date%></div>
+        <div class ="TDE_source"><a target="_blank" href= "<%=source%>" class="TDE_bold ">source</a></div>
+        <div class ="TDE_padding_btw_markoutdated_source" >
+          <!--This is actually one padding-->
+        </div>
+        <div  class ="TDE_markoutdated TDE_bold"  onclick="travel_set_status( '<%=id%>' , true);" onmouseover="changecolor(this);" onmouseout="backcolor(this);" style=" cursor: pointer;">mark outdated</div>
+      
+        <div class="TDE_sharable_url"><span class="TDE_bold">Sharable_url:</span> <a target="_blank" href="<%-window.location.href.split('#')[0]%>#ride_search/_id=<%=id%>">open in a new tab</a></div> 
+        <div class="TDE_memo"><span class="TDE_bold">Memo:</span><%=memo%> </div> 
+      </div>    
+    </script>
   </body>
 </html>
