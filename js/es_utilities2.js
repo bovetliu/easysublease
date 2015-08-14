@@ -17,7 +17,7 @@ $(document).ready(function readyAtUtilities2(){
     */
     apiServerURL:function(){
       if ( location.host != "localhost")
-      return "http://listingtest-u7yhjm.rhcloud.com";
+      return "http://listing.easysublease.org";
       else return "http://localhost:3000";
     },
     /*

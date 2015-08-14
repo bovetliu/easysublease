@@ -50,32 +50,17 @@ $(document).ready(function mainsite_ready_logic(){
     initialize:function(){
       var ClassRef = this;
       var watchlist= ["change:user_behavior.cat",
-        "change:user_behavior.target_whole_unit",
-        "change:user_behavior.target_single_room",
-        "change:user_behavior.target_shared_place",
-        "change:unit_traits.price_single-lb",
-        "change:unit_traits.price_single-hb",
-        "change:unit_traits.price_total-lb",
-        "change:unit_traits.price_total-hb",
+        "change:user_behavior.target_range",
+        "change:unit_traits.price-lb",
+        "change:unit_traits.price-hb",
         "change:listing_related.availability.begin-hb",
         "change:listing_related.availability.end-lb"
       ];
       /*update price*/
       ClassRef.$el.find('#btn-update-price-filter').click(function(){
         if ( ($.isNumeric($('#price-lb').val()) || $('#price-lb').val()=="") && ($.isNumeric($('#price-hb').val()) || $('#price-hb').val()=="") ){
-          if($('#chkbox-filter-price-target').prop("checked") ){
-            // entire place
-            ClassRef.model.set("unit_traits.price_single-lb", null);
-            ClassRef.model.set("unit_traits.price_single-hb", null);
-            ClassRef.model.set("unit_traits.price_total-lb", $('#price-lb').val());
-            ClassRef.model.set("unit_traits.price_total-hb", $('#price-hb').val());
-          } else{
-            // single room situation
-            ClassRef.model.set("unit_traits.price_single-lb", $('#price-lb').val());
-            ClassRef.model.set("unit_traits.price_single-hb", $('#price-hb').val());
-            ClassRef.model.set("unit_traits.price_total-lb", null);
-            ClassRef.model.set("unit_traits.price_total-hb", null);
-          } 
+          ClassRef.model.set("unit_traits.price-lb", $('#price-lb').val());
+          ClassRef.model.set("unit_traits.price-hb", $('#price-hb').val());
         } else {alert("wtf you put in the input");}
       });
 
@@ -86,7 +71,12 @@ $(document).ready(function mainsite_ready_logic(){
         if ($(this).attr("type") == 'radio'){
           to_be_set_value = $(this).val();
         } else {
-          to_be_set_value = $(this).prop("checked");
+          to_be_set_value = [];
+          var $checked_checkbox = $("input[type='checkbox']:checked")
+          _.each($checked_checkbox, function(element, index, ar){
+            to_be_set_value.push( parseInt($(element).val() ));
+          });
+          // console.log(to_be_set_value);
         }
         ClassRef.model.set(attr_name, to_be_set_value);
       });
@@ -125,9 +115,8 @@ $(document).ready(function mainsite_ready_logic(){
   }))(  //EasySubOrg.Filter.listing.model
     {model:new Backbone.Model({
       "user_behavior.cat":null,
-      "user_behavior.target_whole_unit":false,
-      "user_behavior.target_single_room":false,
-      "user_behavior.target_shared_place":false,
+      "user_behavior.target_range":null,  // shoule be Array
+
       "unit_traits.lat-lb":null,
       "unit_traits.lat-hb":null,
       "unit_traits.lng-lb":null,

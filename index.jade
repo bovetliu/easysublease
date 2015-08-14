@@ -46,9 +46,9 @@ html(lang='en')
           #bs-example-navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav
               li
-                a(href='#') Link 
+                a(href="http://listing.easysublease.org/howitworks") How It Works 
               li
-                a(href='#') Link
+                a(href='#') About Author
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false') recently browsed 
                   span.caret
@@ -57,7 +57,7 @@ html(lang='en')
                     a(href='#') This droptoggle will be remake
 
             div.nav.navbar-nav.navbar-right.margin-top-5px
-              a.btn.btn-primary(href='#') List Your Space
+              button.btn.btn-primary( id="btn-listyourspace") List Your Space
     //- end of .my-container#my-nav
     div(id="site-content" class="container-fluid main")
       .row.filter-container#filter-container
@@ -156,17 +156,17 @@ html(lang='en')
               .col-sm-3
                 .checkbox
                   label
-                    input(type='checkbox', name="user_behavior.target_whole_unit", value=true)
+                    input(type='checkbox', name="user_behavior.target_range", value="1")
                     | Entire Place
               .col-sm-3
                 .checkbox
                   label
-                    input(type='checkbox', name="user_behavior.target_single_room", value=true)
+                    input(type='checkbox', name="user_behavior.target_range", value="2")
                     | One Room 
               .col-sm-3
                 .checkbox
                   label
-                    input(type='checkbox', name="user_behavior.target_shared_place", value=true)
+                    input(type='checkbox', name="user_behavior.target_range", value="3")
                     | Shared Place 
 
         .row.expanded-panel#expanded-panel-category
@@ -200,7 +200,7 @@ html(lang='en')
                   .form-group
                     label(for='exampleInputPassword1') Price lower than
                     input.form-control(type='text', id="price-hb", placeholder='price-hb')
-                  .checkbox
+                  //- .checkbox
                     label
                       input(type='checkbox' id="chkbox-filter-price-target")
                       | price of entire place?
@@ -221,7 +221,7 @@ html(lang='en')
       //- end of .row.map-part-container
 
       
-      meta#default-detailed-rental-listing(name='default-detailed-rental-listing', content='{"unit_traits":{"lat":30.615976343318405,"lng":-96.31885528564453,"price_single":500,"price_total":1000,"community":"community name","addr":"addr string","beds":2,"baths":1,"property_type":"apartment","pet_friendly":false,"amenities_status":{"kitchen":true,"internet":true,"tv":false,"essentials":true,"shampoo":true,"heating":true,"air_conditiong":true,"washer":true,"dryer":true,"free_parking_on_premises":false,"wireless_internet":true,"cable_TV":false,"breakfast":false,"pets_allowed":false,"family/kid_friendly":false,"suitable_for_events":false,"smoking_allowed":true,"wheelchair_accessible":false,"elevator_in_building":false,"indoor_fireplace":true,"buzzer/wireless_Interoom":false,"doorman":false,"pool":false,"hot_tub":false,"gym":false},"description":[["title1","h1"],["content1",null]],"house_rules":"Please be kind, clean, respectful, peaceful.","safety_features":{"smoke_detector":true,"carbon_monoxide_detector":true,"first_aid_kit":true,"safety_card":true,"fire_extinguisher":true}},"user_behavior":{"cat":1,"target_whole_unit":false,"target_single_room":true, "target_shared_place":false},"listing_related":{"title":"Listing Title","about_this_listing":"Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask","isexpired":false,"images":[],"cover_image":"default.png","post_date":"2015-06-01T09:46:16.000Z","simplified_rental_data_id":null, "availability":{"begin":1441929600000 , "end":1455494400000},"optional_traits_switch":{"unit_traits.description":false,"unit_traits.house_rules":false,"unit_traits.safety_features":false}}}')
+      meta#default-detailed-rental-listing(name='default-detailed-rental-listing', content='{"unit_traits":{"lat":30.615976343318405,"lng":-96.31885528564453,"price":500,"community":"community name","addr":"addr string","beds":2,"baths":1,"property_type":"apartment","pet_friendly":false,"amenities_status":{"kitchen":true,"internet":true,"tv":false,"essentials":true,"shampoo":true,"heating":true,"air_conditiong":true,"washer":true,"dryer":true,"free_parking_on_premises":false,"wireless_internet":true,"cable_TV":false,"breakfast":false,"pets_allowed":false,"family/kid_friendly":false,"suitable_for_events":false,"smoking_allowed":true,"wheelchair_accessible":false,"elevator_in_building":false,"indoor_fireplace":true,"buzzer/wireless_Interoom":false,"doorman":false,"pool":false,"hot_tub":false,"gym":false},"description":[["title1","h1"],["content1",null]],"house_rules":"Please be kind, clean, respectful, peaceful.","safety_features":{"smoke_detector":true,"carbon_monoxide_detector":true,"first_aid_kit":true,"safety_card":true,"fire_extinguisher":true}},"user_behavior":{"cat":1,"target_range":2},"listing_related":{"title":"Listing Title","about_this_listing":"Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask","isexpired":false,"images":[],"cover_image":"default.png","post_date":"2015-06-01T09:46:16.000Z","simplified_rental_data_id":null, "availability":{"begin":1441929600000 , "end":1455494400000},"optional_traits_switch":{"unit_traits.description":false,"unit_traits.house_rules":false,"unit_traits.safety_features":false}}}')
       
 
     .modal.fade#es-mainsite-multipurpose(tabindex='-1', role='dialog')
@@ -231,7 +231,7 @@ html(lang='en')
             button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') ×
             h4.modal-title Updating duration bounds
-          .modal-body
+          .modal-body(id="multi-purpose-modal-body")
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Close
             button.btn.btn-danger(type='button' id="btn-filter-day-cancel") Cancel selected month

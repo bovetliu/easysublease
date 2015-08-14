@@ -266,7 +266,7 @@ body {
   position: relative;
 }
 .filter-container .top-options {
-  line-height: 30px;
+  line-height: 45px;
 }
 .filter-container .top-options .top-option {
   cursor: pointer;
@@ -278,7 +278,7 @@ body {
   z-index: 1;
   display: none;
   position: absolute;
-  top: 30px;
+  top: 45px;
   width: calc(100% +  30px);
   width: -moz-calc(100% +  30px);
   width: -webkit-calc(100% +  30px);
@@ -349,16 +349,16 @@ body {
     line-height: inherit;
   }
   .filter-container .expanded-panel {
-    top: 120px;
+    top: 180px;
   }
 }
 .map-part-container.row {
   position: relative;
-  height: calc(100% -  30px);
-  height: -moz-calc(100% -  30px);
-  height: -webkit-calc(100% -  30px);
-  height: -ms-calc(100% -  30px);
-  height: -o-calc(100% -  30px);
+  height: calc(100% -  45px);
+  height: -moz-calc(100% -  45px);
+  height: -webkit-calc(100% -  45px);
+  height: -ms-calc(100% -  45px);
+  height: -o-calc(100% -  45px);
 }
 .map-part-container.row .col-sm-12 {
   height: 100%;

@@ -21,6 +21,13 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
     $(this).hide();
   });
 
+  //navbar
+  $("#btn-listyourspace").click(function listYourSpaceClickHander(){
+    $("#multi-purpose-modal-body").html("Please right click on map to list ! Specific listing page is not there yet");
+    $("#es-mainsite-multipurpose").modal("show");
+  });
+
+
   // UI method
   window.handle_date_bounds_change = function(){
     // "this" context changed into EasySubOrg.Filter.listing.model
@@ -67,8 +74,6 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
     }
   };
 
-
-
   // realize drag and select for date selection module
   (function durationDragging ( isDragging){
     /*first control dragging indicator*/
@@ -78,7 +83,6 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
     $("#btn-duration-set").click(function(){
       document.dispatchEvent(event_dph);
     });
-
     $("#btn-duration-reset").click(function(){
       EasySubOrg.Filter.listing.model.set(
         {
@@ -94,7 +98,6 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
       $(target_month_id).removeClass("filter-month-selected");
       $("#es-mainsite-multipurpose").modal("hide");
     });
-
     $("#btn-filter-day-save").click(function(){
       var generated_date = new Date($("#current-month-day").data("target-month"));
       generated_date.setHours(12);
@@ -128,7 +131,7 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
 
 
     var mouse_pressed =false;
-    var drag_start_time = 0;
+    var drag_start_time = 0;  // this is used to distinguish use click and mistakenly become short drag
     $(".filter-duraton-container").mousedown(function(){
       mouse_pressed = true;
       drag_start_time = Date.now();

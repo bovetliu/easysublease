@@ -37,15 +37,17 @@
           </div>
           <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="#">Link </a></li>
-              <li><a href="#">Link</a></li>
+              <li><a href="http://listing.easysublease.org/howitworks">How It Works </a></li>
+              <li><a href="#">About Author</a></li>
               <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">recently browsed <span class="caret"></span></a>
                 <ul role="menu" class="dropdown-menu">
                   <li><a href="#">This droptoggle will be remake</a></li>
                 </ul>
               </li>
             </ul>
-            <div class="nav navbar-nav navbar-right margin-top-5px"><a href="#" class="btn btn-primary">List Your Space</a></div>
+            <div class="nav navbar-nav navbar-right margin-top-5px">
+              <button id="btn-listyourspace" class="btn btn-primary">List Your Space</button>
+            </div>
           </div>
         </div>
       </nav>
@@ -143,21 +145,21 @@
               <div class="col-sm-3">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="user_behavior.target_whole_unit" value>Entire Place
+                    <input type="checkbox" name="user_behavior.target_range" value="1">Entire Place
                   </label>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="user_behavior.target_single_room" value>One Room 
+                    <input type="checkbox" name="user_behavior.target_range" value="2">One Room 
                   </label>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="user_behavior.target_shared_place" value>Shared Place 
+                    <input type="checkbox" name="user_behavior.target_range" value="3">Shared Place 
                   </label>
                 </div>
               </div>
@@ -205,11 +207,6 @@
                     <label for="exampleInputPassword1">Price lower than</label>
                     <input type="text" id="price-hb" placeholder="price-hb" class="form-control">
                   </div>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" id="chkbox-filter-price-target">price of entire place?
-                    </label>
-                  </div>
                   <div id="btn-update-price-filter" class="btn btn-default">Update</div>
                 </form>
               </div>
@@ -231,7 +228,7 @@
         </div>
       </div>
       
-      <meta id="default-detailed-rental-listing" name="default-detailed-rental-listing" content="{&quot;unit_traits&quot;:{&quot;lat&quot;:30.615976343318405,&quot;lng&quot;:-96.31885528564453,&quot;price_single&quot;:500,&quot;price_total&quot;:1000,&quot;community&quot;:&quot;community name&quot;,&quot;addr&quot;:&quot;addr string&quot;,&quot;beds&quot;:2,&quot;baths&quot;:1,&quot;property_type&quot;:&quot;apartment&quot;,&quot;pet_friendly&quot;:false,&quot;amenities_status&quot;:{&quot;kitchen&quot;:true,&quot;internet&quot;:true,&quot;tv&quot;:false,&quot;essentials&quot;:true,&quot;shampoo&quot;:true,&quot;heating&quot;:true,&quot;air_conditiong&quot;:true,&quot;washer&quot;:true,&quot;dryer&quot;:true,&quot;free_parking_on_premises&quot;:false,&quot;wireless_internet&quot;:true,&quot;cable_TV&quot;:false,&quot;breakfast&quot;:false,&quot;pets_allowed&quot;:false,&quot;family/kid_friendly&quot;:false,&quot;suitable_for_events&quot;:false,&quot;smoking_allowed&quot;:true,&quot;wheelchair_accessible&quot;:false,&quot;elevator_in_building&quot;:false,&quot;indoor_fireplace&quot;:true,&quot;buzzer/wireless_Interoom&quot;:false,&quot;doorman&quot;:false,&quot;pool&quot;:false,&quot;hot_tub&quot;:false,&quot;gym&quot;:false},&quot;description&quot;:[[&quot;title1&quot;,&quot;h1&quot;],[&quot;content1&quot;,null]],&quot;house_rules&quot;:&quot;Please be kind, clean, respectful, peaceful.&quot;,&quot;safety_features&quot;:{&quot;smoke_detector&quot;:true,&quot;carbon_monoxide_detector&quot;:true,&quot;first_aid_kit&quot;:true,&quot;safety_card&quot;:true,&quot;fire_extinguisher&quot;:true}},&quot;user_behavior&quot;:{&quot;cat&quot;:1,&quot;target_whole_unit&quot;:false,&quot;target_single_room&quot;:true, &quot;target_shared_place&quot;:false},&quot;listing_related&quot;:{&quot;title&quot;:&quot;Listing Title&quot;,&quot;about_this_listing&quot;:&quot;Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask&quot;,&quot;isexpired&quot;:false,&quot;images&quot;:[],&quot;cover_image&quot;:&quot;default.png&quot;,&quot;post_date&quot;:&quot;2015-06-01T09:46:16.000Z&quot;,&quot;simplified_rental_data_id&quot;:null, &quot;availability&quot;:{&quot;begin&quot;:1441929600000 , &quot;end&quot;:1455494400000},&quot;optional_traits_switch&quot;:{&quot;unit_traits.description&quot;:false,&quot;unit_traits.house_rules&quot;:false,&quot;unit_traits.safety_features&quot;:false}}}">
+      <meta id="default-detailed-rental-listing" name="default-detailed-rental-listing" content="{&quot;unit_traits&quot;:{&quot;lat&quot;:30.615976343318405,&quot;lng&quot;:-96.31885528564453,&quot;price&quot;:500,&quot;community&quot;:&quot;community name&quot;,&quot;addr&quot;:&quot;addr string&quot;,&quot;beds&quot;:2,&quot;baths&quot;:1,&quot;property_type&quot;:&quot;apartment&quot;,&quot;pet_friendly&quot;:false,&quot;amenities_status&quot;:{&quot;kitchen&quot;:true,&quot;internet&quot;:true,&quot;tv&quot;:false,&quot;essentials&quot;:true,&quot;shampoo&quot;:true,&quot;heating&quot;:true,&quot;air_conditiong&quot;:true,&quot;washer&quot;:true,&quot;dryer&quot;:true,&quot;free_parking_on_premises&quot;:false,&quot;wireless_internet&quot;:true,&quot;cable_TV&quot;:false,&quot;breakfast&quot;:false,&quot;pets_allowed&quot;:false,&quot;family/kid_friendly&quot;:false,&quot;suitable_for_events&quot;:false,&quot;smoking_allowed&quot;:true,&quot;wheelchair_accessible&quot;:false,&quot;elevator_in_building&quot;:false,&quot;indoor_fireplace&quot;:true,&quot;buzzer/wireless_Interoom&quot;:false,&quot;doorman&quot;:false,&quot;pool&quot;:false,&quot;hot_tub&quot;:false,&quot;gym&quot;:false},&quot;description&quot;:[[&quot;title1&quot;,&quot;h1&quot;],[&quot;content1&quot;,null]],&quot;house_rules&quot;:&quot;Please be kind, clean, respectful, peaceful.&quot;,&quot;safety_features&quot;:{&quot;smoke_detector&quot;:true,&quot;carbon_monoxide_detector&quot;:true,&quot;first_aid_kit&quot;:true,&quot;safety_card&quot;:true,&quot;fire_extinguisher&quot;:true}},&quot;user_behavior&quot;:{&quot;cat&quot;:1,&quot;target_range&quot;:2},&quot;listing_related&quot;:{&quot;title&quot;:&quot;Listing Title&quot;,&quot;about_this_listing&quot;:&quot;Briefly descrip the property you want to list, why you want to list, what you would like to offer or ask&quot;,&quot;isexpired&quot;:false,&quot;images&quot;:[],&quot;cover_image&quot;:&quot;default.png&quot;,&quot;post_date&quot;:&quot;2015-06-01T09:46:16.000Z&quot;,&quot;simplified_rental_data_id&quot;:null, &quot;availability&quot;:{&quot;begin&quot;:1441929600000 , &quot;end&quot;:1455494400000},&quot;optional_traits_switch&quot;:{&quot;unit_traits.description&quot;:false,&quot;unit_traits.house_rules&quot;:false,&quot;unit_traits.safety_features&quot;:false}}}">
     </div>
     <div id="es-mainsite-multipurpose" tabindex="-1" role="dialog" class="modal fade">
       <div class="modal-dialog modal-lg">
@@ -240,7 +237,7 @@
             <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
             <h4 class="modal-title">Updating duration bounds</h4>
           </div>
-          <div class="modal-body"></div>
+          <div id="multi-purpose-modal-body" class="modal-body"></div>
           <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
             <button type="button" id="btn-filter-day-cancel" class="btn btn-danger">Cancel selected month</button>
@@ -259,7 +256,7 @@
     <script src="js/backbone.epoxy.min.js"></script>
     <!-- following is mapcover.js JavaScript  -->
     <script src="plugins/mapcover/js/mapcover.js"></script>
-    <!-- self-defiled classes-->
+    <!-- self-defined classes-->
     <script src="js/es_createNS.js" type="text/javascript"></script>
     <script src="js/es_mainsite_ui.js" type="text/javascript"></script>
     <script src="js/es_mainsite_logic.js" type="text/javascript"> </script>
