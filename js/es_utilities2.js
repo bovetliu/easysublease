@@ -159,6 +159,29 @@ $(document).ready(function readyAtUtilities2(){
   
   /*some utility functions put into EasySubOrg.UTILITIES.misc*/
   EasySubOrg.UTILITIES.misc = {
+    /*EasySubOrg.UTILITIES.misc.adaptiveInterceptString(string, limit);*/
+    adaptiveInterceptString:function(string, limit){
+      var cnt = 0;
+      var index = 0;
+      while (cnt < limit  && index < string.length){
+        var temp_char = string.charCodeAt(index);
+        if (temp_char>=10 && temp_char <=127){
+          //in ASCII
+          cnt+=1;
+        } else {
+          console.log(temp_char);
+          cnt+=2;
+        }
+
+        index++;
+      }
+      if (index == string.length){
+        return string;
+      } else if (index < string.length){
+        return string.slice(0, index+1)+"...";
+      }
+
+    },
 
     /*EasySubOrg.UTILITIES.misc.getPeriods(month_array);*/
     getPeriods: function ( month_array){

@@ -213,6 +213,7 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
     });
   }// click handler
 
+  // This is the only marker used to helper users do their list
   var temp_marker_option = {
     anchor: null,
     datacontent:{"displayedText":"Click marker to finish listing"},

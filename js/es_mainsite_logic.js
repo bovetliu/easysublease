@@ -183,16 +183,16 @@ $(document).ready(function mainsite_ready_logic(){
       _.each( ClassRef.get("listing_data"), function(element, index, arr){
         var tempUrl = EasySubOrg.comm_unit.generateListUrl(element._id, false);
         var tempLatLng = new google.maps.LatLng( element.unit_traits.lat, element.unit_traits.lng);
-
+        var temp_title = EasySubOrg.UTILITIES.misc.adaptiveInterceptString(element.listing_related.title, 30);
         switch(element.user_behavior.cat){
           case 1:
-            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone want to lease here</a>'};
+            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">'+temp_title+'</a>'};
             break;
           case 2:
-            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone want to rent here</a>'};
+            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">'+temp_title+'</a>'};
             break;
           case 3:
-            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone seek co-lessee here</a>'};
+            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">'+temp_title+'</a>'};
             break;
           default:
             var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone [unrecognized behavior] here</a>'};
