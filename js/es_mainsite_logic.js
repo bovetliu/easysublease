@@ -37,9 +37,20 @@ $(document).ready(function mainsite_ready_logic(){
       var ClassRef = this;
 
       var valid_obj = _.omit(ClassRef.model.toJSON(), function(value, key, object){
-        if (value) return false;  // reture true means this value and its key should be omitted
-        else return true;
-      })
+        if (Array.isArray(value)){
+          if (value.length == 0){
+            return true;
+          }else {
+            return false;
+          }
+        } else {
+          if (!value){
+            return true;
+          }else {
+            return false;
+          }
+        }
+      });
       var tbr = [];
       _.each(valid_obj, function(value, key, obj){
         tbr.push(key+"="+value);
@@ -115,7 +126,7 @@ $(document).ready(function mainsite_ready_logic(){
   }))(  //EasySubOrg.Filter.listing.model
     {model:new Backbone.Model({
       "user_behavior.cat":null,
-      "user_behavior.target_range":null,  // shoule be Array
+      "user_behavior.target_range":[],  // shoule be Array
 
       "unit_traits.lat-lb":null,
       "unit_traits.lat-hb":null,
