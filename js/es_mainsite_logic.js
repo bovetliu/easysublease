@@ -122,7 +122,7 @@ $(document).ready(function mainsite_ready_logic(){
       // add some initial data
       //http://stackoverflow.com/questions/832692/how-can-i-check-whether-google-maps-is-fully-loaded
       google.maps.event.addListenerOnce(mapcover.model.get("map"), 'idle', function(){
-        var initial_query="unit_traits.lat-lb=30&unit_traits.lat-hb=31&unit_traits.lng-lb=-96.5&unit_traits.lng-hb=-96"
+        var initial_query="unit_traits.lat-lb=30&unit_traits.lat-hb=31&unit_traits.lng-lb=-96.5&unit_traits.lng-hb=-96&listing_related.isexpired=false"
         EasySubOrg.comm_unit.requestData("/data_api/listing/conditional", initial_query, function success(data){
           EasySubOrg.mapmng.set("listing_data", data);
         });
@@ -144,7 +144,8 @@ $(document).ready(function mainsite_ready_logic(){
       "unit_traits.price_total-lb":null,
       "unit_traits.price_total-hb":null,
       "listing_related.availability.begin-hb":null,  // should contain 
-      "listing_related.availability.end-lb":null
+      "listing_related.availability.end-lb":null,
+      "listing_related.isexpired":"false"
     })}
   );
 
