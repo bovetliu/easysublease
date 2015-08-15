@@ -92,11 +92,13 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
       );
     });
     $("#btn-filter-day-cancel").click(function(){
-      var target_month_id = "#m"+ $("#current-month-day").data("target-month");
+      console.log("check");
+      var target_month_id = "#m"+ $("#current-month-day").data("target-month").slice(0,-2);
       console.log(target_month_id);
 
       $(target_month_id).removeClass("filter-month-selected");
       $("#es-mainsite-multipurpose").modal("hide");
+      document.dispatchEvent(event_dph); // updating model according panel selected situation
     });
     $("#btn-filter-day-save").click(function(){
       var generated_date = new Date($("#current-month-day").data("target-month"));

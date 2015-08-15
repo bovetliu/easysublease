@@ -116,11 +116,18 @@ $(document).ready(function mainsite_ready_logic(){
           // expecting an array
           // console.log(data);
           EasySubOrg.mapmng.set("listing_data", data);
-        }, "json");
-      })
-      // this.model.on("change:user_behavior.target_whole_unit", function behaviorChangeHandler (){
-      //   console.log(ClassRef.generateQueryFromModel());
-      // })
+        });
+      });
+
+      // add some initial data
+      //http://stackoverflow.com/questions/832692/how-can-i-check-whether-google-maps-is-fully-loaded
+      google.maps.event.addListenerOnce(mapcover.model.get("map"), 'idle', function(){
+        var initial_query="unit_traits.lat-lb=30&unit_traits.lat-hb=31&unit_traits.lng-lb=-96.5&unit_traits.lng-hb=-96"
+        EasySubOrg.comm_unit.requestData("/data_api/listing/conditional", initial_query, function success(data){
+          EasySubOrg.mapmng.set("listing_data", data);
+        });
+      });
+
     }
 
   }))(  //EasySubOrg.Filter.listing.model
