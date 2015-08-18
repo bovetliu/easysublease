@@ -121,6 +121,7 @@ $(document).ready(function mainsite_ready_logic(){
 
       // add some initial data
       //http://stackoverflow.com/questions/832692/how-can-i-check-whether-google-maps-is-fully-loaded
+
       google.maps.event.addListenerOnce(mapcover.model.get("map"), 'idle', function(){
         var initial_query="unit_traits.lat-lb=30&unit_traits.lat-hb=31&unit_traits.lng-lb=-96.5&unit_traits.lng-hb=-96&listing_related.isexpired=false"
         EasySubOrg.comm_unit.requestData("/data_api/listing/conditional", initial_query, function success(data){
@@ -164,7 +165,7 @@ $(document).ready(function mainsite_ready_logic(){
     },
 
     clearRenderingData:function(){
-      console.log("cleared data");
+      // console.log("cleared data");
       var ClassRef = this;
       _.each(ClassRef.get("marker_controllers"), function(controller, index, ar){
         controller.delete();
@@ -175,7 +176,7 @@ $(document).ready(function mainsite_ready_logic(){
       var ClassRef = this;
       var marker_controllers_ref = ClassRef.get("marker_controllers");
       var temp_marker_option = {
-        anchor: null,
+        anchor: {x:50, y :100},
         datacontent:{"displayedText":"someone want to lease here"},
         latLng:new google.maps.LatLng(-33.397, 150.644),// mapcover.model.get("mc_map_events")['rightclick'].latLng,
         map: mapcover.model.get("map")
@@ -185,24 +186,9 @@ $(document).ready(function mainsite_ready_logic(){
         var tempUrl = EasySubOrg.comm_unit.generateListUrl(element._id, false);
         var tempLatLng = new google.maps.LatLng( element.unit_traits.lat, element.unit_traits.lng);
         var temp_title = EasySubOrg.UTILITIES.misc.adaptiveInterceptString(element.listing_related.title, 30);
-        switch(element.user_behavior.cat){
-          case 1:
-            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">'+temp_title+'</a>'};
-            break;
-          case 2:
-            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">'+temp_title+'</a>'};
-            break;
-          case 3:
-            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">'+temp_title+'</a>'};
-            break;
-          default:
-            var tempcontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">someone [unrecognized behavior] here</a>'};
-            break;
-        }
-        
 
         temp_marker_option.latLng = tempLatLng;
-        temp_marker_option.datacontent = tempcontent;
+        temp_marker_option.datacontent = {"displayedText":'<a href=\"'+tempUrl +'\" target="_blank">'+temp_title+'</a>'};
         var temp_controller  = mapcover.addCustomMarker("CustomMarker1"  ,temp_marker_option);
         $(temp_controller.get("custom_marker").getDOM()).addClass(userCatLookUp[element.user_behavior.cat] )
         marker_controllers_ref.push( temp_controller );
@@ -215,14 +201,16 @@ $(document).ready(function mainsite_ready_logic(){
     initialize:function(){
       var ClassRef = this;
       // load bus routes
-      ClassRef.get("map").data.loadGeoJson(ClassRef.get("data_layer_bus_routes"));
-      ClassRef.get("map").data.setStyle(function(feature) {
-        return ({                                   ///@type {google.maps.Data.StyleOptions} 
-        strokeColor: feature.getProperty('strokeColor'),
-        strokeWeight: 6,
-        strokeOpacity:0.5
-        });
-      }); 
+
+      // ClassRef.get("map").data.loadGeoJson(ClassRef.get("data_layer_bus_routes"));
+      // ClassRef.get("map").data.setStyle(function(feature) {
+      //   return ({                                   ///@type {google.maps.Data.StyleOptions} 
+      //   strokeColor: feature.getProperty('strokeColor'),
+      //   strokeWeight: 6,
+      //   strokeOpacity:0.5
+      //   });
+      // }); 
+
       this.on("change:listing_data", function(){
         ClassRef.clearRenderingData();
         ClassRef.renderData();

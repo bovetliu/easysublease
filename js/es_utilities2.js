@@ -169,7 +169,7 @@ $(document).ready(function readyAtUtilities2(){
           //in ASCII
           cnt+=1;
         } else {
-          console.log(temp_char);
+          // console.log(temp_char);
           cnt+=2;
         }
 

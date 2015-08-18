@@ -179,6 +179,7 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
 
   EasySubOrg.createNS("EasySubOrg.MAP");
   //30.620600000000003, -96.32621
+
   EasySubOrg.MAP.mapcover = initMapCover( 'mapcover', 'mapcover-map', 
     { 
       draggingCursor:"move",
@@ -190,14 +191,16 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
       mapTypeControl:false  //right top corner: "map|satellite"
     } 
   );
-
+  
   var mapcover = EasySubOrg.MAP.mapcover;
   //I need to export this to window scope to pass this to es_mainsite_logic.js
   var current_map = mapcover.model.get("map");
 
   mapcover.initCustomMarker( "CustomMarker1" , _.template( $('#customMarkerTemplate').html()));
 
-  var marker_click_fn = function(custom_marker){
+  var marker_click_fn = function(){
+    // now have this context as custom_marker
+    var custom_marker = this;
     var controller = custom_marker._controller;
     console.log(controller.get("mongo_model"));
     controller.set("datacontent",{"displayedText":"Preparing..."})
@@ -214,10 +217,11 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
   }// click handler
 
   // This is the only marker used to helper users do their list
+
   var temp_marker_option = {
-    anchor: null,
+    anchor: {x:50, y :100},
     datacontent:{"displayedText":"Click marker to finish listing"},
-    latLng:new google.maps.LatLng(-33.397, 150.644),// mapcover.model.get("mc_map_events")['rightclick'].latLng,
+    latLng: new google.maps.LatLng(-33.397, 150.644),// mapcover.model.get("mc_map_events")['rightclick'].latLng,
     map: null,
     click: marker_click_fn
   };
@@ -226,10 +230,13 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
   var markerPlacerHelper = function( map_attached_css_class){
     temp_marker_controller.set("datacontent",{"displayedText":"Click marker to finish listing"} );
 
-    temp_marker_controller.set("latLng",mapcover.model.get("mc_map_events")['rightclick'].latLng );
     if (temp_marker_controller.get("map")==null){
       temp_marker_controller.set("map",mapcover.model.get("map"));
     }
+
+
+    temp_marker_controller.set("latLng",mapcover.model.get("mc_map_events")['rightclick'].latLng );
+
     if (map_attached_css_class){
       var candidate_class = ["rent", "lease","co-lessee"];
       _.each(candidate_class, function(classname, index, ar){
