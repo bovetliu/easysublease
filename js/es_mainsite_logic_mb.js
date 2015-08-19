@@ -226,6 +226,26 @@ $(document).ready(function mainsite_ready_logic(){
       //   strokeOpacity:0.5
       //   });
       // }); 
+      // adding bus routes
+      // var geo_json_str = null;
+      // $.get(ClassRef.get("data_layer_bus_routes"), function(data){
+      //   geo_json_str = data;
+
+      //   _.each(geo_json_str.features, function(element, index, ar){
+      //     _.each(element.geometry.coordinates, function(element,index,ar){
+      //       if ( ar[index][0] > 180 ){
+      //         ar[index][0] = ar[index][0]-360;
+      //       }
+      //       // ar[index][0] = Number(ar[index][0].toFixed(5));
+      //       // ar[index][1] = Number(ar[index][1].toFixed(5));          
+      //     });
+      //   });
+
+      //   console.log(JSON.stringify(geo_json_str));
+      // });
+
+      var bus_routes_feature_layer = L.mapbox.featureLayer().addTo(mapcover.model.get("map"));
+      bus_routes_feature_layer.loadURL( ClassRef.get("data_layer_bus_routes") );
 
       this.on("change:listing_data", function(){
         ClassRef.clearRenderingData();

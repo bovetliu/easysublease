@@ -202,14 +202,14 @@ $(document).ready(function mainsite_ready_logic(){
       var ClassRef = this;
       // load bus routes
 
-      // ClassRef.get("map").data.loadGeoJson(ClassRef.get("data_layer_bus_routes"));
-      // ClassRef.get("map").data.setStyle(function(feature) {
-      //   return ({                                   ///@type {google.maps.Data.StyleOptions} 
-      //   strokeColor: feature.getProperty('strokeColor'),
-      //   strokeWeight: 6,
-      //   strokeOpacity:0.5
-      //   });
-      // }); 
+      ClassRef.get("map").data.loadGeoJson(ClassRef.get("data_layer_bus_routes"));
+      ClassRef.get("map").data.setStyle(function(feature) {
+        return ({                                   ///@type {google.maps.Data.StyleOptions} 
+        strokeColor: feature.getProperty('strokeColor'),
+        strokeWeight: 6,
+        strokeOpacity:0.5
+        });
+      }); 
 
       this.on("change:listing_data", function(){
         ClassRef.clearRenderingData();
