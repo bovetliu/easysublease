@@ -174,21 +174,17 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
         $(this).removeClass("filter-month-hovered");
       }
     });
-  })(false);
+  })(false);//(function durationDragging ( isDragging){...})() ends
 
 
   EasySubOrg.createNS("EasySubOrg.MAP");
   //30.620600000000003, -96.32621
 
-  EasySubOrg.MAP.mapcover = initMapCover( 'mapcover', 'mapcover-map', 
-    { 
-      draggingCursor:"move",
-      draggableCursor:"auto",
-      center: { lat: 30.62060000, lng: -96.32621},
-      zoom: 14,
-      zoomControl:false,    //left side
-      panControl:false,     //left top corner: 
-      mapTypeControl:false  //right top corner: "map|satellite"
+  EasySubOrg.MAP.mapcover = initMapCover( 'mapcover-mapbox', 'mapcover-map-mapbox', 
+    {    //google/mapcover
+      map_vender:"mapbox",
+      latLng:[30.62060,-96.32621],
+      initial_zoom:14
     } 
   );
   
@@ -221,7 +217,7 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
   var temp_marker_option = {
     anchor: {x:50, y :100},
     datacontent:{"displayedText":"Click marker to finish listing"},
-    latLng: new google.maps.LatLng(-33.397, 150.644),// mapcover.model.get("mc_map_events")['rightclick'].latLng,
+    latLng: L.latLng(-34.397, 150.644),// mapcover.model.get("mc_map_events")['rightclick'].latLng,  //google/mapcover
     map: null,
     click: marker_click_fn
   };
@@ -229,13 +225,10 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
 
   var markerPlacerHelper = function( map_attached_css_class){
     temp_marker_controller.set("datacontent",{"displayedText":"Click marker to finish listing"} );
-
     if (temp_marker_controller.get("map")==null){
       temp_marker_controller.set("map",mapcover.model.get("map"));
     }
-
-
-    temp_marker_controller.set("latLng",mapcover.model.get("mc_map_events")['rightclick'].latLng );
+    temp_marker_controller.set("latLng",mapcover.model.get("mc_map_events")['rightclick'].latlng );  //google/mapcover, google edition: .latLng
 
     if (map_attached_css_class){
       var candidate_class = ["rent", "lease","co-lessee"];
@@ -254,8 +247,8 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
       temp_model = temp_marker_controller.get("mongo_model");
     }
     // update attributes
-    temp_model.unit_traits.lat = temp_marker_controller.get("latLng").lat();
-    temp_model.unit_traits.lng = temp_marker_controller.get("latLng").lng();
+    temp_model.unit_traits.lat = temp_marker_controller.get("latLng").lat;  //google/mapcover
+    temp_model.unit_traits.lng = temp_marker_controller.get("latLng").lng;  //google/mapcover
     temp_model.user_behavior.cat = userCatLookUp.indexOf(map_attached_css_class);
     temp_marker_controller.set("click",marker_click_fn);
 
@@ -264,7 +257,6 @@ $(document).ready(function es_mainsite_ui_doc_ready(){
   /*assign logic to context menu*/
   $("#place-rent-marker").click(function placeMarker1(){
     markerPlacerHelper("rent");  // use recent right click event latLng to locate this custom marker
-
   });
   $("#place-lease-marker").click(function placeMarker1(){
     markerPlacerHelper("lease");

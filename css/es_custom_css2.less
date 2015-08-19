@@ -108,8 +108,123 @@ html,body{
     .fullyExpand();
     .cancel-padding;
     .cancel-margin;
-    #mapcover{
+    
 
+    #mapcover-mapbox{
+      height: 100%;
+      width: 100%;
+      .easysubl-context-panel{
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 3px 0px;
+        cursor: default;
+        padding:6px 0px;
+        width: 178px;
+        z-index: 1;
+          & > .context-option{
+            color: rgb(51, 51, 51);
+            cursor: pointer;
+            height: 25px;
+            padding-bottom: 4px;
+            padding-left: 16px;
+            padding-top: 4px;
+            &:hover{
+              background-color: #f1f1f1;
+            }
+          }
+      }
+      #mapcover-map-mapbox {
+        .customized-marker{
+          background-color: rgba(0, 255, 255, 0);
+          min-width: 130px;
+          .content{
+            position: relative;
+            cursor: pointer;
+            // background-color: #FF5A5F; 
+            color: #fff;
+            padding:0px 5px;
+            font-size: 14px;
+            a{
+                text-decoration: none;
+                &:hover{
+                  color:inherit;
+                }
+                color:inherit;
+            }
+          }
+          .remove-background{
+            cursor: pointer;
+            position: relative;
+            padding: 0px;
+            margin: auto;
+            width :16px;
+            height:8px;
+            color:#FF5A5F;
+            background-color: rgba(255, 255, 255, 0);
+            svg{
+              font-size: 8px;
+              line-height: 8px;
+              polygon{
+                // fill: #FF5A5F;
+              }
+            }
+          }
+        }// end .customized-marker
+
+        /*specify color*/
+        .customized-marker.rent{
+          .content{
+            background-color: #FF5A5F; 
+          }
+          .remove-background svg polygon {
+            fill:#FF5A5F; 
+          }
+          &:hover {
+            .content{
+              background-color: #252525;
+            }
+            .remove-background svg polygon{
+              fill: #252525;
+            }
+          }   
+        }
+        /*specify color*/
+        .customized-marker.lease{
+          .content{
+            background-color: @primary-color;
+          }
+          .remove-background svg polygon {
+            fill:@primary-color;
+          }
+          &:hover {
+            .content{
+              background-color: #252525;
+            }
+            .remove-background svg polygon{
+              fill: #252525;
+            }
+          }   
+        }
+        /*specify color*/
+        .customized-marker.co-lessee{
+          .content{
+            background-color: @brand-success;
+          }
+          .remove-background svg polygon {
+            fill:@brand-success;
+          }
+          &:hover {
+            .content{
+              background-color: #252525;
+            }
+            .remove-background svg polygon{
+              fill: #252525;
+            }
+          }   
+        }
+      }
+    }
+
+
+    #mapcover{
       height: 100%;
       width: 100%;
       .easysubl-context-panel{
